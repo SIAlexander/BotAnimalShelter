@@ -6,4 +6,4 @@
 Участники проекта: 
 - Сергей (https://github.com/Antonov333)
 - Александр (https://github.com/SIAlexander)
-- Вадим ()
+- Вадим (vadimpoldolin19@gmail.com)
