@@ -12,7 +12,7 @@ public class Dog implements Pet {
     DogShelter dogShelter;
     @Override
     public boolean enterShelter() {
-
+        return false;
     }
 
     @Override
