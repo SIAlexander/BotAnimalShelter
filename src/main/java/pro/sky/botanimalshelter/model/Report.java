@@ -1,5 +1,7 @@
 package pro.sky.botanimalshelter.model;
 
+import java.sql.Timestamp;
+
 public interface Report {
     boolean isEmpty();
 
@@ -7,9 +9,16 @@ public interface Report {
 
     boolean hasText();
 
-    String getDate();
+    Timestamp readReportDate();
 
-    long getAuthorId();
+    User readAuthor();
 
-    Profession getAuthorProfession();
+    boolean appointAuthor(User volunteer);
+
+    <T extends Pet> T readPet();
+
+    <T extends Pet> void appointPet(T pet);
+
+    User readAdopterCandidate();
+
 }

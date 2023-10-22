@@ -1,19 +1,18 @@
 package pro.sky.botanimalshelter.model;
 
-public interface Pet {
-    boolean enterShelter();
+public interface Pet { // define only functions related to giving shelter and adoption of a pet
 
-    boolean enterShelter(PetShelter petShelter);
 
-    boolean enterAdoption();
+    <T extends PetShelter> void giveShelter(T shelter);
 
-    void approveAdoption();
+    <T extends PetShelter> T readShelter();
 
-    void denyFromAdoption();
+    <R extends HumanGivingCareToPets> R readAdopter();
 
-    void leaveShelter();
+    <T extends HumanGivingCareToPets> boolean giveAdopter(T adopter);
 
-    long getAdopterId();
+    AdoptionStatus readAdoptionStatus();
 
-    AdoptionStatus getAdoptionStatus();
+    void changeAdoptionStatus(AdoptionStatus adoptionStatus);
+
 }

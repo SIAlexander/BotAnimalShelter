@@ -1,9 +1,12 @@
 package pro.sky.botanimalshelter.model;
 
-public class PetCareReport implements Report {
+import java.sql.Timestamp;
 
+public class PetCareReport<P extends Pet> implements Report {
 
+    User author;
 
+    P pet;
 
     @Override
     public boolean isEmpty() {
@@ -21,17 +24,35 @@ public class PetCareReport implements Report {
     }
 
     @Override
-    public String getDate() {
+    public Timestamp readReportDate() {
         return null;
     }
 
     @Override
-    public long getAuthorId() {
-        return 0;
+    public User readAuthor() {
+        return author;
     }
 
     @Override
-    public Profession getAuthorProfession() {
-        return null;
+    public boolean appointAuthor(User volunteer) {
+        if(volunteer == null) { return false; }
+        author = volunteer;
+        return true;
     }
+
+    public <T extends Pet> void appointPet(T pet) {
+        this.pet = (P) pet;
+    }
+
+    @Override
+    public <T extends Pet> T readPet() {
+        return (T) pet;
+    }
+
+
+    @Override
+    public User readAdopterCandidate() {
+        return pet.readAdopter();
+    }
+
 }

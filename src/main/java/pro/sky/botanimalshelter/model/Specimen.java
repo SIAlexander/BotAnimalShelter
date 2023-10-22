@@ -1,4 +1,6 @@
 package pro.sky.botanimalshelter.model;
 
-public class Adapter {
+public enum Specimen {
+    DOG,
+    CAT
 }

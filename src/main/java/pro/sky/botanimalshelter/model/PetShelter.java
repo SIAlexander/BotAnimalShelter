@@ -2,20 +2,39 @@ package pro.sky.botanimalshelter.model;
 
 public interface PetShelter {
 
-    void enrollPet(Pet pet);
+    <T extends Pet> void enrollPet(T pet);
 
-    void enrollVolunteer(Volunteer volunteer);
+    void enrollVolunteer(User volunteer);
 
-    void givePetForAdoptionTrial(Pet pet, Adapter adapter);
+    void dismissVolunteer(User volunteer);
 
-    PetCareReport getPetCareReport(Pet pet, Adapter adapter);
+    <T extends Pet> boolean givePetForAdoptionTrial(T pet, User adopterCandidate);
 
-    void callVolunteerToSupportAdoptionTrial(Pet pet, Adapter adapter);
+    <T extends Pet> PetCareReport<T> getPetCareReport(T pet, User volunteer);
 
-    PetCareReport visitPetAtAdopterHome(Pet pet, Adapter adapter);
+    <T extends Pet> void callVolunteerToSupportAdoptionTrial(T pet, User volunteer);
 
-    void approveAdoption(Pet pet, Adapter adapter);
+    <T extends Pet> PetCareReport<T> visitPetAtAdopterHome(T pet, User volunteer);
 
-    void dismissAdoption(Pet pet, Adapter adapter);
+    <T extends Pet> boolean approveAdoption(T pet);
+
+    <T extends Pet> boolean dismissAdoption(T pet);
+
+    Specimen getSpecimen();
+
+    void setSpecimen(Specimen specimen);
+
+    String getPetCareAdvice();
+
+    void setPetCareAdvice(String advice);
+
+    String recommendSpecialists(); // recommend specialists for additional pet care
+                                    // like cynologists and felinologist
+
+    void setSpecialistsInfo(String info); // set info regarding pet specialists
+
+    String getLocationExplanation(); // Tell how to get to shelter location
+
+    void setLocationExplanation(String explanation); // Fix how to get to shelter location explanation
 
 }
