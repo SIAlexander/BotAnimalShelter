@@ -13,30 +13,30 @@ public class Cat implements Pet {
 */
 //    id, кличка = name, цвет = color, порода = breed
 
-    long id;
+    private long id;
 
-    String name;
+    private String name;
 
-    String color;
+    private String color;
 
-    String breed;
+    private String breed;
 
-    Timestamp birthDate;
+    private Timestamp birthDate;
 
-    User adopter;
+    private User adopter;
 
-    AdoptionStatus adoptionStatus;
+    private AdoptionStatus adoptionStatus;
 
-    CatShelter shelter;
+    private CatShelter shelter;
 
     public Cat() {
     }
 
 
     public <T extends PetShelter> void giveShelter(T shelter) {
-        isNotNullAndOfRightClass(shelter, CatShelter.class);
-
-
+        if(isNotNullAndOfRightClass(shelter, CatShelter.class)){
+            this.shelter = (CatShelter) shelter;
+        }
     }
 
     public <T extends HumanGivingCareToPets> boolean giveAdopter(T adopter) {
@@ -106,6 +106,22 @@ public class Cat implements Pet {
 
     public CatShelter readShelter() {
         return this.shelter;
+    }
+
+    public User getAdopter() {
+        return adopter;
+    }
+
+    public AdoptionStatus getAdoptionStatus() {
+        return adoptionStatus;
+    }
+
+    public void setAdoptionStatus(AdoptionStatus adoptionStatus) {
+        this.adoptionStatus = adoptionStatus;
+    }
+
+    public CatShelter getShelter() {
+        return shelter;
     }
 
     public void setShelter(CatShelter shelter) {

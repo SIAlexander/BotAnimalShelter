@@ -3,18 +3,16 @@ package pro.sky.botanimalshelter.model;
 import java.util.Objects;
 
 public class User implements HumanGivingCareToPets {
-    String name;
-    String phone;
+    private String name;
+    private String phone;
 
-    String email;
+    private String email;
 
-    String location;
+    private String location;
 
-    PetRelation petRelation;
+    private PetRelation petRelation;
 
-    Specimen lovedSpecimen;
-
-    Class<? extends Pet> petCaredByUser;
+    private Specimen lovedSpecimen;
 
     @Override
     public String toString() {

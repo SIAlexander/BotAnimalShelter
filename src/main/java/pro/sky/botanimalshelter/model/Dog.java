@@ -9,21 +9,21 @@ import static pro.sky.botanimalshelter.model.Specimen.DOG;
 public class Dog implements Pet {
 //    id, кличка = name, цвет = color, порода = breed
 
-    long id;
+    private long id;
 
-    String name;
+    private String name;
 
-    String color;
+    private String color;
 
-    String breed;
+    private String breed;
 
-    Timestamp birthDate;
+    private Timestamp birthDate;
 
-    User adopter;
+    private User adopter;
 
-    AdoptionStatus adoptionStatus;
+    private AdoptionStatus adoptionStatus;
 
-    DogShelter dogShelter;
+    private DogShelter dogShelter;
 
 
     @Override

@@ -8,6 +8,8 @@ public class PetCareReport<P extends Pet> implements Report {
 
     P pet;
 
+    CatShelter cs = new CatShelter();
+
     @Override
     public boolean isEmpty() {
         return false;

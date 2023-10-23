@@ -8,6 +8,10 @@ public interface PetShelter {
 
     void dismissVolunteer(User volunteer);
 
+    void enrollEmployee(User employee);
+
+    void dismissEmployee(User employee);
+
     <T extends Pet> boolean givePetForAdoptionTrial(T pet, User adopterCandidate);
 
     <T extends Pet> PetCareReport<T> getPetCareReport(T pet, User volunteer);
@@ -33,8 +37,8 @@ public interface PetShelter {
 
     void setSpecialistsInfo(String info); // set info regarding pet specialists
 
-    String getLocationExplanation(); // Tell how to get to shelter location
+    String readLocationExplanation(); // Tell how to get to shelter location
 
-    void setLocationExplanation(String explanation); // Fix how to get to shelter location explanation
+    void writeLocationExplanation(String explanation); // Fix how to get to shelter location explanation
 
 }
