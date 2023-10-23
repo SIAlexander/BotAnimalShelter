@@ -15,4 +15,6 @@ public interface Pet { // define only functions related to giving shelter and ad
 
     void changeAdoptionStatus(AdoptionStatus adoptionStatus);
 
+    Specimen readSpecimen();
+
 }

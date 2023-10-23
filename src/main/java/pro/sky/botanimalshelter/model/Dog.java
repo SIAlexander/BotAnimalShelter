@@ -73,6 +73,11 @@ public class Dog implements Pet {
 
     }
 
+    @Override
+    public Specimen readSpecimen() {
+        return DOG;
+    }
+
     public Dog() {
     }
 
