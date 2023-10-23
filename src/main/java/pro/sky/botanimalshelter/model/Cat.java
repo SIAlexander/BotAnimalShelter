@@ -3,7 +3,9 @@ package pro.sky.botanimalshelter.model;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+import static pro.sky.botanimalshelter.model.AdoptionStatus.ON_TRIAL_ADOPTION;
 import static pro.sky.botanimalshelter.model.ModelUtils.isNotNullAndOfRightClass;
+import static pro.sky.botanimalshelter.model.Specimen.CAT;
 
 //@Entity
 public class Cat implements Pet {
@@ -40,12 +42,14 @@ public class Cat implements Pet {
     }
 
     public <T extends HumanGivingCareToPets> boolean giveAdopter(T adopter) {
-        if (isNotNullAndOfRightClass(adopter, User.class)) {
-            this.adopter = (User) adopter;
-            return true;
-        } else {
+        if (!isNotNullAndOfRightClass(adopter, User.class)) {
             return false;
         }
+        if (adopter.getLovedSpecimen().equals(CAT)){
+            this.adopter = (User) adopter;
+            this.adoptionStatus = ON_TRIAL_ADOPTION;
+            return true;
+        } else {return false; }
     }
 
     public AdoptionStatus readAdoptionStatus() {
@@ -54,6 +58,11 @@ public class Cat implements Pet {
 
     public void changeAdoptionStatus(AdoptionStatus adoptionStatus) {
         this.adoptionStatus = adoptionStatus;
+    }
+
+    @Override
+    public Specimen readSpecimen() {
+        return CAT;
     }
 
     public long getId() {

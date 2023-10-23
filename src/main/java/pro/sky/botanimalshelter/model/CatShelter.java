@@ -124,7 +124,7 @@ public class CatShelter implements PetShelter {
 
             pet.changeAdoptionStatus(ADOPTED);
             pet.giveShelter(null);
-            pet.readAdopter().setPetRelation(PetRelation.ADOPTER);
+            pet.readAdopter().setPetRelation(ADOPTER);
             return true;
     }
 
