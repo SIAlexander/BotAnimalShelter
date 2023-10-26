@@ -49,9 +49,13 @@ public class Pet implements PetInterface {
     }
 
     public boolean giveShelter(PetShelter shelter) {
-        if(isNotNullAndOfRightClass(shelter, CatShelter.class)){
+        if(shelter != null) {
+            final boolean equals = specimen.equals(shelter.getSpecimen());
+            if (equals){
             this.shelter = shelter;
+            return true;
         }
+            return false;
     }
 
     public AdoptionStatus readAdoptionStatus() {
