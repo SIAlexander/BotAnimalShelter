@@ -14,6 +14,16 @@ public class User implements HumanGivingCareToPets {
 
     private Specimen lovedSpecimen;
 
+    private long chatId;
+
+    public long getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(long chatId) {
+        this.chatId = chatId;
+    }
+
     @Override
     public String toString() {
         return "User{" +
