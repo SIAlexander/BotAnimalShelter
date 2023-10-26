@@ -6,7 +6,7 @@ import java.util.Objects;
 import static pro.sky.botanimalshelter.model.ModelUtils.isNotNullAndOfRightClass;
 import static pro.sky.botanimalshelter.model.Specimen.DOG;
 
-public class Dog implements Pet {
+public class Dog implements PetInterface {
 //    id, кличка = name, цвет = color, порода = breed
 
     private long id;
@@ -27,7 +27,7 @@ public class Dog implements Pet {
 
 
     @Override
-    public <T extends PetShelter> void giveShelter(T shelter) {
+    public <T extends PetShelterInterface> void giveShelter(T shelter) {
 
         if (!isNotNullAndOfRightClass(shelter, DogShelter.class)){
             this.dogShelter = (DogShelter) shelter;
@@ -155,7 +155,7 @@ public class Dog implements Pet {
         this.adopter = adopter;
     }
 
-    public <T extends PetShelter> T readShelter() {
+    public <T extends PetShelterInterface> T readShelter() {
         return (T) dogShelter;
     }
 

@@ -2,7 +2,7 @@ package pro.sky.botanimalshelter.model;
 
 import java.sql.Timestamp;
 
-public class PetCareReport<P extends Pet> implements Report {
+public class PetCareReport<P extends PetInterface> implements Report {
 
     User author;
 
@@ -42,12 +42,12 @@ public class PetCareReport<P extends Pet> implements Report {
         return true;
     }
 
-    public <T extends Pet> void appointPet(T pet) {
+    public <T extends PetInterface> void appointPet(T pet) {
         this.pet = (P) pet;
     }
 
     @Override
-    public <T extends Pet> T readPet() {
+    public <T extends PetInterface> T readPet() {
         return (T) pet;
     }
 

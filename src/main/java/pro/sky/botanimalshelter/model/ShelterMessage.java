@@ -9,17 +9,17 @@ import java.util.Objects;
  */
 public class ShelterMessage {
 
-    long shelterId;
+    private long shelterId;
 
     /**
      * stage number accordingly to Spec
      */
-    int stage;
+    private int stage;
 
     /**
      * message order number as it listed in Spec
      */
-    int messageNumber;
+    private int messageNumber;
 
     /**
      * Unique number to specify procedure to perform if it required by Spec
@@ -27,17 +27,17 @@ public class ShelterMessage {
      * actionId may be redundant.
      * Dear Team, please tell me what you think about this
      */
-    long actionId;
+    private long actionId;
 
     /**
      * short title, kind of name of message
      */
-    String title;
+    private String title;
 
     /**
      * message to be delivered to user
      */
-    String text;
+    private String text;
 
     public ShelterMessage() {
     }

@@ -5,7 +5,7 @@ import static pro.sky.botanimalshelter.model.ModelUtils.isNotNullAndOfRightClass
 import static pro.sky.botanimalshelter.model.PetRelation.*;
 import static pro.sky.botanimalshelter.model.Specimen.DOG;
 
-public class DogShelter implements PetShelter {
+public class DogShelter implements PetShelterInterface {
 
     private long id;
 
@@ -54,7 +54,7 @@ public class DogShelter implements PetShelter {
     final private Specimen specimen = DOG;
 
     @Override
-    public void enrollPet(Pet pet) {
+    public void enrollPet(PetInterface pet) {
 
     }
 
@@ -98,7 +98,7 @@ public class DogShelter implements PetShelter {
     }
 
     @Override
-    public <T extends Pet> boolean givePetForAdoptionTrial(T pet, User adopterCandidate) {
+    public <T extends PetInterface> boolean givePetForAdoptionTrial(T pet, User adopterCandidate) {
         if (pet == null || adopterCandidate == null) {
             return false;
         }
@@ -119,7 +119,7 @@ public class DogShelter implements PetShelter {
     }
 
     @Override
-    public <T extends Pet> PetCareReport<T> getPetCareReport(T pet, User volunteer) {
+    public <T extends PetInterface> PetCareReport<T> getPetCareReport(T pet, User volunteer) {
         if (!isNotNullAndOfRightClass(pet, Dog.class)) {
             return null;
         }
@@ -127,18 +127,18 @@ public class DogShelter implements PetShelter {
     }
 
     @Override
-    public <T extends Pet> void callVolunteerToSupportAdoptionTrial(T pet, User volunteer) {
+    public <T extends PetInterface> void callVolunteerToSupportAdoptionTrial(T pet, User volunteer) {
 
     }
 
     @Override
-    public <T extends Pet> PetCareReport<T> visitPetAtAdopterHome(T pet, User volunteer) {
+    public <T extends PetInterface> PetCareReport<T> visitPetAtAdopterHome(T pet, User volunteer) {
         return null;
     }
 
 
     @Override
-    public <T extends Pet> boolean approveAdoption(T pet) {
+    public <T extends PetInterface> boolean approveAdoption(T pet) {
 
         if (isNotNullAndOfRightClass(pet, Dog.class)
                 & pet.readAdoptionStatus().equals(ON_TRIAL_ADOPTION)) {
@@ -152,7 +152,7 @@ public class DogShelter implements PetShelter {
     }
 
     @Override
-    public <T extends Pet> boolean dismissAdoption(T pet) {
+    public <T extends PetInterface> boolean dismissAdoption(T pet) {
         if (!isNotNullAndOfRightClass(pet, Dog.class)
                 || !(pet.readAdoptionStatus().equals(ON_TRIAL_ADOPTION))) {
             return false;

@@ -14,6 +14,16 @@ public class User implements HumanGivingCareToPets {
 
     private Specimen lovedSpecimen;
 
+    private PetShelter petShelter;
+
+    public PetShelter getPetShelter() {
+        return petShelter;
+    }
+
+    public void setPetShelter(PetShelter petShelter) {
+        this.petShelter = petShelter;
+    }
+
     private long chatId;
 
     public long getChatId() {

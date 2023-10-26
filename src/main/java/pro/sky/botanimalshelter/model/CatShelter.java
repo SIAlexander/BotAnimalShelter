@@ -8,7 +8,7 @@ import static pro.sky.botanimalshelter.model.ModelUtils.isNotNullAndOfRightClass
 import static pro.sky.botanimalshelter.model.PetRelation.*;
 import static pro.sky.botanimalshelter.model.Specimen.CAT;
 
-public class CatShelter implements PetShelter {
+public class CatShelter implements PetShelterInterface {
 
     private long id;
 
@@ -50,7 +50,7 @@ public class CatShelter implements PetShelter {
 
 
     @Override
-    public <T extends Pet> void enrollPet(T pet) {
+    public <T extends PetInterface> void enrollPet(T pet) {
         if (isNotNullAndOfRightClass(pet, Cat.class)){
             pet.changeAdoptionStatus(AdoptionStatus.SHELTERED);
             pet.giveShelter(this);
@@ -96,27 +96,27 @@ public class CatShelter implements PetShelter {
     }
 
     @Override
-    public <T extends Pet> PetCareReport<T> visitPetAtAdopterHome(T pet, User volunteer) {
+    public <T extends PetInterface> PetCareReport<T> visitPetAtAdopterHome(T pet, User volunteer) {
         return null;
     }
 
     @Override
-    public <T extends Pet> boolean givePetForAdoptionTrial(T pet, User adopterCandidates) {
+    public <T extends PetInterface> boolean givePetForAdoptionTrial(T pet, User adopterCandidates) {
             return false;
     }
 
     @Override
-    public <T extends Pet> PetCareReport<T> getPetCareReport(T pet, User user) {
+    public <T extends PetInterface> PetCareReport<T> getPetCareReport(T pet, User user) {
         return null;
     }
 
     @Override
-    public void callVolunteerToSupportAdoptionTrial(Pet pet, User user) {
+    public void callVolunteerToSupportAdoptionTrial(PetInterface pet, User user) {
 
     }
 
     @Override
-    public <T extends Pet> boolean approveAdoption(T pet) {
+    public <T extends PetInterface> boolean approveAdoption(T pet) {
 
         if(!isNotNullAndOfRightClass(pet, Cat.class)) {
             return false;
@@ -129,7 +129,7 @@ public class CatShelter implements PetShelter {
     }
 
     @Override
-    public <T extends Pet> boolean dismissAdoption(T pet) {
+    public <T extends PetInterface> boolean dismissAdoption(T pet) {
         if (!isNotNullAndOfRightClass(pet, Cat.class)) {
             return false;
         }

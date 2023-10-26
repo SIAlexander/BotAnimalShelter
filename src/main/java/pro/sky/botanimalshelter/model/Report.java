@@ -15,9 +15,9 @@ public interface Report {
 
     boolean appointAuthor(User volunteer);
 
-    <T extends Pet> T readPet();
+    <T extends PetInterface> T readPet();
 
-    <T extends Pet> void appointPet(T pet);
+    <T extends PetInterface> void appointPet(T pet);
 
     User readAdopterCandidate();
 

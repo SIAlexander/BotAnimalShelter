@@ -8,7 +8,7 @@ import static pro.sky.botanimalshelter.model.ModelUtils.isNotNullAndOfRightClass
 import static pro.sky.botanimalshelter.model.Specimen.CAT;
 
 //@Entity
-public class Cat implements Pet {
+public class Cat implements PetInterface {
 /*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -35,7 +35,7 @@ public class Cat implements Pet {
     }
 
 
-    public <T extends PetShelter> void giveShelter(T shelter) {
+    public <T extends PetShelterInterface> void giveShelter(T shelter) {
         if(isNotNullAndOfRightClass(shelter, CatShelter.class)){
             this.shelter = (CatShelter) shelter;
         }
