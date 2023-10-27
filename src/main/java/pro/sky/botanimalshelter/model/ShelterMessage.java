@@ -4,7 +4,7 @@ import java.util.Objects;
 
 /**
  * Accordingly to Specification bot is to provide a lot of information to user
- * So, this class is created to manage plenty of messages required by Spec and
+ * So, ShelterMessage class is a model of messages described by Spec and
  * indicate actions to do if necessary
  */
 public class ShelterMessage {

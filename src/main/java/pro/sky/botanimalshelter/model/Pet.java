@@ -4,11 +4,9 @@ import java.sql.Timestamp;
 import java.util.Objects;
 
 import static pro.sky.botanimalshelter.model.AdoptionStatus.ON_TRIAL_ADOPTION;
-import static pro.sky.botanimalshelter.model.ModelUtils.isNotNullAndOfRightClass;
-import static pro.sky.botanimalshelter.model.Specimen.CAT;
 
 //@Entity
-public class Pet implements PetInterface {
+public class Pet {
 /*
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -27,48 +25,74 @@ public class Pet implements PetInterface {
 
     private Timestamp birthDate;
 
+
+    /**
+     * adopter assigned to oet
+     */
+
     private User adopter;
 
     private AdoptionStatus adoptionStatus;
 
+    /**
+     * shelter keeping pet until adoption
+     */
     private PetShelter shelter;
 
-    public Pet() {
-    }
 
-
-    public boolean giveAdopter(User adopter) {
-        if (adopter == null) {
+    /**
+     * giveAdopter method assigns pet to adopter candidate
+     *
+     * @param adopterCandidate User adopter candidate, Nullable
+     * @return true if adopter candidate successfully assigned to pet
+     */
+    public boolean giveAdopter(User adopterCandidate) {
+        if (adopterCandidate == null) {
             return false;
         }
-        if (adopter.getLovedSpecimen().equals(specimen)){
-            this.adopter = adopter;
+        if (adopterCandidate.getLovedSpecimen().equals(specimen)) {
+            this.adopter = adopterCandidate;
             this.adoptionStatus = ON_TRIAL_ADOPTION;
             return true;
-        } else {return false; }
+        } else {
+            return false;
+        }
     }
 
+    /**
+     * @param shelter nullable
+     * @return true upon successful assignment pet to shelter
+     */
     public boolean giveShelter(PetShelter shelter) {
-        if(shelter != null) {
+        if (shelter != null) {
             final boolean equals = specimen.equals(shelter.getSpecimen());
-            if (equals){
-            this.shelter = shelter;
-            return true;
+            if (equals) {
+                this.shelter = shelter;
+                return true;
+            }
         }
-            return false;
+        return false;
+    }
+
+    public PetShelter readShelter() {
+        return this.shelter;
     }
 
     public AdoptionStatus readAdoptionStatus() {
         return adoptionStatus;
     }
 
+    /**
+     * @param adoptionStatus AdoptionStatus value to be set as status of pet adoption
+     *                       <p>Be aware changeAdoptionStatus changes status of adoption value immediately,
+     *                       so potentially it could violate business logic /p>
+     */
     public void changeAdoptionStatus(AdoptionStatus adoptionStatus) {
         this.adoptionStatus = adoptionStatus;
     }
 
-    @Override
     public Specimen readSpecimen() {
-        return CAT;
+        return specimen;
     }
 
     public long getId() {
@@ -115,12 +139,13 @@ public class Pet implements PetInterface {
         return adopter;
     }
 
+    /**
+     * Be careful using setter because potentially it could violate business logic
+     *
+     * @param adopter
+     */
     public void setAdopter(User adopter) {
         this.adopter = adopter;
-    }
-
-    public CatShelter readShelter() {
-        return this.shelter;
     }
 
     public User getAdopter() {
@@ -135,11 +160,11 @@ public class Pet implements PetInterface {
         this.adoptionStatus = adoptionStatus;
     }
 
-    public CatShelter getShelter() {
+    public PetShelter getShelter() {
         return shelter;
     }
 
-    public void setShelter(CatShelter shelter) {
+    public void setShelter(PetShelter shelter) {
         this.shelter = shelter;
     }
 

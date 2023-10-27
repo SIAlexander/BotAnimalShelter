@@ -2,7 +2,7 @@ package pro.sky.botanimalshelter.model;
 
 import java.util.Objects;
 
-public class User implements HumanGivingCareToPets {
+public class User {
     private String name;
     private String phone;
 
@@ -88,12 +88,10 @@ public class User implements HumanGivingCareToPets {
     public User() {
     }
 
-    @Override
     public PetRelation getPetRelation() {
         return petRelation;
     }
 
-    @Override
     public void setPetRelation(PetRelation petRelation) {
         this.petRelation = petRelation;
 

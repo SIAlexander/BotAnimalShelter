@@ -1,15 +1,10 @@
 package pro.sky.botanimalshelter.model;
 
-import java.sql.Timestamp;
-
 import static pro.sky.botanimalshelter.model.AdoptionStatus.*;
-import static pro.sky.botanimalshelter.model.ModelUtils.isNotNullAndOfRightClass;
 import static pro.sky.botanimalshelter.model.ModelUtils.shelterFitsPet;
 import static pro.sky.botanimalshelter.model.PetRelation.*;
-import static pro.sky.botanimalshelter.model.Specimen.CAT;
 
-public class PetShelter // implements PetShelterInterface
-{
+public class PetShelter {
 
     private long id;
 
@@ -17,15 +12,15 @@ public class PetShelter // implements PetShelterInterface
 
     private Specimen specimen;
 
-    private  String location;
+    private String location;
     private String locationExplanation;
 
     /**
      * @param pet means animal to be shelter, nullable
      * @return true if shelter is suitable for pet, i.e. shelter.specimen equals pet.specimen
      */
-   public boolean enrollPet(Pet pet) {
-        if (shelterFitsPet(this, pet) & ORPHAN.equals(pet.readAdoptionStatus())){
+    public boolean enrollPet(Pet pet) {
+        if (shelterFitsPet(this, pet) & ORPHAN.equals(pet.readAdoptionStatus())) {
             pet.changeAdoptionStatus(AdoptionStatus.SHELTERED);
             pet.giveShelter(this);
             return true;
@@ -34,7 +29,6 @@ public class PetShelter // implements PetShelterInterface
     }
 
     /**
-     *
      * @param volunteer - User class. Means a person that is going to become
      *                  volunteer supporting this shelter
      * @return true if volunteer loves pets of same specimen as shelter specialized and sets
@@ -50,122 +44,131 @@ public class PetShelter // implements PetShelterInterface
             volunteer.setPetRelation(VOLUNTEER);
             return true;
         }
+        return false;
 
     }
 
-     /**
+    /**
      * Dismisses volunteer for any reason
+     *
      * @param volunteer User class, nullable
      * @return sets petRelation value of volunteer to PETS_FRIEND
-     *      and returns true if volunteer was actually hired by this pet shelter,
-     *      i.e. petRelation was VOLUNTEER and petShelter equals this
+     * and returns true if volunteer was actually hired by this pet shelter,
+     * i.e. petRelation was VOLUNTEER and petShelter equals this
      */
     public boolean dismissVolunteer(User volunteer) {
-            if (ModelUtils.volunteerIsHiredByPetShelter(volunteer, this)) {
-                volunteer.setPetRelation(PETS_FRIEND);
-                return true; }
-            else { return false; }
+        if (ModelUtils.volunteerIsHiredByPetShelter(volunteer, this)) {
+            volunteer.setPetRelation(PETS_FRIEND);
+            return true;
+        } else {
+            return false;
+        }
     }
 
-
-    public void enrollEmployee(User employee) {
+    public boolean enrollEmployee(User employee) {
         if (employee == null) {
-            return;
+            return false;
         }
-        if (!(employee.getPetRelation() == BAD_PETS_FRIEND)) {
+        if (BAD_PETS_FRIEND.equals(employee.getPetRelation())) {
+            return false;
+        }
             employee.setPetRelation(SHELTER_EMPLOYEE);
-        }
+            employee.setPetShelter(this);
+            return true;
     }
-
 
     public boolean dismissEmployee(User employee) {
         if (employee == null) {
             return false;
         }
         if ((employee.getPetRelation() == SHELTER_EMPLOYEE)
-                &employee.getPetShelter().equals(this)) {
+                & employee.getPetShelter().equals(this)) {
             employee.setPetRelation(PETS_FRIEND);
-        }
-
-    }
-
-    @
-    public <T extends PetInterface> PetCareReport<T> visitPetAtAdopterHome(T pet, User volunteer) {
-        return null;
-    }
-
-
-    public <T extends PetInterface> boolean givePetForAdoptionTrial(T pet, User adopterCandidates) {
-            return false;
-    }
-
-    @Override
-    public <T extends PetInterface> PetCareReport<T> getPetCareReport(T pet, User user) {
-        return null;
-    }
-
-    @Override
-    public void callVolunteerToSupportAdoptionTrial(PetInterface pet, User user) {
-
-    }
-
-    @Override
-    public <T extends PetInterface> boolean approveAdoption(T pet) {
-
-        if(!isNotNullAndOfRightClass(pet, Cat.class)) {
-            return false;
-        }
-
-            pet.changeAdoptionStatus(ADOPTED);
-            pet.giveShelter(null);
-            pet.readAdopter().setPetRelation(ADOPTER);
             return true;
+        }
+        return false;
     }
 
-    @Override
-    public <T extends PetInterface> boolean dismissAdoption(T pet) {
-        if (!isNotNullAndOfRightClass(pet, Cat.class)) {
+    public PetCareReport visitPetAtAdopterHome(Pet pet, User volunteer) {
+        return new PetCareReport();
+    }
+
+
+    public boolean givePetForAdoptionTrial(Pet pet, User adopterCandidates) {
+
+        return false;
+    }
+
+    public PetCareReport getPetCareReport(Pet pet, User volunteer) {
+        return null;
+    }
+
+    public boolean callVolunteerToSupportAdoptionTrial(Pet pet, User volunteer) {
+        return false;
+    }
+
+
+    public boolean approveAdoption(Pet pet) {
+        if (pet == null) {
             return false;
         }
+        if (pet.getAdopter() == null) {
+            return false;
+        }
+
+        if (ON_TRIAL_ADOPTION.equals(pet.readAdoptionStatus())) {
+            pet.setAdoptionStatus(ADOPTED);
+            pet.getAdopter().setPetRelation(ADOPTER);
+            return true;
+        }
+        return false;
+    }
+
+    public boolean dismissAdoption(Pet pet) {
+
+        if (pet == null) {
+            return false;
+        }
+
+        if (pet.getAdopter() == null
+                || !ON_TRIAL_ADOPTION.equals(pet.getAdoptionStatus())
+                || !ADOPTER_CANDIDATE.equals(pet.getAdopter().getPetRelation())) {
+            return false;
+        }
+
         pet.changeAdoptionStatus(SHELTERED);
         pet.readAdopter().setPetRelation(BAD_PETS_FRIEND);
         return true;
     }
 
-    @Override
+
     public Specimen getSpecimen() {
         return specimen;
     }
 
-    @Override
     public void setSpecimen(Specimen specimen) {
 
     }
 
-    @Override
     public String getPetCareAdvice() {
         return null;
     }
 
-    @Override
+
     public void setPetCareAdvice(String advice) {
 
     }
 
-    @Override
+
     public String recommendSpecialists() {
         return null;
     }
 
-    @Override
+
     public void setSpecialistsInfo(String info) {
 
     }
 
-    @Override
-    public String readLocationExplanation() {
-        return locationExplanation;
-    }
 
     public String getLocationExplanation() {
         return locationExplanation;
@@ -191,8 +194,4 @@ public class PetShelter // implements PetShelterInterface
         this.name = name;
     }
 
-    @Override
-    public void writeLocationExplanation(String explanation) {
-        locationExplanation = explanation;
-    }
 }
