@@ -2,7 +2,7 @@ package pro.sky.botanimalshelter.model;
 
 import java.util.Objects;
 
-public class User {
+public class User implements UserInterface {
     private String name;
     private String phone;
 
@@ -16,10 +16,12 @@ public class User {
 
     private PetShelter petShelter;
 
+    @Override
     public PetShelter getPetShelter() {
         return petShelter;
     }
 
+    @Override
     public void setPetShelter(PetShelter petShelter) {
         this.petShelter = petShelter;
     }
@@ -45,34 +47,42 @@ public class User {
                 '}';
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public String getPhone() {
         return phone;
     }
 
+    @Override
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
 
+    @Override
     public void setEmail(String email) {
         this.email = email;
     }
 
+    @Override
     public String getLocation() {
         return location;
     }
 
+    @Override
     public void setLocation(String location) {
         this.location = location;
     }
@@ -88,20 +98,24 @@ public class User {
     public User() {
     }
 
+    @Override
     public PetRelation getPetRelation() {
         return petRelation;
     }
 
+    @Override
     public void setPetRelation(PetRelation petRelation) {
         this.petRelation = petRelation;
 
     }
 
 
+    @Override
     public Specimen getLovedSpecimen() {
         return lovedSpecimen;
     }
 
+    @Override
     public void setLovedSpecimen(Specimen specimen) {
         lovedSpecimen = specimen;
     }
