@@ -48,7 +48,7 @@ public class User implements UserInterface {
     private Specimen lovedSpecimen;
 
     @ManyToOne
-    @JoinColumn(name = "shelter_id")
+    @JoinColumn(name = "pet_shelter")
     private PetShelter petShelter;
 
     @Override

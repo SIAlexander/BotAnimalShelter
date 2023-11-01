@@ -36,3 +36,6 @@ CREATE table pet
     adoption_status TEXT,
     pet_shelter     TEXT
 );
+
+-- changeset antonov333:4
+ALTER TABLE users ADD pet_shelter BIGSERIAL;
