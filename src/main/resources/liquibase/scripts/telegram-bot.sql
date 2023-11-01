@@ -4,10 +4,11 @@
 CREATE table pet_shelter
 (
     id                    SERIAL PRIMARY KEY,
-    name                  TEXT,
-    location              TEXT,
-    locatinon_explanation TEXT,
-    specialists_info      TEXT
+    name                    TEXT,
+    location                TEXT,
+    location_explanation    TEXT,
+    specialists_info        TEXT,
+    specimen                TEXT
 );
 
 -- changeset asmokvin:2

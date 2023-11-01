@@ -1,19 +1,54 @@
 package pro.sky.botanimalshelter.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
+
+/**
+ * User class represents different roles of users: from guest to adopter.
+ * Potentially, volunteer and employee role also could be supported by User class
+ */
+@Entity
+@Table(name ="users")
 public class User implements UserInterface {
+    /*CREATE table users
+            (
+                    id             BIGSERIAL PRIMARY KEY,
+                    id_chat        BIGINT,
+                    name           TEXT,
+                    phone          TEXT,
+                    email          TEXT,
+                    location       TEXT,
+                    pet_relation   TEXT,
+                    loved_specimen TEXT
+            );*/
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+            @Column(name = "id")
+    long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "phone")
     private String phone;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "location")
     private String location;
 
+    @Column(name = "petRelation")
+    @Enumerated(EnumType.STRING)
     private PetRelation petRelation;
 
+    @Column(name = "loved_specimen")
     private Specimen lovedSpecimen;
 
+    @ManyToOne
+    @JoinColumn(name = "shelter_id")
     private PetShelter petShelter;
 
     @Override
