@@ -39,3 +39,17 @@ CREATE table pet
 
 -- changeset antonov333:4
 ALTER TABLE users ADD pet_shelter BIGSERIAL;
+
+-- changeset antonov333:5
+CREATE table volunteers
+(
+	id              BIGSERIAL PRIMARY KEY,
+	name            TEXT,
+	chat_id 	    BIGINT,
+	phone 		    TEXT,
+	email 		    TEXT,
+	location 	    TEXT,
+	pet_relation 	TEXT,
+	loved_specimen 	TEXT,
+	petshelter_id 	BIGINT
+);
