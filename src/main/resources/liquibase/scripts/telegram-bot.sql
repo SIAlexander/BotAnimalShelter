@@ -53,3 +53,17 @@ CREATE table volunteers
 	loved_specimen 	TEXT,
 	petshelter_id 	BIGINT
 );
+
+-- changeset antonov333:6
+ALTER TABLE pet ADD shelter_id BIGSERIAL;
+
+-- changeset antonov333:7
+ALTER TABLE pet ADD specimen TEXT;
+ALTER TABLE pet ADD breed TEXT;
+
+-- changeset antonov333:8
+ALTER TABLE pet DROP COLUMN bread;
+ALTER TABLE pet DROP COLUMN pet_shelter;
+
+-- changeset antonov333:9
+ALTER TABLE pet ADD COLUMN adopter_id BIGINT;

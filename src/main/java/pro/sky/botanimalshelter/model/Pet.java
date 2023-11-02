@@ -1,28 +1,36 @@
 package pro.sky.botanimalshelter.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
 import static pro.sky.botanimalshelter.model.AdoptionStatus.ON_TRIAL_ADOPTION;
 
-//@Entity
+/**
+ * <b>Pet</b> class represents pet animals cared by pet shelter
+ */
+@Entity
+@Table(name = "pet")
 public class Pet {
-/*
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-*/
-//    id, кличка = name, цвет = color, порода = breed
-
+    @Column(name = "id")
     private long id;
 
+    @Column(name = "specimen")
     private Specimen specimen;
 
+    @Column(name = "name")
     private String name;
 
+    @Column(name = "color")
     private String color;
 
+    @Column(name = "breed")
     private String breed;
 
+    @Column(name = "birth_date")
     private Timestamp birthDate;
 
 
@@ -30,13 +38,20 @@ public class Pet {
      * adopter assigned to oet
      */
 
+    @ManyToMany
+    @JoinColumn(name = "adopter_id")
     private User adopter;
 
+    @Column(name = "adoption_status")
+    @Enumerated(EnumType.STRING)
     private AdoptionStatus adoptionStatus;
 
     /**
      * shelter keeping pet until adoption
      */
+
+    @ManyToOne
+    @JoinColumn(name = "shelter_id")
     private PetShelter shelter;
 
 
@@ -57,6 +72,14 @@ public class Pet {
         } else {
             return false;
         }
+    }
+
+    public Specimen getSpecimen() {
+        return specimen;
+    }
+
+    public void setSpecimen(Specimen specimen) {
+        this.specimen = specimen;
     }
 
     /**
