@@ -1,21 +1,17 @@
 package pro.sky.botanimalshelter.service;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pro.sky.botanimalshelter.model.Users;
-import pro.sky.botanimalshelter.repository.BotAnimalShelterUsersRepository;
+import pro.sky.botanimalshelter.listener.BotAnimalShelterUpdatesListener;
+import pro.sky.botanimalshelter.repository.BotAnimalShelterUserRepository;
 
 @Service
 public class BotAnimalShelterService {
+    private Logger logger = LoggerFactory.getLogger(BotAnimalShelterUpdatesListener.class);
+    private final BotAnimalShelterUserRepository repository;
 
-    private final BotAnimalShelterUsersRepository botAnimalShelterUsersRepository;
-
-    public BotAnimalShelterService(BotAnimalShelterUsersRepository botAnimalShelterUsersRepository) {
-        this.botAnimalShelterUsersRepository = botAnimalShelterUsersRepository;
-    }
-
-
-    public void saveUsers(Long idChat, String userName) {
-        Users users = new Users(idChat, userName);
-        botAnimalShelterUsersRepository.save(users);
+    public BotAnimalShelterService(BotAnimalShelterUserRepository repository) {
+        this.repository = repository;
     }
 }
