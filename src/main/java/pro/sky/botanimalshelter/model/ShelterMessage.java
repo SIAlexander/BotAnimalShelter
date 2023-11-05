@@ -4,22 +4,22 @@ import java.util.Objects;
 
 /**
  * Accordingly to Specification bot is to provide a lot of information to user
- * So, this class is created to manage plenty of messages required by Spec and
+ * So, ShelterMessage class is a model of messages described by Spec and
  * indicate actions to do if necessary
  */
 public class ShelterMessage {
 
-    long shelterId;
+    private long shelterId;
 
     /**
      * stage number accordingly to Spec
      */
-    int stage;
+    private int stage;
 
     /**
      * message order number as it listed in Spec
      */
-    int messageNumber;
+    private int messageNumber;
 
     /**
      * Unique number to specify procedure to perform if it required by Spec
@@ -27,17 +27,17 @@ public class ShelterMessage {
      * actionId may be redundant.
      * Dear Team, please tell me what you think about this
      */
-    long actionId;
+    private long actionId;
 
     /**
      * short title, kind of name of message
      */
-    String title;
+    private String title;
 
     /**
      * message to be delivered to user
      */
-    String text;
+    private String text;
 
     public ShelterMessage() {
     }

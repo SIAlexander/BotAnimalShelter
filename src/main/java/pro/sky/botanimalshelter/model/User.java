@@ -1,18 +1,65 @@
 package pro.sky.botanimalshelter.model;
 
+import javax.persistence.*;
 import java.util.Objects;
 
-public class User implements HumanGivingCareToPets {
+
+/**
+ * User class represents different roles of users: from guest to adopter.
+ * Potentially, volunteer and employee role also could be supported by User class
+ */
+@Entity
+@Table(name ="users")
+public class User implements UserInterface {
+    /*CREATE table users
+            (
+                    id             BIGSERIAL PRIMARY KEY,
+                    id_chat        BIGINT,
+                    name           TEXT,
+                    phone          TEXT,
+                    email          TEXT,
+                    location       TEXT,
+                    pet_relation   TEXT,
+                    loved_specimen TEXT
+            );*/
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+            @Column(name = "id")
+    long id;
+
+    @Column(name = "name")
     private String name;
+
+    @Column(name = "phone")
     private String phone;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "location")
     private String location;
 
+    @Column(name = "petRelation")
+    @Enumerated(EnumType.STRING)
     private PetRelation petRelation;
 
+    @Column(name = "loved_specimen")
     private Specimen lovedSpecimen;
+
+    @ManyToOne
+    @JoinColumn(name = "pet_shelter")
+    private PetShelter petShelter;
+
+    @Override
+    public PetShelter getPetShelter() {
+        return petShelter;
+    }
+
+    @Override
+    public void setPetShelter(PetShelter petShelter) {
+        this.petShelter = petShelter;
+    }
 
     private long chatId;
 
@@ -35,34 +82,42 @@ public class User implements HumanGivingCareToPets {
                 '}';
     }
 
+    @Override
     public String getName() {
         return name;
     }
 
+    @Override
     public void setName(String name) {
         this.name = name;
     }
 
+    @Override
     public String getPhone() {
         return phone;
     }
 
+    @Override
     public void setPhone(String phone) {
         this.phone = phone;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }
 
+    @Override
     public void setEmail(String email) {
         this.email = email;
     }
 
+    @Override
     public String getLocation() {
         return location;
     }
 
+    @Override
     public void setLocation(String location) {
         this.location = location;
     }
@@ -90,10 +145,12 @@ public class User implements HumanGivingCareToPets {
     }
 
 
+    @Override
     public Specimen getLovedSpecimen() {
         return lovedSpecimen;
     }
 
+    @Override
     public void setLovedSpecimen(Specimen specimen) {
         lovedSpecimen = specimen;
     }
