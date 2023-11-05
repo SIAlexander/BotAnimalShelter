@@ -2,57 +2,52 @@ package pro.sky.botanimalshelter.model;
 
 import java.sql.Timestamp;
 
-public class PetCareReport<P extends Pet> implements Report {
+public class PetCareReport {
 
     User author;
 
-    P pet;
+    Pet pet;
 
-    CatShelter cs = new CatShelter();
+    Timestamp dateCreated;
 
-    @Override
+    Timestamp dateReceived;
+
     public boolean isEmpty() {
-        return false;
+        return pet == null;
     }
 
-    @Override
     public boolean hasPhoto() {
         return false;
     }
 
-    @Override
+
     public boolean hasText() {
         return false;
     }
 
-    @Override
     public Timestamp readReportDate() {
         return null;
     }
 
-    @Override
+
     public User readAuthor() {
         return author;
     }
 
-    @Override
+
     public boolean appointAuthor(User volunteer) {
-        if(volunteer == null) { return false; }
+        if (volunteer == null) {
+            return false;
+        }
         author = volunteer;
         return true;
     }
 
-    public <T extends Pet> void appointPet(T pet) {
-        this.pet = (P) pet;
+
+    public Pet readPet() {
+        return pet;
     }
 
-    @Override
-    public <T extends Pet> T readPet() {
-        return (T) pet;
-    }
-
-
-    @Override
     public User readAdopterCandidate() {
         return pet.readAdopter();
     }
