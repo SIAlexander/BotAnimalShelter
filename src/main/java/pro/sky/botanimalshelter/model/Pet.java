@@ -24,7 +24,6 @@ public class Pet {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "specimen")
     private Specimen specimen;
 
     @Column(name = "name")
@@ -41,12 +40,13 @@ public class Pet {
 
 
     /**
-     * adopter assigned to oet
+     * adopter assigned to pet
      */
 
-    @ManyToMany
-    @JoinColumn(name = "adopter_id")
-    private User adopter;
+//    @ManyToMany
+//    @JoinColumn(name = "adopter_id")
+            @Column(name = "adopter_id")
+    private long adopterId;
 
     @Column(name = "adoption_status")
     @Enumerated(EnumType.STRING)
@@ -64,36 +64,6 @@ public class Pet {
     public Pet() {
     }
 
-    public Pet(Long id, Specimen specimen, String name, String color, String breed, Timestamp birthDate, User adopter, AdoptionStatus adoptionStatus, PetShelter shelter) {
-        this.id = id;
-        this.specimen = specimen;
-        this.name = name;
-        this.color = color;
-        this.breed = breed;
-        this.birthDate = birthDate;
-        this.adopter = adopter;
-        this.adoptionStatus = adoptionStatus;
-        this.shelter = shelter;
-    }
-
-    /**
-     * giveAdopter method assigns pet to adopter candidate
-     *
-     * @param adopterCandidate User adopter candidate, Nullable
-     * @return true if adopter candidate successfully assigned to pet
-     */
-    public boolean giveAdopter(User adopterCandidate) {
-        if (adopterCandidate == null) {
-            return false;
-        }
-        if (adopterCandidate.getLovedSpecimen().equals(specimen)) {
-            this.adopter = adopterCandidate;
-            this.adoptionStatus = ON_TRIAL_ADOPTION;
-            return true;
-        } else {
-            return false;
-        }
-    }
 
     public Specimen getSpecimen() {
         return specimen;
@@ -122,22 +92,6 @@ public class Pet {
         return this.shelter;
     }
 
-    public AdoptionStatus readAdoptionStatus() {
-        return adoptionStatus;
-    }
-
-    /**
-     * @param adoptionStatus AdoptionStatus value to be set as status of pet adoption
-     *                       <p>Be aware changeAdoptionStatus changes status of adoption value immediately,
-     *                       so potentially it could violate business logic /p>
-     */
-    public void changeAdoptionStatus(AdoptionStatus adoptionStatus) {
-        this.adoptionStatus = adoptionStatus;
-    }
-
-    public Specimen readSpecimen() {
-        return specimen;
-    }
 
     public long getId() {
         return id;
@@ -179,23 +133,6 @@ public class Pet {
         this.birthDate = birthDate;
     }
 
-    public User readAdopter() {
-        return adopter;
-    }
-
-    /**
-     * Be careful using setter because potentially it could violate business logic
-     *
-     * @param adopter
-     */
-    public void setAdopter(User adopter) {
-        this.adopter = adopter;
-    }
-
-    public User getAdopter() {
-        return adopter;
-    }
-
     public AdoptionStatus getAdoptionStatus() {
         return adoptionStatus;
     }
@@ -232,7 +169,7 @@ public class Pet {
                 ", color='" + color + '\'' +
                 ", breed='" + breed + '\'' +
                 ", birthDate=" + birthDate +
-                ", adopter=" + adopter +
+                ", adopter=" + //adopter +
                 ", adoptionStatus=" + adoptionStatus +
                 ", shelter=" + shelter +
                 '}';

@@ -13,7 +13,7 @@ public class ModelUtils {
         if (shelter == null || pet == null) {
             return false;
         }
-        return shelter.getSpecimen().equals(pet.readSpecimen());
+        return shelter.getSpecimen().equals(pet.getSpecimen());
     }
 
     public static boolean volunteerIsHiredByPetShelter(User volunteer, PetShelter petShelter) {
