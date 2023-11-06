@@ -86,3 +86,7 @@ ALTER TABLE pet ADD COLUMN specimen int4;
 
 -- changeset antonov333:15
 ALTER TABLE users ADD COLUMN chat_id int8;
+
+-- changeset antonov333:16
+ALTER TABLE pet DROP COLUMN specimen;
+ALTER TABLE pet ADD COLUMN specimen TEXT;
