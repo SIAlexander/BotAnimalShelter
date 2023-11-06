@@ -73,8 +73,6 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
 
             if (text.equalsIgnoreCase("/start")) {
                 keyboard.keyboardSelectionShelter(chatId);
-
-
             }
             if (text.equalsIgnoreCase("/dog")) {
                 selectShelter = "/dog";
