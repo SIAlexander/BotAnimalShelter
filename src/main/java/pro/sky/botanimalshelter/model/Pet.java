@@ -24,6 +24,8 @@ public class Pet {
     @Column(name = "id")
     private Long id;
 
+    @Column(name = "specimen")
+    @Enumerated(EnumType.STRING)
     private Specimen specimen;
 
     @Column(name = "name")
@@ -72,26 +74,6 @@ public class Pet {
     public void setSpecimen(Specimen specimen) {
         this.specimen = specimen;
     }
-
-    /**
-     * @param shelter nullable
-     * @return true upon successful assignment pet to shelter
-     */
-    public boolean giveShelter(PetShelter shelter) {
-        if (shelter != null) {
-            final boolean equals = specimen.equals(shelter.getSpecimen());
-            if (equals) {
-                this.shelter = shelter;
-                return true;
-            }
-        }
-        return false;
-    }
-
-    public PetShelter readShelter() {
-        return this.shelter;
-    }
-
 
     public long getId() {
         return id;
@@ -158,7 +140,7 @@ public class Pet {
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getColor(), getBreed(), getBirthDate());
+        return Objects.hash(getId());
     }
 
     @Override

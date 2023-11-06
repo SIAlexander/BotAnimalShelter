@@ -11,17 +11,6 @@ import java.util.Objects;
 @Entity
 @Table(name ="users")
 public class User implements UserInterface {
-    /*CREATE table users
-            (
-                    id             BIGSERIAL PRIMARY KEY,
-                    id_chat        BIGINT,
-                    name           TEXT,
-                    phone          TEXT,
-                    email          TEXT,
-                    location       TEXT,
-                    pet_relation   TEXT,
-                    loved_specimen TEXT
-            );*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
