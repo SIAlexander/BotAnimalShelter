@@ -51,6 +51,9 @@ public class User implements UserInterface {
         this.petShelter = petShelter;
     }
 
+    /**
+     * {@code chatId} user chat identifier
+     */
     @Column(name = "id_chat")
     private long chatId;
 
