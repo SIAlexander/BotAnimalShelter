@@ -6,11 +6,13 @@ import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.DeleteMessage;
 import com.pengrad.telegrambot.request.SendMessage;
-import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import pro.sky.botanimalshelter.service.BotAnimalShelterService;
 import pro.sky.botanimalshelter.service.Keyboard;
+
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @Service
@@ -21,15 +23,18 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
 
     private final Keyboard keyboard;
 
+    private final BotAnimalShelterService service;
+
     //переменная для хранения выбранного приюта (кошачий/собачий)
     private String selectShelter = null;
 
     //переменная для хранения имени пользователя
     private String userName;
 
-    public BotAnimalShelterUpdatesListener(TelegramBot telegramBot, Keyboard keyboard) {
+    public BotAnimalShelterUpdatesListener(TelegramBot telegramBot, Keyboard keyboard, BotAnimalShelterService service) {
         this.telegramBot = telegramBot;
         this.keyboard = keyboard;
+        this.service = service;
     }
 
 
@@ -68,6 +73,8 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
 
             if (text.equalsIgnoreCase("/start")) {
                 keyboard.keyboardSelectionShelter(chatId);
+
+
             }
             if (text.equalsIgnoreCase("/dog")) {
                 selectShelter = "/dog";
@@ -122,7 +129,7 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
             case "/refuse not you up" ->
                     sendMessage(chatId, "Список причин, почему могут отказать и не дать забрать");//заглушка
             case "/communication dog" ->
-                    sendMessage(chatId, "Кинолог по первичному общению с собакой\"");//заглушка
+                    sendMessage(chatId, "Кинолог по первичному общению с собакой");//заглушка
             case "/proven dog" ->
                     sendMessage(chatId, "Рекомендации по проверенным кинологам для дальнейшего обращения к ним");//заглушка
 
