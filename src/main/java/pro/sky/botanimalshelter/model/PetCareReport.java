@@ -44,12 +44,4 @@ public class PetCareReport {
     }
 
 
-    public Pet readPet() {
-        return pet;
-    }
-
-    public User readAdopterCandidate() {
-        return pet.readAdopter();
-    }
-
 }

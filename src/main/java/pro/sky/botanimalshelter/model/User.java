@@ -40,11 +40,13 @@ public class User implements UserInterface {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "petRelation")
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "petRelation")
     private PetRelation petRelation;
 
     @Column(name = "loved_specimen")
+    @Enumerated(EnumType.STRING)
     private Specimen lovedSpecimen;
 
     @ManyToOne
