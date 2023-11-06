@@ -1,8 +1,14 @@
 package pro.sky.botanimalshelter.model;
 
+import org.springframework.context.annotation.Bean;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 
 import static pro.sky.botanimalshelter.model.AdoptionStatus.ON_TRIAL_ADOPTION;
 
@@ -16,7 +22,7 @@ public class Pet {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "specimen")
     private Specimen specimen;
@@ -54,6 +60,21 @@ public class Pet {
     @JoinColumn(name = "shelter_id")
     private PetShelter shelter;
 
+
+    public Pet() {
+    }
+
+    public Pet(Long id, Specimen specimen, String name, String color, String breed, Timestamp birthDate, User adopter, AdoptionStatus adoptionStatus, PetShelter shelter) {
+        this.id = id;
+        this.specimen = specimen;
+        this.name = name;
+        this.color = color;
+        this.breed = breed;
+        this.birthDate = birthDate;
+        this.adopter = adopter;
+        this.adoptionStatus = adoptionStatus;
+        this.shelter = shelter;
+    }
 
     /**
      * giveAdopter method assigns pet to adopter candidate

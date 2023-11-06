@@ -25,8 +25,8 @@ public class User implements UserInterface {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-            @Column(name = "id")
-    long id;
+//            @Column(name = "id")
+    private long id;
 
     @Column(name = "name")
     private String name;

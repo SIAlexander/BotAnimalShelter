@@ -17,4 +17,5 @@ public class BotAnimalShelterConfiguration {
         bot.execute(new DeleteMyCommands());
         return bot;
     }
+
 }
