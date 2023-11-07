@@ -11,22 +11,10 @@ import java.util.Objects;
 @Entity
 @Table(name ="users")
 public class User implements UserInterface {
-    /*CREATE table users
-            (
-                    id             BIGSERIAL PRIMARY KEY,
-                    id_chat        BIGINT,
-                    name           TEXT,
-                    phone          TEXT,
-                    email          TEXT,
-                    location       TEXT,
-                    pet_relation   TEXT,
-                    loved_specimen TEXT
-            );*/
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-            @Column(name = "id")
-    long id;
+    private long id;
 
     @Column(name = "name")
     private String name;
@@ -40,11 +28,13 @@ public class User implements UserInterface {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "petRelation")
+
     @Enumerated(EnumType.STRING)
+    @Column(name = "petRelation")
     private PetRelation petRelation;
 
     @Column(name = "loved_specimen")
+    @Enumerated(EnumType.STRING)
     private Specimen lovedSpecimen;
 
     @ManyToOne
@@ -61,6 +51,10 @@ public class User implements UserInterface {
         this.petShelter = petShelter;
     }
 
+    /**
+     * {@code chatId} user chat identifier
+     */
+    @Column(name = "id_chat")
     private long chatId;
 
     public long getChatId() {
@@ -70,6 +64,8 @@ public class User implements UserInterface {
     public void setChatId(long chatId) {
         this.chatId = chatId;
     }
+
+    long getId(){ return id;}
 
     @Override
     public String toString() {
@@ -122,12 +118,17 @@ public class User implements UserInterface {
         this.location = location;
     }
 
-    public User(String name, String phone, String email, String location, Specimen lovedSpecimen) {
+    public User(long id, String name, String phone, String email, String location,
+                PetRelation petRelation, Specimen lovedSpecimen, PetShelter petShelter, long chatId) {
+        this.id = id;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.location = location;
+        this.petRelation = petRelation;
         this.lovedSpecimen = lovedSpecimen;
+        this.petShelter = petShelter;
+        this.chatId = chatId;
     }
 
     public User() {
@@ -159,15 +160,11 @@ public class User implements UserInterface {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof User user)) return false;
-        return Objects.equals(getName(),
-                user.getName()) && Objects.equals(getPhone(),
-                user.getPhone()) && Objects.equals(getEmail(),
-                user.getEmail()) && Objects.equals(getLocation(),
-                user.getLocation()) && getLovedSpecimen() == user.getLovedSpecimen();
+        return getId() == user.getId();
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getPhone(), getEmail(), getLocation(), getLovedSpecimen());
+        return Objects.hash(getId());
     }
 }

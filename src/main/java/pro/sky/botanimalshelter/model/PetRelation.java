@@ -20,8 +20,8 @@ package pro.sky.botanimalshelter.model;
  * <p></p>
  * <p>VOLUNTEER: volunteer supporting particular pet shelter. Supposed could retire to PETS_FRIEND</p>
  * <p></p>
- * </p>PET_TRAINER depending on lovedSpecimen value it could mean cynologist (if DOG), or felinologist(if CAT), etc.
- * <p></p><p>SHELTER_EMPLOYEE specialist hired by shelter </p>
+ * </p>PET_TRAINER depending on lovedSpecimen value could mean cynologist (if DOG), or felinologist(if CAT), etc.
+ * <p></p><p>SHELTER_EMPLOYEE person hired by shelter </p>
  * <p></p><p>VETERINARIAN pet doctor</p>
  */
 public enum PetRelation {

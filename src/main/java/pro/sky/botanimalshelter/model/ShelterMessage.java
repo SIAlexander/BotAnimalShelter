@@ -4,10 +4,23 @@ import java.util.Objects;
 
 /**
  * Accordingly to Specification bot is to provide a lot of information to user
- * So, ShelterMessage class is a model of messages described by Spec and
+ * <br>So, ShelterMessage class is a model of messages described by Spec and
  * indicate actions to do if necessary
  */
 public class ShelterMessage {
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * {@code id} is database identifier
+     */
+    private Long id;
 
     private long shelterId;
 
@@ -42,7 +55,8 @@ public class ShelterMessage {
     public ShelterMessage() {
     }
 
-    public ShelterMessage(long shelterId, int stage, int messageNumber, long actionId, String title, String text) {
+    public ShelterMessage(Long id, long shelterId, int stage, int messageNumber, long actionId, String title, String text) {
+        this.id = id;
         this.shelterId = shelterId;
         this.stage = stage;
         this.messageNumber = messageNumber;
