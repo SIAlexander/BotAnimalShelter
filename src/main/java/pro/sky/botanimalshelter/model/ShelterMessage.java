@@ -8,7 +8,9 @@ import java.util.Objects;
  * indicate actions to do if necessary
  */
 public class ShelterMessage {
-
+    /**
+     * record identifier in database
+     */
     public Long getId() {
         return id;
     }
@@ -129,11 +131,11 @@ public class ShelterMessage {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (!(o instanceof ShelterMessage that)) return false;
-        return getShelterId() == that.getShelterId() && getStage() == that.getStage() && getMessageNumber() == that.getMessageNumber() && getActionId() == that.getActionId() && Objects.equals(getTitle(), that.getTitle()) && Objects.equals(getText(), that.getText());
+        return Objects.equals(getId(), that.getId());
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getShelterId(), getStage(), getMessageNumber(), getActionId(), getTitle(), getText());
+        return Objects.hash(getId());
     }
 }
