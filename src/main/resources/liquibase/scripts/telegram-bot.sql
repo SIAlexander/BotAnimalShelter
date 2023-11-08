@@ -90,3 +90,36 @@ ALTER TABLE users ADD COLUMN chat_id int8;
 -- changeset antonov333:16
 ALTER TABLE pet DROP COLUMN specimen;
 ALTER TABLE pet ADD COLUMN specimen TEXT;
+
+--changeset antonov333:17
+CREATE table botlog
+(
+	id              BIGSERIAL PRIMARY KEY,
+	date_created    TIMESTAMP,
+	shelter_id      BIGINT,
+	stage_number    int4,
+	point_number    int4,
+	position_in_procedure   TEXT,
+	previous_action_record_id   BIGINT,
+	next_action_record_id       BIGINT,
+	user_id         BIGINT,
+    pet_id          BIGINT,
+    volunteer_id    BIGINT,
+    action_condition    TEXT,
+    scheduled_to_do     TIMESTAMP,
+    conclusion  TEXT,
+    note    TEXT
+
+);
+
+--changeset antonov333:18
+CREATE TABLE shelter_book
+(       id     BIGSERIAL PRIMARY KEY,
+        shelter_id BIGINT,
+        stage int4,
+        point int4,
+        action_id   BIGINT,
+        title   TEXT,
+        text_info   TEXT
+);
+
