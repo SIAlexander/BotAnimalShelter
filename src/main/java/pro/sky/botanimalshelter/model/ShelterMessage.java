@@ -4,9 +4,9 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * Accordingly to Specification bot is to provide a lot of information to user
- * <br>So, ShelterMessage class is a model of messages described by Spec. ShelterMessage also
- * indicates actions to do if required by Spec on the point
+ * В соответствии с Техническим заданием, бот должен выводить в чат с пользователем ряд сообщений на каждом этапе.
+ * <br>Сущность  ShelterMessage представляет собой модель такого сообщения.
+ * В базе данных сущности ShelterMessage хранятся в таблице shelter_book
  */
 @Entity
 @Table(name = "shelter_book")
@@ -35,7 +35,7 @@ public class ShelterMessage {
 
     /**
      * Unique number to specify procedure to perform if it required by Spec
-     * At the other hand, stage and messageNumber could exactly point of Spec, so
+     * <br>At the other hand, stage and messageNumber could exactly point of Spec, so
      * actionId may be redundant.
      * Dear Team, please tell me what you think about this
      */
