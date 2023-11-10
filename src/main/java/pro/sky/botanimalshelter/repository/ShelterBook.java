@@ -6,11 +6,11 @@ import pro.sky.botanimalshelter.model.ShelterMessage;
 import java.util.List;
 import java.util.Optional;
 
-/** Repository for ShelterMessage objects representing Pet Shelter Information Messages*/
+/** База данных сообщений, выводимых ботом. Сообщения представлены моделью ShelterMessage */
 @Repository
 public interface ShelterBook extends JpaRepository<ShelterMessage, Long> {
 
-    /** returns Optional< ShelterMessage > accordingly to pet shelter, stage and point*/
-    public Optional <ShelterMessage> findByShelterIdAndStageAndPoint(long shelterId, int stage, int point);
+    /** Ищем сообщение в базе данных сообщений (книге сообщений) приютов */
+     public Optional <ShelterMessage> findByShelterIdAndStageAndPoint(long shelterId, int stage, int point);
 
 }

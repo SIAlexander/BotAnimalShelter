@@ -1,4 +1,4 @@
-package pro.sky.botanimalshelter.service;
+package pro.sky.botanimalshelter.appservive;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -53,30 +53,31 @@ public class Stage0point1 {
      * <br> We could create an initial pet shelter (kind of reception), or leave method as below */
 
     public ShelterMessage welcomeNewUser(){
-        logger.info("New user welcome");
-        return new ShelterMessage(0L, 0L, 0, 0, 0L,
-                "Приветствие",
-                "Здравствуйте! \n Выберите приют с питомцами Вашего любимого вида");
+        logger.info("Этап 0 пункт 1 Приветствуем нового пользователя");
+        Optional<ShelterMessage> shelterMessageOptional =
+                shelterBook.findByShelterIdAndStageAndPoint(0,0,0);
+        if(shelterMessageOptional.isPresent()){return shelterMessageOptional.get();}
+        String string = "Отсутствует начальное сообщение";
+        logger.info(string);
+        throw new RuntimeException(string);
     }
 
-    public User registerUser(long chatId, String userName, Specimen lovedSpecimen){
-        if (userRepository.findByChatId(chatId)) {
-            logger.info("User chatId " + chatId + ". Name = " + userName + "is already registered" );
-            return null;}
+    /** Регистрируем нового пользователя <br> Возвращаем контейнер Optional.
+     * Если он уже имеется в базе, возвращаем пустой контейнер*/
+    public Optional<User> registerUser(long chatId, String userName, Specimen lovedSpecimen){
+
+        Optional<User> userOptional = userRepository.findByChatId(chatId);
+
+        if (userOptional.isPresent()) {
+            logger.info("Пользователь " + userOptional.get() + " уже зарегистрирован" );
+            return Optional.empty();}
         User newUser = new User();
         newUser.setName(userName);
         newUser.setChatId(chatId);
         newUser.setLovedSpecimen(lovedSpecimen);
         newUser = userRepository.save(newUser);
 
-        return newUser;
-    }
-
-    public boolean findUser(User user){
-        if(user == null) {return false;}
-        Example<User> userExample = Example.of(user);
-        Optional<User> actualUser = userRepository.findOne(userExample);
-        return actualUser.isPresent();
+        return Optional.of(newUser);
     }
 
 

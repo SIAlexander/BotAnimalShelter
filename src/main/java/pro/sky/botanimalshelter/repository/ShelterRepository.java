@@ -4,7 +4,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pro.sky.botanimalshelter.model.PetShelter;
 
-/** storage for PetShelter objects representing shelters for orphan pets*/
+/** База данных приютов - сущностей PetShelter*/
 @Repository
 public interface ShelterRepository extends JpaRepository<PetShelter, Long> {
 }
