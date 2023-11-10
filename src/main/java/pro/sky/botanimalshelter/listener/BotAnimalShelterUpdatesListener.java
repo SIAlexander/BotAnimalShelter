@@ -6,14 +6,16 @@ import com.pengrad.telegrambot.model.Message;
 import com.pengrad.telegrambot.model.Update;
 import com.pengrad.telegrambot.request.DeleteMessage;
 import com.pengrad.telegrambot.request.SendMessage;
-import jakarta.annotation.PostConstruct;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 import pro.sky.botanimalshelter.service.BotAnimalShelterService;
 import pro.sky.botanimalshelter.service.Keyboard;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
+@Service
 public class BotAnimalShelterUpdatesListener implements UpdatesListener {
     private Logger logger = LoggerFactory.getLogger(BotAnimalShelterUpdatesListener.class);
 

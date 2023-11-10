@@ -6,8 +6,11 @@ import com.pengrad.telegrambot.model.request.InlineKeyboardMarkup;
 import com.pengrad.telegrambot.request.SendMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Service;
 
+@Service
 public class Keyboard {
+
     private final Logger logger = LoggerFactory.getLogger(Keyboard.class);
     private final TelegramBot telegramBot;
 

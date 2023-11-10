@@ -1,33 +1,47 @@
 package pro.sky.botanimalshelter.model;
 
-public class PetCareReport implements Report {
-    @Override
+import java.sql.Timestamp;
+
+public class PetCareReport {
+
+    User author;
+
+    Pet pet;
+
+    Timestamp dateCreated;
+
+    Timestamp dateReceived;
+
     public boolean isEmpty() {
-        return false;
+        return pet == null;
     }
 
-    @Override
     public boolean hasPhoto() {
         return false;
     }
 
-    @Override
+
     public boolean hasText() {
         return false;
     }
 
-    @Override
-    public String getDate() {
+    public Timestamp readReportDate() {
         return null;
     }
 
-    @Override
-    public long getAuthorId() {
-        return 0;
+
+    public User readAuthor() {
+        return author;
     }
 
-    @Override
-    public Profession getAuthorProfession() {
-        return null;
+
+    public boolean appointAuthor(User volunteer) {
+        if (volunteer == null) {
+            return false;
+        }
+        author = volunteer;
+        return true;
     }
+
+
 }
