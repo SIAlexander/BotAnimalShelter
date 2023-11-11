@@ -5,6 +5,8 @@ import com.pengrad.telegrambot.model.DeleteMyCommands;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import pro.sky.botanimalshelter.appservive.AppServiceUtils;
+import pro.sky.botanimalshelter.repository.ShelterBook;
 
 @Configuration
 public class BotAnimalShelterConfiguration {
@@ -16,6 +18,11 @@ public class BotAnimalShelterConfiguration {
         TelegramBot bot = new TelegramBot(token);
         bot.execute(new DeleteMyCommands());
         return bot;
+    }
+
+    @Bean
+    public AppServiceUtils appServiceUtils(ShelterBook shelterBook) {
+        return new AppServiceUtils(shelterBook);
     }
 
 }

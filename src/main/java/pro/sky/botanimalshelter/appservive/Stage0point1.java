@@ -35,12 +35,6 @@ public class Stage0point1 {
 
     private final BotLog botLog;
 
-    private long startingShelter;
-
-    @PostConstruct
-            public void manageStartPetShelter(){
-
-    }
 
     Stage0point1(UserRepository userRepository, ShelterRepository shelterRepository, ShelterBook shelterBook, BotLog botLog){
         this.userRepository = userRepository;
@@ -57,13 +51,14 @@ public class Stage0point1 {
         Optional<ShelterMessage> shelterMessageOptional =
                 shelterBook.findByShelterIdAndStageAndPoint(0,0,0);
         if(shelterMessageOptional.isPresent()){return shelterMessageOptional.get();}
-        String string = "Отсутствует начальное сообщение";
+        String string = AppServiceUtils.messageMissing(0,0);
         logger.info(string);
         throw new RuntimeException(string);
     }
 
-    /** Регистрируем нового пользователя <br> Возвращаем контейнер Optional.
-     * Если он уже имеется в базе, возвращаем пустой контейнер*/
+    /** Регистрируем (сохраняем в базе данных) нового пользователя <br> Возвращаем контейнер Optional с
+     * сущностью нового пользователя.
+     * <br>Если пользователь уже имеется в базе, возвращаем пустой контейнер*/
     public Optional<User> registerUser(long chatId, String userName, Specimen lovedSpecimen){
 
         Optional<User> userOptional = userRepository.findByChatId(chatId);
@@ -76,6 +71,7 @@ public class Stage0point1 {
         newUser.setChatId(chatId);
         newUser.setLovedSpecimen(lovedSpecimen);
         newUser = userRepository.save(newUser);
+        logger.info("Зарегистрирован пользователь: " + newUser);
 
         return Optional.of(newUser);
     }

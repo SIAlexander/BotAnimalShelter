@@ -4,6 +4,8 @@ import java.sql.Timestamp;
 
 public class PetCareReport {
 
+    long id;
+
     User author;
 
     Pet pet;
@@ -12,7 +14,35 @@ public class PetCareReport {
 
     Timestamp dateReceived;
 
-    public boolean isEmpty() {
+    public PetCareReport(long id, User author, Pet pet, Timestamp dateCreated, Timestamp dateReceived) {
+        this.id = id;
+        this.author = author;
+        this.pet = pet;
+        this.dateCreated = dateCreated;
+        this.dateReceived = dateReceived;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public PetCareReport(User author) {
+        this.author = author;
+    }
+
+    public User getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(User author) {
+        this.author = author;
+    }
+
+    /*public boolean isEmpty() {
         return pet == null;
     }
 
@@ -41,7 +71,7 @@ public class PetCareReport {
         }
         author = volunteer;
         return true;
-    }
+    }*/
 
 
 }
