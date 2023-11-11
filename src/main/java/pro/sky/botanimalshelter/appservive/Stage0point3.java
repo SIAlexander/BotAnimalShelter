@@ -14,7 +14,7 @@ public class Stage0point3 {
         this.appServiceUtils = appServiceUtils;
     }
 
-    public ShelterMessage getAdoptionRules(long shelterId){
-        return appServiceUtils.readMessageFromShelterBook(0,3, shelterId);
+    public ShelterMessage getAdoptionRules(long shelterId) {
+        return appServiceUtils.readMessageFromShelterBook(0, 3, shelterId);
     }
 }

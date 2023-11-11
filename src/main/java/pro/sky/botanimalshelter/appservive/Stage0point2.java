@@ -9,7 +9,9 @@ import pro.sky.botanimalshelter.repository.ShelterBook;
 import java.util.Optional;
 
 
-/** Выполняем команды Этапа 0 пункта 2 */
+/**
+ * Выполняем команды Этапа 0 пункта 2
+ */
 @Service
 public class Stage0point2 {
 
@@ -21,11 +23,13 @@ public class Stage0point2 {
         this.shelterBook = shelterBook;
     }
 
-    /** Этап 0, пункт 1. Поднимаем сообщение с информацией о приюте*/
-    public ShelterMessage getShelterInfo(long shelterId){
+    /**
+     * Этап 0, пункт 1. Поднимаем сообщение с информацией о приюте
+     */
+    public ShelterMessage getShelterInfo(long shelterId) {
         Optional<ShelterMessage> messageOptional = shelterBook.findByShelterIdAndStageAndPoint(shelterId, 0, 2);
 
-        if(messageOptional.isEmpty()){
+        if (messageOptional.isEmpty()) {
             String string = AppServiceUtils.messageMissing(0, 2);
             logger.info(string);
             throw new RuntimeException(string);

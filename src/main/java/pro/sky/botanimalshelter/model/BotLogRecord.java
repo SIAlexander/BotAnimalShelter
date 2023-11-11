@@ -4,8 +4,10 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
-/** {@code BotlogRecord} class represents bot log record <br> Log should be useful to keep history of users activity
- * and events, ans also to schedule actions */
+/**
+ * {@code BotlogRecord} class represents bot log record <br> Log should be useful to keep history of users activity
+ * and events, ans also to schedule actions
+ */
 @Entity
 @Table(name = "botlog")
 public class BotLogRecord {
@@ -19,7 +21,7 @@ public class BotLogRecord {
     /**
      * Date and time of creation of record
      */
-    @Column(name="date_created")
+    @Column(name = "date_created")
     private Timestamp timestamp;
 //    private BotLogRecordCategory recordType; // consider it is redundant and should not be so useful
 
@@ -45,14 +47,14 @@ public class BotLogRecord {
     /**
      * {@code positionInProcedure} mean this record of action which is start, interjacent or finish of some procedure
      */
-    @Column(name="position_in_procedure")
+    @Column(name = "position_in_procedure")
     @Enumerated(EnumType.STRING)
     private PositionInProcedure positionInProcedure;
 
     /**
      * record of previous action of interjacent or finish action of procedure
      */
-    @Column(name ="previous_action_record_id")
+    @Column(name = "previous_action_record_id")
     private long previousActionRecordId;
 
     /**
@@ -68,7 +70,7 @@ public class BotLogRecord {
     private long userId;
 
     /**
-     *  identifier of pet involved into action
+     * identifier of pet involved into action
      */
     @Column(name = "pet_id")
     private long petId;
@@ -78,26 +80,34 @@ public class BotLogRecord {
      * <br>By the way, if use id only instead of object aggregation,
      * it should not depend on whether volunteer is instance of a dedicated class or User
      */
-    @Column(name="volunteer_id")
+    @Column(name = "volunteer_id")
     private long volunteerId; // by the way, if use id only instead of object aggregation, it should not depend on whether volunteer
 
-    /** TO_DO, IN_PROGRESS, DONE*/
+    /**
+     * TO_DO, IN_PROGRESS, DONE
+     */
     @Column(name = "action_condition")
     @Enumerated(EnumType.STRING)
     private ActionCondition actionCondition;
 
-    /** some actions should be scheduled, so scheduledToDo means scheduled time for this*/
+    /**
+     * some actions should be scheduled, so scheduledToDo means scheduled time for this
+     */
     @Column(name = "scheduled_to_do")
     private Timestamp scheduledToDo;
 
-    /** result of action or procedure<br>
+    /**
+     * result of action or procedure<br>
      * {@code ONE, FAILED, PET_IS_GIVEN_ON_TRIAL_ADOPTION, ADOPTION_APPROVED}
-     * <br>Please let me know values you really need*/
-    @Column(name="conclusion")
+     * <br>Please let me know values you really need
+     */
+    @Column(name = "conclusion")
     @Enumerated(EnumType.STRING)
     private Conclusion conclusion;
 
-    /** some note may be written here*/
+    /**
+     * some note may be written here
+     */
     @Column(name = "note")
     private String note;
 

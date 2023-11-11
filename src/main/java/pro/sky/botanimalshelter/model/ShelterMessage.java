@@ -51,7 +51,7 @@ public class ShelterMessage {
     /**
      * message to be delivered to user
      */
-    @Column(name="text_info")
+    @Column(name = "text_info")
     private String textInfo;
 
     public ShelterMessage() {

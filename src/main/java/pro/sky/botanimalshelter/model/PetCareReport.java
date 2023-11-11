@@ -1,25 +1,55 @@
 package pro.sky.botanimalshelter.model;
 
+import javax.persistence.*;
 import java.sql.Timestamp;
+import java.util.Objects;
 
+/**
+ * Сущность отчета об условиях содержания и состоянии питомца
+ */
+@Entity
+@Table(name = "pet_care_reports")
 public class PetCareReport {
 
-    long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private long id;
 
-    User author;
+    @OneToOne
+    @JoinColumn(name = "author_id")
+    private User author;
 
-    Pet pet;
+    @OneToOne
+    @JoinColumn(name = "pet_id")
+    private Pet pet;
 
-    Timestamp dateCreated;
+    @Column(name = "path_to_photo")
+    private String pathToPhoto;
 
-    Timestamp dateReceived;
+    @Column(name = "note")
+    private String note;
 
-    public PetCareReport(long id, User author, Pet pet, Timestamp dateCreated, Timestamp dateReceived) {
+    @Column(name = "date")
+    private Timestamp date;
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+
+    public PetCareReport(long id, User author, Pet pet, String pathToPhoto, String note, Timestamp date) {
         this.id = id;
         this.author = author;
         this.pet = pet;
-        this.dateCreated = dateCreated;
-        this.dateReceived = dateReceived;
+        this.pathToPhoto = pathToPhoto;
+        this.note = note;
+        this.date = date;
+    }
+
+    public PetCareReport() {
     }
 
     public long getId() {
@@ -30,8 +60,28 @@ public class PetCareReport {
         this.id = id;
     }
 
-    public PetCareReport(User author) {
-        this.author = author;
+    @Override
+    public String toString() {
+        return "PetCareReport{" +
+                "id=" + id +
+                ", author=" + author +
+                ", pet=" + pet +
+                ", pathToPhoto='" + pathToPhoto + '\'' +
+                ", note='" + note + '\'' +
+                ", date=" + date +
+                '}';
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof PetCareReport that)) return false;
+        return getId() == that.getId();
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(getId());
     }
 
     public User getAuthor() {
@@ -42,36 +92,29 @@ public class PetCareReport {
         this.author = author;
     }
 
-    /*public boolean isEmpty() {
-        return pet == null;
+
+    public Pet getPet() {
+        return pet;
     }
 
-    public boolean hasPhoto() {
-        return false;
+    public void setPet(Pet pet) {
+        this.pet = pet;
     }
 
-
-    public boolean hasText() {
-        return false;
+    public String getPathToPhoto() {
+        return pathToPhoto;
     }
 
-    public Timestamp readReportDate() {
-        return null;
+    public void setPathToPhoto(String pathToPhoto) {
+        this.pathToPhoto = pathToPhoto;
     }
 
-
-    public User readAuthor() {
-        return author;
+    public Timestamp getDate() {
+        return date;
     }
 
-
-    public boolean appointAuthor(User volunteer) {
-        if (volunteer == null) {
-            return false;
-        }
-        author = volunteer;
-        return true;
-    }*/
-
+    public void setDate(Timestamp date) {
+        this.date = date;
+    }
 
 }

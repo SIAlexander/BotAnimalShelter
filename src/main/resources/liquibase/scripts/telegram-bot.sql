@@ -123,3 +123,12 @@ CREATE TABLE shelter_book
         text_info   TEXT
 );
 
+--changeset antonov333:19
+CREATE TABLE pet_care_reports (
+        id              BIGSERIAL PRIMARY KEY,
+        author_id       BIGINT,
+        pet_id          BIGINT,
+        path_to_photo   TEXT,
+        note            TEXT,
+        date            TIMESTAMP);
+

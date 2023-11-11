@@ -1,16 +1,8 @@
 package pro.sky.botanimalshelter.model;
 
-import org.springframework.context.annotation.Bean;
-
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-
-import static pro.sky.botanimalshelter.model.AdoptionStatus.ON_TRIAL_ADOPTION;
 
 /**
  * <b>Pet</b> class represents pet animals cared by pet shelter
@@ -40,32 +32,44 @@ public class Pet {
     @Column(name = "birth_date")
     private Timestamp birthDate;
 
-
-    /**
-     * adopter assigned to pet
-     */
-
-//    @ManyToMany
-//    @JoinColumn(name = "adopter_id")
-            @Column(name = "adopter_id")
-    private long adopterId;
-
     @Column(name = "adoption_status")
     @Enumerated(EnumType.STRING)
     private AdoptionStatus adoptionStatus;
-
-    /**
-     * shelter keeping pet until adoption
-     */
 
     @ManyToOne
     @JoinColumn(name = "shelter_id")
     private PetShelter shelter;
 
+    @OneToOne
+    @JoinColumn(name = "adopter_id")
+    private User adopter;
+
+    public Pet(Long id, Specimen specimen, String name, String color, String breed, Timestamp birthDate, User adopter, AdoptionStatus adoptionStatus, PetShelter shelter) {
+        this.id = id;
+        this.specimen = specimen;
+        this.name = name;
+        this.color = color;
+        this.breed = breed;
+        this.birthDate = birthDate;
+        this.adopter = adopter;
+        this.adoptionStatus = adoptionStatus;
+        this.shelter = shelter;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public User getAdopter() {
+        return adopter;
+    }
+
+    public void setAdopter(User adopter) {
+        this.adopter = adopter;
+    }
 
     public Pet() {
     }
-
 
     public Specimen getSpecimen() {
         return specimen;

@@ -114,6 +114,7 @@ public class Keyboard {
         SendMessage sendMessage = new SendMessage(chatId, "Здравствуйте, " + userName).replyMarkup(inlineKeyboardMarkup);
         telegramBot.execute(sendMessage);
     }
+
     //меню для кнопки "Как взять животное из приюта"
     public void menuSelectionShelterCatAndDog(Long chatId, String shelter, String userName) {
 
@@ -150,6 +151,7 @@ public class Keyboard {
         SendMessage sendMessage = new SendMessage(chatId, "Здравствуйте, " + userName).replyMarkup(inlineKeyboardMarkup);
         telegramBot.execute(sendMessage);
     }
+
     // метод общих кнопок для приютов
     private InlineKeyboardButton[] menuSelectionShelterCommon() {
         return new InlineKeyboardButton[]{

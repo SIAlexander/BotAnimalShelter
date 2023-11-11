@@ -96,28 +96,17 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
     // метод для обработки команд от клавиатуры
     private void botAnswerUtils(String receivedMessage, long chatId, String shelter, String userName) {
         switch (receivedMessage) {
-            case "/cat", "/dog" ->
-                    keyboard.menuSelectionShelter(chatId, shelter);
-            case "/about shelter" ->
-                    keyboard.menuSelectionInformationShelter(chatId, shelter, userName);
-            case "/about" ->
-                    sendMessage(chatId, "Рассказать о приюте");//заглушка
-            case "/take animal" ->
-                    keyboard.menuSelectionShelterCatAndDog(chatId, shelter, userName);
-            case "/contacts shelter" ->
-                    sendMessage(chatId, "Схема проезда, режим работы, адрес");//заглушка
-            case "/security contacts" ->
-                    sendMessage(chatId, "Контакты охраны для оформления пропуска");//заглушка
-            case "/accept contact" ->
-                    sendMessage(chatId, "Принять контактные данные для связи");//заглушка
-            case "/send report" ->
-                    sendMessage(chatId, "Прислать отчет о питомце");//заглушка
-            case "/call volunteer" ->
-                    sendMessage(chatId, "Позвать волонтера");//заглушка
-            case "/dating rules" ->
-                    sendMessage(chatId, "Правила знакомства с животным");//заглушка
-            case "/documents" ->
-                    sendMessage(chatId, "Список документов чтобы взять животное");//заглушка
+            case "/cat", "/dog" -> keyboard.menuSelectionShelter(chatId, shelter);
+            case "/about shelter" -> keyboard.menuSelectionInformationShelter(chatId, shelter, userName);
+            case "/about" -> sendMessage(chatId, "Рассказать о приюте");//заглушка
+            case "/take animal" -> keyboard.menuSelectionShelterCatAndDog(chatId, shelter, userName);
+            case "/contacts shelter" -> sendMessage(chatId, "Схема проезда, режим работы, адрес");//заглушка
+            case "/security contacts" -> sendMessage(chatId, "Контакты охраны для оформления пропуска");//заглушка
+            case "/accept contact" -> sendMessage(chatId, "Принять контактные данные для связи");//заглушка
+            case "/send report" -> sendMessage(chatId, "Прислать отчет о питомце");//заглушка
+            case "/call volunteer" -> sendMessage(chatId, "Позвать волонтера");//заглушка
+            case "/dating rules" -> sendMessage(chatId, "Правила знакомства с животным");//заглушка
+            case "/documents" -> sendMessage(chatId, "Список документов чтобы взять животное");//заглушка
             case "/recommendations transportation" ->
                     sendMessage(chatId, "Рекомендаций по транспортировке животного");//заглушка
             case "/recommendations home improvement" ->
@@ -128,8 +117,7 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                     sendMessage(chatId, "Рекомендации по обустройству дома животного с ограниченными возможностями");//заглушка
             case "/refuse not you up" ->
                     sendMessage(chatId, "Список причин, почему могут отказать и не дать забрать");//заглушка
-            case "/communication dog" ->
-                    sendMessage(chatId, "Кинолог по первичному общению с собакой");//заглушка
+            case "/communication dog" -> sendMessage(chatId, "Кинолог по первичному общению с собакой");//заглушка
             case "/proven dog" ->
                     sendMessage(chatId, "Рекомендации по проверенным кинологам для дальнейшего обращения к ним");//заглушка
 

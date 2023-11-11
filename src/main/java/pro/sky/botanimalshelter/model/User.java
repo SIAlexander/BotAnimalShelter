@@ -9,7 +9,7 @@ import java.util.Objects;
  * Potentially, volunteer and employee role also could be supported by User class
  */
 @Entity
-@Table(name ="users")
+@Table(name = "users")
 public class User implements UserInterface {
 
     @Id
@@ -65,7 +65,9 @@ public class User implements UserInterface {
         this.chatId = chatId;
     }
 
-    long getId(){ return id;}
+    long getId() {
+        return id;
+    }
 
     @Override
     public String toString() {

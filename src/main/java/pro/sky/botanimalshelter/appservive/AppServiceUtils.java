@@ -7,7 +7,9 @@ import pro.sky.botanimalshelter.repository.ShelterBook;
 
 import java.util.Optional;
 
-/** Выносим сюда рутинный повторяющийся код из классов выполнения команд бота (StageXpointY) */
+/**
+ * Выносим сюда рутинный повторяющийся код из классов выполнения команд бота (StageXpointY)
+ */
 public class AppServiceUtils {
 
     private final Logger logger = LoggerFactory.getLogger(AppServiceUtils.class);
@@ -19,26 +21,32 @@ public class AppServiceUtils {
     }
 
 
-    /** строка с сообщением для лога и исключения в случае, если в ShelterBook отсутствует 
+    /**
+     * строка с сообщением для лога и исключения в случае, если в ShelterBook отсутствует
      * сообщение пункта этапа бота
+     *
      * @param stage этап согласно ТЗ
-     * @param point пункт этапа*/
-    public static String messageMissing(int stage, int point){
+     * @param point пункт этапа
+     */
+    public static String messageMissing(int stage, int point) {
         return "Отсутствует сообщение Этап " + stage + " пункт " + point;
     }
 
-    /** Cтрока с сообщением для лога и исключения в случае, если в ShelterBook отсутствует
+    /**
+     * Cтрока с сообщением для лога и исключения в случае, если в ShelterBook отсутствует
      * сообщение пункта этапа бота
-     * @param stage этап согласно ТЗ
-     * @param point пункт этапа
-     * @param shelterId идентификатор приюта*/
-    public static String messageMissing(int stage, int point, long shelterId){
+     *
+     * @param stage     этап согласно ТЗ
+     * @param point     пункт этапа
+     * @param shelterId идентификатор приюта
+     */
+    public static String messageMissing(int stage, int point, long shelterId) {
         return "Отсутствует сообщение Этап " + stage + " пункт " + point + " идентификатор приюта " + shelterId;
     }
 
-    public ShelterMessage readMessageFromShelterBook(int stage, int point, long shelterId){
+    public ShelterMessage readMessageFromShelterBook(int stage, int point, long shelterId) {
         Optional<ShelterMessage> messageOptional = shelterBook.findByShelterIdAndStageAndPoint(shelterId, stage, point);
-        if(messageOptional.isEmpty()){
+        if (messageOptional.isEmpty()) {
             String string = messageMissing(stage, point, shelterId);
             logger.info(string);
             throw new RuntimeException(string);
