@@ -6,5 +6,4 @@ import pro.sky.botanimalshelter.model.Pet;
 
 @Repository
 public interface PetRepository extends JpaRepository<Pet, Long> {
-
 }
