@@ -1,0 +1,112 @@
+package pro.sky.botanimalshelter.model;
+
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Objects;
+
+@Entity
+@Table(name = "pet")
+public class Pet {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "color")
+    private String color;
+    @Column(name = "birth_date")
+    private Timestamp birthDate;
+
+    @ManyToOne
+    @JoinColumn(name = "shelter_id")
+    PetShelter shelter;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
+
+    public Pet() {
+    }
+
+    public Pet(String name, String color, Timestamp birthDate, PetShelter shelter, User user) {
+        this.name = name;
+        this.color = color;
+        this.birthDate = birthDate;
+        this.shelter = shelter;
+        this.user = user;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public Timestamp getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Timestamp birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public PetShelter getShelter() {
+        return shelter;
+    }
+
+    public void setShelter(PetShelter shelter) {
+        this.shelter = shelter;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return Objects.equals(id, pet.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", color='" + color + '\'' +
+                ", birthDate=" + birthDate +
+                ", shelter=" + shelter +
+                ", user=" + user +
+                '}';
+    }
+}
