@@ -5,6 +5,10 @@ import org.springframework.stereotype.Repository;
 import pro.sky.botanimalshelter.model.User;
 
 @Repository
-public interface BotAnimalShelterUserRepository extends JpaRepository<User, Long> {
+public interface UserRepository extends JpaRepository<User, Long> {
+
+    boolean existsByChatId(Long chatId);
+
+    User findByChatId(Long chatId);
 
 }
