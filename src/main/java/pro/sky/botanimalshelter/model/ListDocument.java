@@ -3,6 +3,13 @@ package pro.sky.botanimalshelter.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * <u>Model document list.</u>
+ * Of the field:
+ * <b>Long</b> id,
+ * <b>String</b> document
+ */
+
 @Entity
 @Table(name = "list_documents")
 public class ListDocument {

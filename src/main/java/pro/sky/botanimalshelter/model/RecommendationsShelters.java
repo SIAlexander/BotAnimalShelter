@@ -3,6 +3,20 @@ package pro.sky.botanimalshelter.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * <u>Model recommendations shelters.</u>
+ * Of the field:
+ * <b>Long</b> id,
+ * <b>String</b> name,
+ * <b>String</b> datingRules,
+ * <b>String</b> animalTransportation,
+ * <b>String</b> homeImprovement,
+ * <b>String</b> homeImprovementAdultAnimal,
+ * <b>String</b> homeImprovementAnimalWithDisabilities,
+ * <b>String</b> listReasonsRefuseAndNotUpAnimal,
+ * <b>String</b> recommendationsHandler.
+ */
+
 @Entity
 @Table(name = "recommendations_shelters")
 public class RecommendationsShelters {
