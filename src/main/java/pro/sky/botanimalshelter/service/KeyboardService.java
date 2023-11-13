@@ -9,9 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 @Service
-public class Keyboard {
+public class KeyboardService {
 
-    private final Logger logger = LoggerFactory.getLogger(Keyboard.class);
+    private final Logger logger = LoggerFactory.getLogger(KeyboardService.class);
     private final TelegramBot telegramBot;
 
     //константы для галвного меню
@@ -63,7 +63,7 @@ public class Keyboard {
             new InlineKeyboardButton("Список причин, почему могут отказать и не дать забрать");
 
 
-    public Keyboard(TelegramBot telegramBot) {
+    public KeyboardService(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
     }
 
@@ -72,7 +72,6 @@ public class Keyboard {
 
         DOG_SHELTER.callbackData("/dog");
         CAT_SHELTER.callbackData("/cat");
-
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
         inlineKeyboardMarkup.addRow(DOG_SHELTER, CAT_SHELTER);

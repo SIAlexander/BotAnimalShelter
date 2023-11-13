@@ -4,27 +4,25 @@ import javax.persistence.*;
 import java.util.Objects;
 
 @Entity
-@Table(name = "volunteers")
-public class Volunteer {
+@Table(name = "list_documents")
+public class ListDocument {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @Column(name = "name")
-    private String name;
-    @Column(name = "phone")
-    private String phone;
+
+    @Column(name = "document")
+    private String document;
 
     @ManyToOne
     @JoinColumn(name = "shelter_id")
     PetShelter shelter;
 
-    public Volunteer() {
+    public ListDocument() {
     }
 
-    public Volunteer(String name, String phone, PetShelter shelter) {
-        this.name = name;
-        this.phone = phone;
+    public ListDocument(String document, PetShelter shelter) {
+        this.document = document;
         this.shelter = shelter;
     }
 
@@ -36,20 +34,12 @@ public class Volunteer {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getDocument() {
+        return document;
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public void setDocument(String document) {
+        this.document = document;
     }
 
     public PetShelter getShelter() {
@@ -64,8 +54,8 @@ public class Volunteer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Volunteer volunteer = (Volunteer) o;
-        return Objects.equals(id, volunteer.id);
+        ListDocument document = (ListDocument) o;
+        return Objects.equals(id, document.id);
     }
 
     @Override
@@ -75,10 +65,9 @@ public class Volunteer {
 
     @Override
     public String toString() {
-        return "Volunteer{" +
+        return "ListDocument{" +
                 "id=" + id +
-                ", name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
+                ", document='" + document + '\'' +
                 ", shelter=" + shelter +
                 '}';
     }

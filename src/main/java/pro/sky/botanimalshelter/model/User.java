@@ -1,32 +1,19 @@
 package pro.sky.botanimalshelter.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
-
-/**
- * User class represents different roles of users: from guest to adopter.
- * Potentially, volunteer and employee role also could be supported by User class
- */
 @Entity
 @Table(name ="users")
-public class User implements UserInterface {
-    /*CREATE table users
-            (
-                    id             BIGSERIAL PRIMARY KEY,
-                    id_chat        BIGINT,
-                    name           TEXT,
-                    phone          TEXT,
-                    email          TEXT,
-                    location       TEXT,
-                    pet_relation   TEXT,
-                    loved_specimen TEXT
-            );*/
+public class User{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-//            @Column(name = "id")
-    private long id;
+    private Long id;
+
+    @Column(name = "id_chat")
+    private Long chatId;
 
     @Column(name = "name")
     private String name;
@@ -40,134 +27,105 @@ public class User implements UserInterface {
     @Column(name = "location")
     private String location;
 
-    @Column(name = "petRelation")
-    @Enumerated(EnumType.STRING)
-    private PetRelation petRelation;
-
-    @Column(name = "loved_specimen")
-    private Specimen lovedSpecimen;
-
-    @ManyToOne
-    @JoinColumn(name = "pet_shelter")
-    private PetShelter petShelter;
-
-    @Override
-    public PetShelter getPetShelter() {
-        return petShelter;
-    }
-
-    @Override
-    public void setPetShelter(PetShelter petShelter) {
-        this.petShelter = petShelter;
-    }
-
-    private long chatId;
-
-    public long getChatId() {
-        return chatId;
-    }
-
-    public void setChatId(long chatId) {
-        this.chatId = chatId;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", location='" + location + '\'' +
-                ", lovedSpecimen=" + lovedSpecimen +
-                '}';
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getPhone() {
-        return phone;
-    }
-
-    @Override
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    @Override
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String getLocation() {
-        return location;
-    }
-
-    @Override
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public User(String name, String phone, String email, String location, Specimen lovedSpecimen) {
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.location = location;
-        this.lovedSpecimen = lovedSpecimen;
-    }
+    @OneToMany(mappedBy = "user")
+    List<Pet> pets;
 
     public User() {
     }
 
-    @Override
-    public PetRelation getPetRelation() {
-        return petRelation;
+    public User(Long chatId, String name) {
+        this.chatId = chatId;
+        this.name = name;
     }
 
-    @Override
-    public void setPetRelation(PetRelation petRelation) {
-        this.petRelation = petRelation;
-
+    public User(Long chatId, String name, String phone, String email, String location, List<Pet> pets) {
+        this.chatId = chatId;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.location = location;
+        this.pets = pets;
     }
 
-
-    @Override
-    public Specimen getLovedSpecimen() {
-        return lovedSpecimen;
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public void setLovedSpecimen(Specimen specimen) {
-        lovedSpecimen = specimen;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return Objects.equals(getName(),
-                user.getName()) && Objects.equals(getPhone(),
-                user.getPhone()) && Objects.equals(getEmail(),
-                user.getEmail()) && Objects.equals(getLocation(),
-                user.getLocation()) && getLovedSpecimen() == user.getLovedSpecimen();
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getName(), getPhone(), getEmail(), getLocation(), getLovedSpecimen());
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", chatId=" + chatId +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", location='" + location + '\'' +
+                ", pets=" + pets +
+                '}';
     }
 }
