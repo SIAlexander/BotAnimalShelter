@@ -4,6 +4,17 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * <u>Model user.</u>
+ * Of the field:
+ * <b>Long</b> id,
+ * <b>Long</b> chatId,
+ * <b>String</b> name,
+ * <b>String</b> phone,
+ * <b>String</b> email,
+ * <b>String</b> location.
+ */
+
 @Entity
 @Table(name ="users")
 public class User{

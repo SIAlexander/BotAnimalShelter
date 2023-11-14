@@ -3,6 +3,14 @@ package pro.sky.botanimalshelter.model;
 import javax.persistence.*;
 import java.util.Objects;
 
+/**
+ * <u>The model of the dog handlers.</u>
+ * Of the field:
+ * <b>Long</b> id,
+ * <b>String</b> name,
+ * <b>String</b> phone
+ */
+
 @Entity
 @Table(name = "handlers")
 public class Handler {

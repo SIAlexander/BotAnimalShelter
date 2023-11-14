@@ -4,6 +4,19 @@ import javax.persistence.*;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * <u>Model pet shelter.</u>
+ * Of the field:
+ * <b>Long</b> id,
+ * <b>String</b> name,
+ * <b>String</b> location,
+ * <b>String</b> phone,
+ * <b>String</b> schemesPath,
+ * <b>String</b> contactsSecurity,
+ * <b>String</b> workSchedule,
+ * <b>String</b> storyTheShelter.
+ */
+
 @Entity
 @Table(name = "shelters")
 public class PetShelter {

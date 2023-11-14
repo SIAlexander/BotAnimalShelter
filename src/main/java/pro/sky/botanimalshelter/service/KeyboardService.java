@@ -8,31 +8,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
+/**
+ * Telegram bot keyboard service
+ */
 @Service
 public class KeyboardService {
 
     private final Logger logger = LoggerFactory.getLogger(KeyboardService.class);
     private final TelegramBot telegramBot;
-
-    //константы для галвного меню
     private static final InlineKeyboardButton DOG_SHELTER =
             new InlineKeyboardButton("Приют для собак");
     private static final InlineKeyboardButton CAT_SHELTER =
             new InlineKeyboardButton("Приют для кошек");
-
-    //константы для главного меню приюта
     private static final InlineKeyboardButton ABOUT_THE_SHELTER =
             new InlineKeyboardButton("Узнать информацию о приюте");
     private static final InlineKeyboardButton HOW_TO_TAKE_AN_ANIMAL =
             new InlineKeyboardButton("Как взять животное из приюта");
     private static final InlineKeyboardButton SEND_A_REPORT =
             new InlineKeyboardButton("Прислать отчет о питомце");
-
-    //общая константа для вызова волонтера
     private static final InlineKeyboardButton CALL_A_VOLUNTEER =
             new InlineKeyboardButton("Позвать волонтера");
-
-    //константы меню по приюту
     private static final InlineKeyboardButton ABOUT =
             new InlineKeyboardButton("Рассказать о приюте");
     private static final InlineKeyboardButton SCHEDULE_WORK_TRAVEL_CONTACTS =
@@ -41,8 +36,6 @@ public class KeyboardService {
             new InlineKeyboardButton("Контакты охраны для оформления пропуска");
     private static final InlineKeyboardButton ACCEPT_CONTACT_DETAILS =
             new InlineKeyboardButton("Принять контактные данные для связи");
-
-    //константы для меню "Как взять животное из приюта"
     private static final InlineKeyboardButton DATING_RULES =
             new InlineKeyboardButton("Правила знакомства с животным");
     private static final InlineKeyboardButton LIST_OF_DOCUMENTS =
@@ -67,7 +60,12 @@ public class KeyboardService {
         this.telegramBot = telegramBot;
     }
 
-    // главное меню бота
+    /**
+     * The main menu of the bot
+     *
+     * @param chatId
+     */
+
     public void keyboardSelectionShelter(Long chatId) {
 
         DOG_SHELTER.callbackData("/dog");
@@ -80,7 +78,13 @@ public class KeyboardService {
         telegramBot.execute(sendMessage);
     }
 
-    // главное меню приюта
+    /**
+     * The main menu of the shelter
+     *
+     * @param chatId
+     * @param shelter
+     */
+
     public void menuSelectionShelter(Long chatId, String shelter) {
 
         ABOUT_THE_SHELTER.callbackData("/about shelter");
@@ -96,7 +100,14 @@ public class KeyboardService {
         telegramBot.execute(sendMessage);
     }
 
-    // меню по приюту
+    /**
+     * Shelter menu
+     *
+     * @param chatId
+     * @param shelter
+     * @param userName
+     */
+
     public void menuSelectionInformationShelter(Long chatId, String shelter, String userName) {
 
         ABOUT.callbackData("/about");
@@ -113,7 +124,15 @@ public class KeyboardService {
         SendMessage sendMessage = new SendMessage(chatId, "Здравствуйте, " + userName).replyMarkup(inlineKeyboardMarkup);
         telegramBot.execute(sendMessage);
     }
-    //меню для кнопки "Как взять животное из приюта"
+
+    /**
+     * Menu for the button "How to take an animal from a shelter"
+     *
+     * @param chatId
+     * @param shelter
+     * @param userName
+     */
+
     public void menuSelectionShelterCatAndDog(Long chatId, String shelter, String userName) {
 
         DATING_RULES.callbackData("/dating rules");
@@ -149,7 +168,13 @@ public class KeyboardService {
         SendMessage sendMessage = new SendMessage(chatId, "Здравствуйте, " + userName).replyMarkup(inlineKeyboardMarkup);
         telegramBot.execute(sendMessage);
     }
-    // метод общих кнопок для приютов
+
+    /**
+     * The method of common buttons for shelters
+     *
+     * @return {@link InlineKeyboardButton}
+     */
+
     private InlineKeyboardButton[] menuSelectionShelterCommon() {
         return new InlineKeyboardButton[]{
                 DATING_RULES,

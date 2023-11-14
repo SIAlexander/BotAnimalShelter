@@ -16,6 +16,7 @@ import java.util.Optional;
 
 /**
  * Сервис кинолога -- Dog trainer service
+ * Service for working with the {@link Handler} entity
  */
 @Service
 public class HandlerService {
@@ -104,7 +105,11 @@ public class HandlerService {
     public List<Handler> findAllHandlers() {
         return repository.findAll();
     }
-
+    /**
+     * The method sends a list of handlers to the telegram bot chat
+     *
+     * @param chatId
+     */
     public void sendHandlers(Long chatId) {
         List<Handler> handlers = repository.findByShelterName("/dog");
         try {
@@ -112,12 +117,18 @@ public class HandlerService {
                 sendMessage(chatId, handler.getName());
                 sendMessage(chatId, handler.getPhone());
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             logger.info("information from DB is empty");
         }
 
     }
 
+    /**
+     * The method of sending a message to the telegram  bot chat
+     *
+     * @param chatId
+     * @param text
+     */
     private void sendMessage(Long chatId, String text) {
         SendMessage sendMessage = new SendMessage(chatId, text);
         telegramBot.execute(sendMessage);

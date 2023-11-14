@@ -4,6 +4,15 @@ import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Objects;
 
+/**
+ * <u>Model pet.</u>
+ * Of the field:
+ * <b>Long</b> id,
+ * <b>String</b> name,
+ * <b>String</b> color,
+ * <b>Timestamp birthDate</b>
+ */
+
 @Entity
 @Table(name = "pet")
 public class Pet {
