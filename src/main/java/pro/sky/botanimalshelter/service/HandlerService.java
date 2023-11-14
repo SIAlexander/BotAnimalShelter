@@ -112,6 +112,8 @@ public class HandlerService {
     public List<Handler> findAllHandlers() {
         return repository.findAll();
     }
+
+
     /**
      * The method sends a list of handlers to the telegram bot chat
      *
