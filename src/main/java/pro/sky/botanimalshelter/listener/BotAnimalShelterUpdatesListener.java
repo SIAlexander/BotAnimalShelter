@@ -9,12 +9,17 @@ import com.pengrad.telegrambot.request.SendMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.service.*;
 
 import javax.annotation.PostConstruct;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+/**
+ * Listener for bot class updates
+ */
 
 @Service
 public class BotAnimalShelterUpdatesListener implements UpdatesListener {
@@ -58,7 +63,11 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
         telegramBot.setUpdatesListener(this);
     }
 
-    //метод обработки команд
+    /**
+     * Command processing method
+     *
+     * @param updates
+     */
     @Override
     public int process(List<Update> updates) {
 
@@ -114,19 +123,26 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                     count = 0;
                 }
             }
+            try {
+                petShelterService.findShelter(selectShelter).getName();
+                botAnswerUtils(text, chatId, selectShelter, userName);
+            }catch (NullPointerException e){
+                logger.info("information from DB is empty");
+            }
 
-            botAnswerUtils(text, chatId, selectShelter, userName);
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
 
-    // метод для отправки сообщений в чат
-    private void sendMessage(Long chatId, String text) {
-        SendMessage sendMessage = new SendMessage(chatId, text);
-        telegramBot.execute(sendMessage);
-    }
+    /**
+     * Method for processing commands from the keyboard
+     *
+     * @param text
+     * @param chatId
+     * @param selectShelter
+     * @param userName
+     */
 
-    // метод для обработки команд от клавиатуры
     private void botAnswerUtils(String text, long chatId, String selectShelter, String userName) {
         switch (text) {
             case "/cat", "/dog" ->
@@ -146,7 +162,7 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                 map.put(chatId, true);
             }
             case "/send report" ->
-                    sendMessage(chatId, "Прислать отчет о питомце");//todo сделать метод
+                    sendMessage(chatId, "Прислать отчет о питомце");//заглушка
             case "/call volunteer" ->
                     volunteerService.sendVolunteer(chatId, selectShelter);
             case "/documents" ->
@@ -170,7 +186,25 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
         }
     }
 
-    //метод отчиски чата
+    /**
+     * The method of sending a message to the telegram  bot chat
+     *
+     * @param chatId
+     * @param text
+     */
+
+    private void sendMessage(Long chatId, String text) {
+        SendMessage sendMessage = new SendMessage(chatId, text);
+        telegramBot.execute(sendMessage);
+    }
+
+    /**
+     * Chat clearing method
+     *
+     * @param chatId
+     * @param messageId
+     */
+
     private void clearMessage(Long chatId, int messageId) {
         DeleteMessage deleteMessage = new DeleteMessage(chatId, messageId);
         telegramBot.execute(deleteMessage);

@@ -15,6 +15,9 @@ import java.util.List;
 import java.util.Optional;
 
 /**
+ * Service for working with the {@link Handler} entity
+ */
+/**
  * Сервис кинолога -- Dog trainer service
  */
 @Service
@@ -31,6 +34,11 @@ public class HandlerService {
         this.telegramBot = telegramBot;
     }
 
+    /**
+     * The method sends a list of handlers to the telegram bot chat
+     *
+     * @param chatId
+     */
     /**
      * Сохраняем сущность кинолога -- Save dog trainer instance
      *
@@ -112,12 +120,18 @@ public class HandlerService {
                 sendMessage(chatId, handler.getName());
                 sendMessage(chatId, handler.getPhone());
             }
-        }catch (NullPointerException e){
+        } catch (NullPointerException e) {
             logger.info("information from DB is empty");
         }
 
     }
 
+    /**
+     * The method of sending a message to the telegram  bot chat
+     *
+     * @param chatId
+     * @param text
+     */
     private void sendMessage(Long chatId, String text) {
         SendMessage sendMessage = new SendMessage(chatId, text);
         telegramBot.execute(sendMessage);
