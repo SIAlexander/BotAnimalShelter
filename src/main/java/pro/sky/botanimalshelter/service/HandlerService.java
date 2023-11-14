@@ -112,6 +112,11 @@ public class HandlerService {
     public List<Handler> findAllHandlers() {
         return repository.findAll();
     }
+    /**
+     * The method sends a list of handlers to the telegram bot chat
+     *
+     * @param chatId
+     */
 
     public void sendHandlers(Long chatId) {
         List<Handler> handlers = repository.findByShelterName("/dog");
