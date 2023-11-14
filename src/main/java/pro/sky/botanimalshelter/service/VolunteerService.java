@@ -5,14 +5,20 @@ import com.pengrad.telegrambot.request.SendMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.model.Volunteer;
 import pro.sky.botanimalshelter.repository.VolunteerRepository;
 
 import java.util.List;
 
+/**
+ * Service for working with the {@link Volunteer} entity
+ */
+
 @Service
 public class VolunteerService {
     private final Logger logger = LoggerFactory.getLogger(VolunteerService.class);
+
     private final VolunteerRepository repository;
     private final TelegramBot telegramBot;
 
@@ -20,6 +26,13 @@ public class VolunteerService {
         this.repository = repository;
         this.telegramBot = telegramBot;
     }
+
+    /**
+     * The method sends a list of volunteers to the telegram bot chat
+     *
+     * @param chatId
+     * @param text
+     */
 
     public void sendVolunteer(Long chatId, String text) {
         List<Volunteer> volunteers = repository.findByShelterName(text);
@@ -33,6 +46,13 @@ public class VolunteerService {
         }
 
     }
+
+    /**
+     * The method of sending a message to the telegram  bot chat
+     *
+     * @param chatId
+     * @param text
+     */
 
     private void sendMessage(Long chatId, String text) {
         SendMessage sendMessage = new SendMessage(chatId, text);
