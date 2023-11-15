@@ -10,6 +10,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,15 +33,20 @@ public class HandlerServiceTest {
 
     final private Logger logger = LoggerFactory.getLogger(HandlerServiceTest.class);
 
-    @Mock
+    @Spy
     private HandlerRepository handlerRepositoryMock;
 
     @InjectMocks
     private HandlerService handlerServiceMocked;
 
+    /*
+    * private final PetShelterRepository shelterRepository;
+    private final TelegramBot telegramBot;
+    * */
+
     @BeforeEach
     public void setup() {
-        openMocks(this);
+        MockitoAnnotations.openMocks(this);
     }
 
     private static PetShelter getRightPetShelter() {
