@@ -15,8 +15,10 @@ import java.util.List;
 import java.util.Optional;
 
 /**
- * Сервис кинолога -- Dog trainer service
  * Service for working with the {@link Handler} entity
+ */
+/**
+ * Сервис кинолога -- Dog trainer service
  */
 @Service
 public class HandlerService {
@@ -32,6 +34,11 @@ public class HandlerService {
         this.telegramBot = telegramBot;
     }
 
+    /**
+     * The method sends a list of handlers to the telegram bot chat
+     *
+     * @param chatId
+     */
     /**
      * Сохраняем сущность кинолога -- Save dog trainer instance
      *
@@ -105,11 +112,14 @@ public class HandlerService {
     public List<Handler> findAllHandlers() {
         return repository.findAll();
     }
+
+
     /**
      * The method sends a list of handlers to the telegram bot chat
      *
      * @param chatId
      */
+
     public void sendHandlers(Long chatId) {
         List<Handler> handlers = repository.findByShelterName("/dog");
         try {

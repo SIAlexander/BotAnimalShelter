@@ -36,7 +36,7 @@ public class HandlerController {
      */
     @Operation(summary = "Сохранение кинолога -- Saving dog trainer",
             description = "Сохраняет экземпляр класса handler c указанными именем и телефоном," +
-                    " и приютом в соответствии с указанным индентификатором приюта -- Saves handler issues with specified name and phone, and shelter accordingly to provided shelterId")
+                    " и приютом в соответствии с указанным индентификатором приюта -- Saves handler instance with specified name and phone, and shelter accordingly to provided shelterId")
     @GetMapping("/save/{name}/{phone}/{shelterId}")
     public Handler save(@Parameter(description = "Имя кинолога -- Dog trainer's name", example = "Петр") @PathVariable("name") String name,
                         @Parameter(description = "Телефон в строковом формате", example = "") @PathVariable("phone") String phone,
