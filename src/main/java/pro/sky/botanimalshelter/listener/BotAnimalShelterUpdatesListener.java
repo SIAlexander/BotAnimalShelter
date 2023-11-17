@@ -9,7 +9,6 @@ import com.pengrad.telegrambot.request.SendMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.service.*;
 
 import javax.annotation.PostConstruct;
@@ -33,11 +32,12 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
     private final RecommendationsSheltersService recommendationsSheltersService;
     private final ListDocumentService listDocumentService;
 
-
     private String selectShelter = null; //переменная для хранения выбранного приюта (кошачий/собачий)
     private String userName; //переменная для хранения имени пользователя
     private final Map<Long, Boolean> map = new HashMap<>(); //map для обработки входящих сообщений от пользователя(сохранение контактных данных
+    private final Map<Long, Boolean> mapReport = new HashMap<>();
     private int count = 0; //счетчик для обработки входящих сообщений от пользователя
+    private String urlPhoto;
 
     public BotAnimalShelterUpdatesListener(TelegramBot telegramBot,
                                            KeyboardService keyboardService,
@@ -95,15 +95,17 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
 
             // clearMessage(chatId, messageId); пока под вопросом нужен он или нет
 
-            if (text.equalsIgnoreCase("/start")) {
-                userService.saveUser(chatId, userName);
-                keyboardService.keyboardSelectionShelter(chatId);
-            }
-
-            if (text.equalsIgnoreCase("/dog")) {
-                selectShelter = "/dog"; //поле name в таблице shelter должно быть заполнено как - /dog
-            } else if (text.equalsIgnoreCase("/cat")) {
-                selectShelter = "/cat"; //поле name в таблице shelter должно быть заполнено как - /cat
+            try {
+                if (text.equalsIgnoreCase("/start")) {
+                    userService.saveUser(chatId, userName);
+                    keyboardService.keyboardSelectionShelter(chatId);
+                } else if (text.equalsIgnoreCase("/dog")) {
+                    selectShelter = "/dog"; //поле name в таблице shelter должно быть заполнено как - /dog
+                } else if (text.equalsIgnoreCase("/cat")) {
+                    selectShelter = "/cat"; //поле name в таблице shelter должно быть заполнено как - /cat
+                }
+            } catch (NullPointerException e) {
+                logger.info("null");
             }
 
 
@@ -124,7 +126,28 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                 }
             }
             try {
-                petShelterService.findShelter(selectShelter).getName();
+                if (Boolean.TRUE.equals(mapReport.get(chatId))) {
+                    count++;
+                    if (count == 1) {
+                        urlPhoto = update.message().photo()[0].fileId();
+                    }
+                    if (count == 2) {
+                        userService.sendReportFromUser(chatId, text, selectShelter, urlPhoto);
+                    }
+                    if (count == 3) {
+                        mapReport.remove(chatId);
+                        count = 0;
+                    }
+                }
+            }catch (NullPointerException e){
+                logger.info("null sendReport");
+                sendMessage(chatId, "Не правильный порядок отправки фото или текста, повторите отправку отчета");
+                count = 0;
+            }
+
+
+            try {
+                petShelterService.findShelter(selectShelter);
                 botAnswerUtils(text, chatId, selectShelter, userName);
             }catch (NullPointerException e){
                 logger.info("information from DB is empty");
@@ -161,8 +184,11 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                 sendMessage(chatId, "Введите сообщениями контактные данные:\n 1. телефон\n 2. почта\n 3. адрес");
                 map.put(chatId, true);
             }
-            case "/send report" ->
-                    sendMessage(chatId, "Прислать отчет о питомце");//заглушка
+            case "/send report" ->{
+                sendMessage(chatId, "Пришлите отчет: \n 1. Фото\n 2.Описание");
+                mapReport.put(chatId, true);
+            }
+
             case "/call volunteer" ->
                     volunteerService.sendVolunteer(chatId, selectShelter);
             case "/documents" ->

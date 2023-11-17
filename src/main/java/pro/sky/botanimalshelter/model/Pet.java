@@ -28,21 +28,16 @@ public class Pet {
     private Timestamp birthDate;
 
     @ManyToOne
-    @JoinColumn(name = "shelter_id")
-    PetShelter shelter;
-
-    @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
 
     public Pet() {
     }
 
-    public Pet(String name, String color, Timestamp birthDate, PetShelter shelter, User user) {
+    public Pet(String name, String color, Timestamp birthDate, User user) {
         this.name = name;
         this.color = color;
         this.birthDate = birthDate;
-        this.shelter = shelter;
         this.user = user;
     }
 
@@ -78,14 +73,6 @@ public class Pet {
         this.birthDate = birthDate;
     }
 
-    public PetShelter getShelter() {
-        return shelter;
-    }
-
-    public void setShelter(PetShelter shelter) {
-        this.shelter = shelter;
-    }
-
     public User getUser() {
         return user;
     }
@@ -114,7 +101,6 @@ public class Pet {
                 ", name='" + name + '\'' +
                 ", color='" + color + '\'' +
                 ", birthDate=" + birthDate +
-                ", shelter=" + shelter +
                 ", user=" + user +
                 '}';
     }
