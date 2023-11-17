@@ -16,8 +16,8 @@ import java.util.Objects;
  */
 
 @Entity
-@Table(name ="users")
-public class User{
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -41,6 +41,17 @@ public class User{
     @OneToMany(mappedBy = "user")
     List<Pet> pets;
 
+    @ManyToOne
+    @JoinColumn(name = "shelter_id")
+    PetShelter shelter;
+
+    @OneToMany(mappedBy = "user")
+    List<ReportUserCatShelter> reportUserCatShelters;
+
+    @OneToMany(mappedBy = "user")
+    List<ReportUserDogShelter> reportUserDogShelters;
+
+
     public User() {
     }
 
@@ -49,13 +60,24 @@ public class User{
         this.name = name;
     }
 
-    public User(Long chatId, String name, String phone, String email, String location, List<Pet> pets) {
+    public User(Long chatId,
+                String name,
+                String phone,
+                String email,
+                String location,
+                List<Pet> pets,
+                PetShelter shelter,
+                List<ReportUserCatShelter> reportUserCatShelters,
+                List<ReportUserDogShelter> reportUserDogShelters) {
         this.chatId = chatId;
         this.name = name;
         this.phone = phone;
         this.email = email;
         this.location = location;
         this.pets = pets;
+        this.shelter = shelter;
+        this.reportUserCatShelters = reportUserCatShelters;
+        this.reportUserDogShelters = reportUserDogShelters;
     }
 
     public Long getId() {
@@ -114,6 +136,30 @@ public class User{
         this.pets = pets;
     }
 
+    public PetShelter getShelter() {
+        return shelter;
+    }
+
+    public void setShelter(PetShelter shelter) {
+        this.shelter = shelter;
+    }
+
+    public List<ReportUserCatShelter> getReportUserCatShelters() {
+        return reportUserCatShelters;
+    }
+
+    public void setReportUserCatShelters(List<ReportUserCatShelter> reportUserCatShelters) {
+        this.reportUserCatShelters = reportUserCatShelters;
+    }
+
+    public List<ReportUserDogShelter> getReportUserDogShelters() {
+        return reportUserDogShelters;
+    }
+
+    public void setReportUserDogShelters(List<ReportUserDogShelter> reportUserDogShelters) {
+        this.reportUserDogShelters = reportUserDogShelters;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -137,6 +183,9 @@ public class User{
                 ", email='" + email + '\'' +
                 ", location='" + location + '\'' +
                 ", pets=" + pets +
+                ", shelter=" + shelter +
+                ", reportUserCatShelters=" + reportUserCatShelters +
+                ", reportUserDogShelters=" + reportUserDogShelters +
                 '}';
     }
 }

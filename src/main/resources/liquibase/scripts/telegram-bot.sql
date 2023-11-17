@@ -96,3 +96,29 @@ CREATE table list_documents
     document TEXT,
     shelter_id BIGINT REFERENCES shelters(id)
 );
+
+-- changeset asmokvin:36
+ALTER TABLE pet DROP shelter_id;
+ALTER TABLE users ADD COLUMN shelter_id BIGINT REFERENCES shelters (id);
+
+-- changeset asmokvin:37
+CREATE table report_user_cat_shelter
+(
+    id    BIGSERIAL PRIMARY KEY,
+    url_photo TEXT,
+    report  TEXT,
+    date_report TIMESTAMP
+);
+
+-- changeset asmokvin:38
+CREATE table report_user_dog_shelter
+(
+    id    BIGSERIAL PRIMARY KEY,
+    url_photo TEXT,
+    report  TEXT,
+    date_report TIMESTAMP
+);
+
+-- changeset asmokvin:39
+ALTER TABLE report_user_dog_shelter ADD COLUMN user_id BIGINT REFERENCES users (id);
+ALTER TABLE report_user_cat_shelter ADD COLUMN user_id BIGINT REFERENCES users (id);
