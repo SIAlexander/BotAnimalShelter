@@ -1,20 +1,107 @@
 package pro.sky.botanimalshelter.model;
 
-public interface Pet { // define only functions related to giving shelter and adoption of a pet
+import javax.persistence.*;
+import java.sql.Timestamp;
+import java.util.Objects;
 
+/**
+ * <u>Model pet.</u>
+ * Of the field:
+ * <b>Long</b> id,
+ * <b>String</b> name,
+ * <b>String</b> color,
+ * <b>Timestamp birthDate</b>
+ */
 
-    <T extends PetShelter> void giveShelter(T shelter);
+@Entity
+@Table(name = "pet")
+public class Pet {
 
-    <T extends PetShelter> T readShelter();
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+    @Column(name = "name")
+    private String name;
+    @Column(name = "color")
+    private String color;
+    @Column(name = "birth_date")
+    private Timestamp birthDate;
 
-    <R extends HumanGivingCareToPets> R readAdopter();
+    @ManyToOne
+    @JoinColumn(name = "user_id")
+    User user;
 
-    <T extends HumanGivingCareToPets> boolean giveAdopter(T adopter);
+    public Pet() {
+    }
 
-    AdoptionStatus readAdoptionStatus();
+    public Pet(String name, String color, Timestamp birthDate, User user) {
+        this.name = name;
+        this.color = color;
+        this.birthDate = birthDate;
+        this.user = user;
+    }
 
-    void changeAdoptionStatus(AdoptionStatus adoptionStatus);
+    public Long getId() {
+        return id;
+    }
 
-    Specimen readSpecimen();
+    public void setId(Long id) {
+        this.id = id;
+    }
 
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
+    }
+
+    public Timestamp getBirthDate() {
+        return birthDate;
+    }
+
+    public void setBirthDate(Timestamp birthDate) {
+        this.birthDate = birthDate;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Pet pet = (Pet) o;
+        return Objects.equals(id, pet.id);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "Pet{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", color='" + color + '\'' +
+                ", birthDate=" + birthDate +
+                ", user=" + user +
+                '}';
+    }
 }
