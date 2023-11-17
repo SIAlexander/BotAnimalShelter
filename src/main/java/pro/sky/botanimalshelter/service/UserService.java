@@ -22,7 +22,6 @@ import java.time.temporal.ChronoUnit;
 /**
  * Service for working with the {@link User} entity
  */
-
 @Service
 public class UserService {
     private Logger logger = LoggerFactory.getLogger(BotAnimalShelterUpdatesListener.class);
