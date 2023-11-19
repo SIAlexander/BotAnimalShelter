@@ -125,3 +125,6 @@ ALTER TABLE report_user_cat_shelter ADD COLUMN user_id BIGINT REFERENCES users (
 
 -- changeset asmokvin:40
 ALTER TABLE users DROP shelter_id;
+
+-- changeset asmokvin:41
+ALTER TABLE pet ADD COLUMN shelter_id BIGINT REFERENCES shelters (id);
