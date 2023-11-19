@@ -45,9 +45,6 @@ public class PetShelter {
     List<Volunteer> volunteers;
 
     @OneToMany(mappedBy = "shelter")
-    List<Pet> pets;
-
-    @OneToMany(mappedBy = "shelter")
     List<Handler> handlers;
 
     @OneToMany(mappedBy = "shelter")
@@ -55,6 +52,9 @@ public class PetShelter {
 
     @OneToMany(mappedBy = "shelter")
     List<ListDocument> listDocuments;
+
+    @OneToMany(mappedBy = "shelter")
+    List<Pet> petList;
 
     public PetShelter() {
     }
@@ -67,9 +67,10 @@ public class PetShelter {
                       String workSchedule,
                       String storyTheShelter,
                       List<Volunteer> volunteers,
-                      List<Pet> pets, List<Handler> handlers,
+                      List<Handler> handlers,
                       List<RecommendationsShelters> recommendationsShelters,
-                      List<ListDocument> listDocuments) {
+                      List<ListDocument> listDocuments,
+                      List<Pet> petList) {
         this.name = name;
         this.location = location;
         this.phone = phone;
@@ -78,10 +79,10 @@ public class PetShelter {
         this.workSchedule = workSchedule;
         this.storyTheShelter = storyTheShelter;
         this.volunteers = volunteers;
-        this.pets = pets;
         this.handlers = handlers;
         this.recommendationsShelters = recommendationsShelters;
         this.listDocuments = listDocuments;
+        this.petList = petList;
     }
 
     public Long getId() {
@@ -156,14 +157,6 @@ public class PetShelter {
         this.volunteers = volunteers;
     }
 
-    public List<Pet> getPets() {
-        return pets;
-    }
-
-    public void setPets(List<Pet> pets) {
-        this.pets = pets;
-    }
-
     public List<Handler> getHandlers() {
         return handlers;
     }
@@ -186,6 +179,14 @@ public class PetShelter {
 
     public void setListDocuments(List<ListDocument> listDocuments) {
         this.listDocuments = listDocuments;
+    }
+
+    public List<Pet> getPetList(){
+        return petList;
+    }
+
+    public void setPetList(List<Pet> petList){
+        this.petList = petList;
     }
 
     @Override
@@ -213,10 +214,10 @@ public class PetShelter {
                 ", workSchedule='" + workSchedule + '\'' +
                 ", storyTheShelter='" + storyTheShelter + '\'' +
                 ", volunteers=" + volunteers +
-                ", pets=" + pets +
                 ", handlers=" + handlers +
                 ", recommendationsShelters=" + recommendationsShelters +
                 ", listDocuments=" + listDocuments +
+                ", petList=" + petList +
                 '}';
     }
 }

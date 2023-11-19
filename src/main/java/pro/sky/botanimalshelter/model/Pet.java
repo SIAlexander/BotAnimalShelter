@@ -28,22 +28,22 @@ public class Pet {
     private Timestamp birthDate;
 
     @ManyToOne
-    @JoinColumn(name = "shelter_id")
-    PetShelter shelter;
-
-    @ManyToOne
     @JoinColumn(name = "user_id")
     User user;
+
+    @ManyToOne
+    @JoinColumn(name = "shelter_id")
+    PetShelter shelter;
 
     public Pet() {
     }
 
-    public Pet(String name, String color, Timestamp birthDate, PetShelter shelter, User user) {
+    public Pet(String name, String color, Timestamp birthDate, User user, PetShelter shelter) {
         this.name = name;
         this.color = color;
         this.birthDate = birthDate;
-        this.shelter = shelter;
         this.user = user;
+        this.shelter = shelter;
     }
 
     public Long getId() {
@@ -78,20 +78,20 @@ public class Pet {
         this.birthDate = birthDate;
     }
 
-    public PetShelter getShelter() {
-        return shelter;
-    }
-
-    public void setShelter(PetShelter shelter) {
-        this.shelter = shelter;
-    }
-
     public User getUser() {
         return user;
     }
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    public PetShelter getShelter() {
+        return shelter;
+    }
+
+    public void setShelter(PetShelter shelter) {
+        this.shelter = shelter;
     }
 
     @Override
@@ -114,8 +114,8 @@ public class Pet {
                 ", name='" + name + '\'' +
                 ", color='" + color + '\'' +
                 ", birthDate=" + birthDate +
-                ", shelter=" + shelter +
                 ", user=" + user +
+                ", shelter=" + shelter +
                 '}';
     }
 }

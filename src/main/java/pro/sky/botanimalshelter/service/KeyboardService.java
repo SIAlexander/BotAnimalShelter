@@ -54,7 +54,8 @@ public class KeyboardService {
             new InlineKeyboardButton("Рекомендации по проверенным кинологам для дальнейшего обращения к ним");
     private static final InlineKeyboardButton LIST_REASONS_THEY_REFUSE_NOT_YOU_UP =
             new InlineKeyboardButton("Список причин, почему могут отказать и не дать забрать");
-
+    private static final InlineKeyboardButton SHOW_A_LIST_OF_ANIMALS =
+            new InlineKeyboardButton("Список животных в приюте");
 
     public KeyboardService(TelegramBot telegramBot) {
         this.telegramBot = telegramBot;
@@ -146,6 +147,7 @@ public class KeyboardService {
         CALL_A_VOLUNTEER.callbackData("/call volunteer");
         DOG_HANDLER_PRIMARY_COMMUNICATION_WITH_DOG.callbackData("/communication dog");
         PROVEN_DOG_HANDLERS.callbackData("/proven dog");
+        SHOW_A_LIST_OF_ANIMALS.callbackData("/show a list of animals");
 
         InlineKeyboardMarkup inlineKeyboardMarkup = new InlineKeyboardMarkup();
 
@@ -184,6 +186,7 @@ public class KeyboardService {
                 LIST_OF_RECOMMENDATIONS_FOR_HOME_ADULT_ANIMAL,
                 LIST_OF_RECOMMENDATIONS_FOR_HOME_ANIMAL_WITH_DISABILITIES,
                 LIST_REASONS_THEY_REFUSE_NOT_YOU_UP,
-                ACCEPT_CONTACT_DETAILS};
+                ACCEPT_CONTACT_DETAILS,
+                SHOW_A_LIST_OF_ANIMALS};
     }
 }
