@@ -41,10 +41,6 @@ public class User {
     @OneToMany(mappedBy = "user")
     List<Pet> pets;
 
-    @ManyToOne
-    @JoinColumn(name = "shelter_id")
-    PetShelter shelter;
-
     @OneToMany(mappedBy = "user")
     List<ReportUserCatShelter> reportUserCatShelters;
 
@@ -66,7 +62,6 @@ public class User {
                 String email,
                 String location,
                 List<Pet> pets,
-                PetShelter shelter,
                 List<ReportUserCatShelter> reportUserCatShelters,
                 List<ReportUserDogShelter> reportUserDogShelters) {
         this.chatId = chatId;
@@ -75,7 +70,6 @@ public class User {
         this.email = email;
         this.location = location;
         this.pets = pets;
-        this.shelter = shelter;
         this.reportUserCatShelters = reportUserCatShelters;
         this.reportUserDogShelters = reportUserDogShelters;
     }
@@ -136,14 +130,6 @@ public class User {
         this.pets = pets;
     }
 
-    public PetShelter getShelter() {
-        return shelter;
-    }
-
-    public void setShelter(PetShelter shelter) {
-        this.shelter = shelter;
-    }
-
     public List<ReportUserCatShelter> getReportUserCatShelters() {
         return reportUserCatShelters;
     }
@@ -183,7 +169,6 @@ public class User {
                 ", email='" + email + '\'' +
                 ", location='" + location + '\'' +
                 ", pets=" + pets +
-                ", shelter=" + shelter +
                 ", reportUserCatShelters=" + reportUserCatShelters +
                 ", reportUserDogShelters=" + reportUserDogShelters +
                 '}';
