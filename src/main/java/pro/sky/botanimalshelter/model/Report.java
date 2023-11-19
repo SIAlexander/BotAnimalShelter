@@ -11,5 +11,5 @@ public interface Report {
 
     long getAuthorId();
 
-    Profession getAuthorProfession();
+   // Profession getAuthorProfession();
 }

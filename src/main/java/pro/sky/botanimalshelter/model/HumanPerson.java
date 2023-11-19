@@ -7,5 +7,5 @@ public interface HumanPerson {
 
     String getEmail();
 
-    Profession getProfession();
+    //Profession getProfession();
 }
