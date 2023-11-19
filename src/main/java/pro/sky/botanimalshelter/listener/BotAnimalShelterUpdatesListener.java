@@ -19,7 +19,6 @@ import java.util.Map;
 /**
  * Listener for bot class updates
  */
-
 @Service
 public class BotAnimalShelterUpdatesListener implements UpdatesListener {
     private final Logger logger = LoggerFactory.getLogger(BotAnimalShelterUpdatesListener.class);

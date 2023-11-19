@@ -18,7 +18,6 @@ import java.util.List;
 /**
  * Service for working with the {@link ReportUserCatShelter} and {@link ReportUserDogShelter} entity
  */
-
 @Service
 public class ReportService {
     private final ReportUserDogShelterRepository reportUserDogShelterRepository;
