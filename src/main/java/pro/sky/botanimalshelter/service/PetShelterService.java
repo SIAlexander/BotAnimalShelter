@@ -12,6 +12,8 @@ import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.repository.PetShelterRepository;
 
 import java.io.File;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for working with the {@link PetShelter} entity
@@ -94,4 +96,25 @@ public class PetShelterService {
         SendMessage sendMessage = new SendMessage(chatId, text);
         telegramBot.execute(sendMessage);
     }
+
+    /*Below are methods for managing pet shelters database */
+
+    /**
+     * Получаем список приютов домашних животных -- Get pet shelter list
+     */
+    public List<PetShelter> findAll() {
+        return shelterRepository.findAll();
+    }
+
+    /**
+     * Находим приют по идентификатору -- Find pet shelter by database identifier
+     *
+     * @param id идентификатор приюта в базе данных
+     * @return возвращает экземпляр PetShelter или null, если приют с указанным идентификатором не существует -- Shelter instance with specified identifier or null if does not exist
+     */
+    public PetShelter findShelterById(long id) {
+        Optional<PetShelter> petShelterOptional = shelterRepository.findById(id);
+        return petShelterOptional.orElse(null);
+    }
+
 }
