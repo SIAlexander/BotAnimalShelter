@@ -1,12 +1,13 @@
 package pro.sky.botanimalshelter.volunteercrud;
 
 import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.service.PetShelterService;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDTO;
 
 import java.util.List;
 
@@ -39,10 +40,47 @@ public class PetShelterController {
 
     @GetMapping("/manage/{id}")
     @Operation(summary = "Управление данными приюта для животных -- Manage pet shelter data",
-            description = "GET: view data of shelter with specified id")
+            description = "GET: просмотр данных приюта с указанным индентификтором -- view data of shelter with specified id")
+    public PetShelter viewPetShelterData(@Parameter(description = "Идентификатор приюта в базе данных", example = "1") long id) {
+        return petShelterService.findShelterById(id);
+    }
 
-    public String viewPetShelterData(long id) {
-        return petShelterService.findShelterById(id).toString();
+    @PostMapping("/manage")
+    @Operation(summary = "Создание новой сущности приюта для животных-- Creating a new PetShelter entity",
+            description = "POST: Создание новой сущности приюта для животных." +
+                    "В качестве аргумента передаем объект с параметрами нового приюта")
+    public ResponseEntity<PetShelter> establishPetShelter(
+            @Parameter(description = "Объект для передачи данных экземпляра PetShelter" +
+                    " - - PetShelter data transfer object") @RequestBody PetShelterDTO petShelterDTO) {
+
+        PetShelter petShelter = new PetShelter();
+
+        petShelter = petShelterService.save(petShelterDTO);
+
+        return ResponseEntity.ok(petShelter);
+    }
+
+    @PutMapping("/manage")
+    @Operation(summary = "Редактирование данных приюта для животных -- Editing PetShelter entity",
+            description = "PUT: Редактирование данных приюта для животных." +
+                    " В качестве аргумента передаем объект с новыми параметрами")
+    public ResponseEntity<PetShelter> editPetShelter(
+            @Parameter(description = "Объект для передачи данных экземпляра PetShelter" +
+                    " - - PetShelter data transfer object") @RequestBody PetShelterDTO petShelterDTO) {
+
+        PetShelter petShelter = null;
+
+        if (petShelterService.findShelterById(petShelterDTO.getPetShelterId()) != null) {
+
+            petShelter = petShelterService.save(petShelterDTO);
+        }
+
+        return ResponseEntity.ok(petShelter);
+    }
+
+    @DeleteMapping("/manage")
+    public ResponseEntity<PetShelter> deletePetShelter(@RequestBody Long id) {
+        return ResponseEntity.ok(petShelterService.deleteById(id));
     }
 
 
