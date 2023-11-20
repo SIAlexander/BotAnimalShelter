@@ -1,20 +1,30 @@
 package pro.sky.botanimalshelter.model;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Objects;
 
-
 /**
- * User class represents different roles of users: from guest to adopter.
- * Potentially, volunteer and employee role also could be supported by User class
+ * <u>Model user.</u>
+ * Of the field:
+ * <b>Long</b> id,
+ * <b>Long</b> chatId,
+ * <b>String</b> name,
+ * <b>String</b> phone,
+ * <b>String</b> email,
+ * <b>String</b> location.
  */
+
 @Entity
-@Table(name ="users")
-public class User implements UserInterface {
+@Table(name = "users")
+public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    private Long id;
+
+    @Column(name = "id_chat")
+    private Long chatId;
 
     @Column(name = "name")
     private String name;
@@ -28,143 +38,154 @@ public class User implements UserInterface {
     @Column(name = "location")
     private String location;
 
-
-    @Enumerated(EnumType.STRING)
-    @Column(name = "petRelation")
-    private PetRelation petRelation;
-
-    @Column(name = "loved_specimen")
-    @Enumerated(EnumType.STRING)
-    private Specimen lovedSpecimen;
+    @OneToMany(mappedBy = "user")
+    List<Pet> pets;
 
     @ManyToOne
-    @JoinColumn(name = "pet_shelter")
-    private PetShelter petShelter;
+    @JoinColumn(name = "shelter_id")
+    PetShelter shelter;
 
-    @Override
-    public PetShelter getPetShelter() {
-        return petShelter;
-    }
+    @OneToMany(mappedBy = "user")
+    List<ReportUserCatShelter> reportUserCatShelters;
 
-    @Override
-    public void setPetShelter(PetShelter petShelter) {
-        this.petShelter = petShelter;
-    }
+    @OneToMany(mappedBy = "user")
+    List<ReportUserDogShelter> reportUserDogShelters;
 
-    /**
-     * {@code chatId} user chat identifier
-     */
-    @Column(name = "id_chat")
-    private long chatId;
-
-    public long getChatId() {
-        return chatId;
-    }
-
-    public void setChatId(long chatId) {
-        this.chatId = chatId;
-    }
-
-    long getId(){ return id;}
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "name='" + name + '\'' +
-                ", phone='" + phone + '\'' +
-                ", email='" + email + '\'' +
-                ", location='" + location + '\'' +
-                ", lovedSpecimen=" + lovedSpecimen +
-                '}';
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    @Override
-    public String getPhone() {
-        return phone;
-    }
-
-    @Override
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    @Override
-    public String getEmail() {
-        return email;
-    }
-
-    @Override
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    @Override
-    public String getLocation() {
-        return location;
-    }
-
-    @Override
-    public void setLocation(String location) {
-        this.location = location;
-    }
-
-    public User(long id, String name, String phone, String email, String location,
-                PetRelation petRelation, Specimen lovedSpecimen, PetShelter petShelter, long chatId) {
-        this.id = id;
-        this.name = name;
-        this.phone = phone;
-        this.email = email;
-        this.location = location;
-        this.petRelation = petRelation;
-        this.lovedSpecimen = lovedSpecimen;
-        this.petShelter = petShelter;
-        this.chatId = chatId;
-    }
 
     public User() {
     }
 
-    @Override
-    public PetRelation getPetRelation() {
-        return petRelation;
+    public User(Long chatId, String name) {
+        this.chatId = chatId;
+        this.name = name;
     }
 
-    @Override
-    public void setPetRelation(PetRelation petRelation) {
-        this.petRelation = petRelation;
-
+    public User(Long chatId,
+                String name,
+                String phone,
+                String email,
+                String location,
+                List<Pet> pets,
+                PetShelter shelter,
+                List<ReportUserCatShelter> reportUserCatShelters,
+                List<ReportUserDogShelter> reportUserDogShelters) {
+        this.chatId = chatId;
+        this.name = name;
+        this.phone = phone;
+        this.email = email;
+        this.location = location;
+        this.pets = pets;
+        this.shelter = shelter;
+        this.reportUserCatShelters = reportUserCatShelters;
+        this.reportUserDogShelters = reportUserDogShelters;
     }
 
-
-    @Override
-    public Specimen getLovedSpecimen() {
-        return lovedSpecimen;
+    public Long getId() {
+        return id;
     }
 
-    @Override
-    public void setLovedSpecimen(Specimen specimen) {
-        lovedSpecimen = specimen;
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Long getChatId() {
+        return chatId;
+    }
+
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public void setLocation(String location) {
+        this.location = location;
+    }
+
+    public List<Pet> getPets() {
+        return pets;
+    }
+
+    public void setPets(List<Pet> pets) {
+        this.pets = pets;
+    }
+
+    public PetShelter getShelter() {
+        return shelter;
+    }
+
+    public void setShelter(PetShelter shelter) {
+        this.shelter = shelter;
+    }
+
+    public List<ReportUserCatShelter> getReportUserCatShelters() {
+        return reportUserCatShelters;
+    }
+
+    public void setReportUserCatShelters(List<ReportUserCatShelter> reportUserCatShelters) {
+        this.reportUserCatShelters = reportUserCatShelters;
+    }
+
+    public List<ReportUserDogShelter> getReportUserDogShelters() {
+        return reportUserDogShelters;
+    }
+
+    public void setReportUserDogShelters(List<ReportUserDogShelter> reportUserDogShelters) {
+        this.reportUserDogShelters = reportUserDogShelters;
     }
 
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
-        if (!(o instanceof User user)) return false;
-        return getId() == user.getId();
+        if (o == null || getClass() != o.getClass()) return false;
+        User user = (User) o;
+        return Objects.equals(id, user.id);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(getId());
+        return Objects.hash(id);
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", chatId=" + chatId +
+                ", name='" + name + '\'' +
+                ", phone='" + phone + '\'' +
+                ", email='" + email + '\'' +
+                ", location='" + location + '\'' +
+                ", pets=" + pets +
+                ", shelter=" + shelter +
+                ", reportUserCatShelters=" + reportUserCatShelters +
+                ", reportUserDogShelters=" + reportUserDogShelters +
+                '}';
     }
 }

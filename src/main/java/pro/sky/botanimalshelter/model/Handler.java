@@ -4,22 +4,23 @@ import javax.persistence.*;
 import java.util.Objects;
 
 /**
- * <u>Model volunteer.</u>
+ * <u>The model of the dog handlers.</u>
  * Of the field:
  * <b>Long</b> id,
  * <b>String</b> name,
- * <b>String</b> phone,
+ * <b>String</b> phone
  */
 
 @Entity
-@Table(name = "volunteers")
-public class Volunteer {
-
+@Table(name = "handlers")
+public class Handler {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     @Column(name = "name")
     private String name;
+
     @Column(name = "phone")
     private String phone;
 
@@ -27,10 +28,10 @@ public class Volunteer {
     @JoinColumn(name = "shelter_id")
     PetShelter shelter;
 
-    public Volunteer() {
+    public Handler() {
     }
 
-    public Volunteer(String name, String phone, PetShelter shelter) {
+    public Handler(String name, String phone, PetShelter shelter) {
         this.name = name;
         this.phone = phone;
         this.shelter = shelter;
@@ -72,8 +73,8 @@ public class Volunteer {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Volunteer volunteer = (Volunteer) o;
-        return Objects.equals(id, volunteer.id);
+        Handler handler = (Handler) o;
+        return Objects.equals(id, handler.id);
     }
 
     @Override
@@ -83,7 +84,7 @@ public class Volunteer {
 
     @Override
     public String toString() {
-        return "Volunteer{" +
+        return "Handler{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", phone='" + phone + '\'' +
