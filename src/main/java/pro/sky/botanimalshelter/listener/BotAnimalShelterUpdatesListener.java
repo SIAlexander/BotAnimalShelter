@@ -19,7 +19,6 @@ import java.util.Map;
 /**
  * Listener for bot class updates
  */
-
 @Service
 public class BotAnimalShelterUpdatesListener implements UpdatesListener {
     private final Logger logger = LoggerFactory.getLogger(BotAnimalShelterUpdatesListener.class);
@@ -31,13 +30,14 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
     private final HandlerService handlerService;
     private final RecommendationsSheltersService recommendationsSheltersService;
     private final ListDocumentService listDocumentService;
+    private final PetService petService;
 
     private String selectShelter = null; //переменная для хранения выбранного приюта (кошачий/собачий)
     private String userName; //переменная для хранения имени пользователя
-    private final Map<Long, Boolean> map = new HashMap<>(); //map для обработки входящих сообщений от пользователя(сохранение контактных данных
-    private final Map<Long, Boolean> mapReport = new HashMap<>();
+    private final Map<Long, Boolean> map = new HashMap<>(); //map для обработки входящих сообщений от пользователя(сохранение контактных данных)
+    private final Map<Long, Boolean> mapReport = new HashMap<>(); //map для обработки входящих сообщений от пользователя(отправка отчета)
     private int count = 0; //счетчик для обработки входящих сообщений от пользователя
-    private String urlPhoto;
+    private String urlPhoto; //переменная для хранения url фото(отправка отчета)
 
     public BotAnimalShelterUpdatesListener(TelegramBot telegramBot,
                                            KeyboardService keyboardService,
@@ -46,7 +46,7 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                                            VolunteerService volunteerService,
                                            HandlerService handlerService,
                                            RecommendationsSheltersService recommendationsSheltersService,
-                                           ListDocumentService listDocumentService) {
+                                           ListDocumentService listDocumentService, PetService petService) {
         this.telegramBot = telegramBot;
         this.keyboardService = keyboardService;
         this.userService = userService;
@@ -55,8 +55,8 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
         this.handlerService = handlerService;
         this.recommendationsSheltersService = recommendationsSheltersService;
         this.listDocumentService = listDocumentService;
+        this.petService = petService;
     }
-
 
     @PostConstruct
     public void init() {
@@ -108,7 +108,6 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                 logger.info("null");
             }
 
-
             if (Boolean.TRUE.equals(map.get(chatId))) {
                 count++;
                 if (count == 1) {
@@ -125,6 +124,7 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                     count = 0;
                 }
             }
+
             try {
                 if (Boolean.TRUE.equals(mapReport.get(chatId))) {
                     count++;
@@ -145,14 +145,12 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                 count = 0;
             }
 
-
             try {
                 petShelterService.findShelter(selectShelter);
                 botAnswerUtils(text, chatId, selectShelter, userName);
             }catch (NullPointerException e){
                 logger.info("information from DB is empty");
             }
-
         });
         return UpdatesListener.CONFIRMED_UPDATES_ALL;
     }
@@ -209,6 +207,7 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                     recommendationsSheltersService.sendRefuseNotYouUp(chatId, selectShelter);
             case "/proven dog" ->
                     handlerService.sendHandlers(chatId);
+            case "/show a list of animals" -> petService.sendAllPet(chatId, selectShelter);
         }
     }
 
