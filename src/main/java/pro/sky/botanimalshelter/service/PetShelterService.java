@@ -6,12 +6,10 @@ import com.pengrad.telegrambot.request.SendPhoto;
 import com.pengrad.telegrambot.response.SendResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import pro.sky.botanimalshelter.model.Handler;
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.repository.PetShelterRepository;
-import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDTO;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDto;
 
 import java.io.File;
 import java.util.List;
@@ -138,7 +136,7 @@ public class PetShelterService {
      * @param petShelterDTO объект для передачи параметров сущности PetShelter
      * @return сущность PetShelter
      */
-    public PetShelter save(PetShelterDTO petShelterDTO) {
+    public PetShelter save(PetShelterDto petShelterDTO) {
 
         if (petShelterDTO == null) {
             String errorMessage = "Пустой DTO -- Empty DTO";
@@ -146,7 +144,7 @@ public class PetShelterService {
             throw new RuntimeException(errorMessage);
         }
 
-        PetShelter petShelter = PetShelterDTO.MakePetShelterFromDto(petShelterDTO);
+        PetShelter petShelter = PetShelterDto.MakePetShelterFromDto(petShelterDTO);
 
         petShelter = save(petShelter);
 
@@ -160,6 +158,15 @@ public class PetShelterService {
         }
         shelterRepository.deleteById(id);
         return petShelter;
+    }
+
+    public String viewPetShelterSecurityContacts(Long id) {
+        PetShelter petShelter = findShelterById(id);
+        String string = PetShelterDto.toString(PetShelterDto.makeDtoFromPetShelter(petShelter));
+        if (petShelter != null) {
+            string = string + "<br> Security Contacts: " + petShelter.getContactsSecurity();
+        }
+        return string;
     }
 
 }

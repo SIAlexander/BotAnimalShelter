@@ -7,7 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.service.PetShelterService;
-import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDTO;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDto;
 
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class PetShelterController {
                     "В качестве аргумента передаем объект с параметрами нового приюта")
     public ResponseEntity<PetShelter> establishPetShelter(
             @Parameter(description = "Объект для передачи данных экземпляра PetShelter" +
-                    " - - PetShelter data transfer object") @RequestBody PetShelterDTO petShelterDTO) {
+                    " - - PetShelter data transfer object") @RequestBody PetShelterDto petShelterDTO) {
 
         PetShelter petShelter = new PetShelter();
 
@@ -66,7 +66,7 @@ public class PetShelterController {
                     " В качестве аргумента передаем объект с новыми параметрами")
     public ResponseEntity<PetShelter> editPetShelter(
             @Parameter(description = "Объект для передачи данных экземпляра PetShelter" +
-                    " - - PetShelter data transfer object") @RequestBody PetShelterDTO petShelterDTO) {
+                    " - - PetShelter data transfer object") @RequestBody PetShelterDto petShelterDTO) {
 
         PetShelter petShelter = null;
 
@@ -81,6 +81,15 @@ public class PetShelterController {
     @DeleteMapping("/manage")
     public ResponseEntity<PetShelter> deletePetShelter(@RequestBody Long id) {
         return ResponseEntity.ok(petShelterService.deleteById(id));
+    }
+
+    /**
+     * @param petShelterId Pet Shelter identifier
+     * @return String with Security Contacts of Pet Shelter with specified identifier or message that no data available
+     */
+    @GetMapping("/manage/{id}/security-contacts")
+    public String viewContacts(@PathVariable(name = "id") Long petShelterId) {
+        return petShelterService.viewPetShelterSecurityContacts(petShelterId);
     }
 
 
