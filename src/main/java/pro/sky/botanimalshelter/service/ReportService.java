@@ -74,4 +74,8 @@ public class ReportService {
         SendMessage sendMessage = new SendMessage(chatId, text);
         telegramBot.execute(sendMessage);
     }
+
+    public UserRepository getUserRepository() {
+        return userRepository;
+    }
 }
