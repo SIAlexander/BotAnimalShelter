@@ -7,11 +7,13 @@ import com.pengrad.telegrambot.response.SendResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pro.sky.botanimalshelter.model.Handler;
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.repository.PetShelterRepository;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDto;
 
 import java.io.File;
+import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for working with the {@link PetShelter} entity
@@ -94,4 +96,87 @@ public class PetShelterService {
         SendMessage sendMessage = new SendMessage(chatId, text);
         telegramBot.execute(sendMessage);
     }
+
+    /*Below are methods for managing pet shelters database */
+
+    /**
+     * Получаем список приютов домашних животных -- Get pet shelter list
+     */
+    public List<PetShelter> findAll() {
+        return shelterRepository.findAll();
+    }
+
+    /**
+     * Находим приют по идентификатору -- Find pet shelter by database identifier
+     *
+     * @param id идентификатор приюта в базе данных
+     * @return возвращает экземпляр PetShelter или null, если приют с указанным идентификатором не существует -- Shelter instance with specified identifier or null if does not exist
+     */
+    public PetShelter findShelterById(long id) {
+        Optional<PetShelter> petShelterOptional = shelterRepository.findById(id);
+        return petShelterOptional.orElse(null);
+    }
+
+    /**
+     * Сохраняем сущность приюта
+     *
+     * @param petShelter сохраняемая сущность, проверяется на null -- entity to be saved, nullable
+     */
+    public PetShelter save(PetShelter petShelter) {
+        if (petShelter == null) {
+            logger.info("Задана пустая сущность приюта для животных -- Empty PetShelter entity specified");
+            return null;
+        }
+        return shelterRepository.save(petShelter);
+    }
+
+    /**
+     * Сохраняем сущность PetShelter -- Save PetShelter entity
+     *
+     * @param petShelterDTO объект для передачи параметров сущности PetShelter
+     * @return сущность PetShelter
+     */
+    public PetShelter save(PetShelterDto petShelterDTO) {
+
+        if (petShelterDTO == null) {
+            String errorMessage = "Пустой DTO -- Empty DTO";
+            logger.info(errorMessage);
+            throw new RuntimeException(errorMessage);
+        }
+
+        PetShelter petShelter = PetShelterDto.MakePetShelterFromDto(petShelterDTO);
+
+        petShelter = save(petShelter);
+
+        return petShelter;
+    }
+
+    public PetShelter deleteById(Long id) {
+        PetShelter petShelter = findShelterById(id);
+        if (petShelter == null) {
+            return null;
+        }
+        shelterRepository.deleteById(id);
+        return petShelter;
+    }
+
+    public String viewPetShelterSecurityContacts(Long id) {
+        PetShelter petShelter = findShelterById(id);
+        String string = PetShelterDto.toString(PetShelterDto.makeDtoFromPetShelter(petShelter));
+        if (petShelter != null) {
+            string = string + "<br> Security Contacts: " + petShelter.getContactsSecurity();
+        }
+        return string;
+    }
+
+    public String putPetShelterSecurityContacts(Long id, String newSecurityContacts) {
+        PetShelter petShelter = findShelterById(id);
+        if (petShelter == null) {
+            return null;
+        }
+        petShelter.setContactsSecurity(newSecurityContacts);
+        shelterRepository.save(petShelter);
+        return petShelter.toString();
+    }
+
 }
