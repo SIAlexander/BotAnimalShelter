@@ -16,4 +16,5 @@ public interface ListDocumentRepository extends JpaRepository<ListDocument, Long
      * @return {@link List}
      */
     List<ListDocument> findByShelterName(String name);
+
 }

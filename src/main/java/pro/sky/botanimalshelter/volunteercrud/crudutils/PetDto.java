@@ -4,6 +4,9 @@ import pro.sky.botanimalshelter.model.Pet;
 
 import java.sql.Timestamp;
 
+/**
+ * Объект передачи данных питомца
+ */
 public class PetDto {
 
     private Long petId;

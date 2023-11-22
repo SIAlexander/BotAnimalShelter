@@ -5,11 +5,13 @@ import com.pengrad.telegrambot.request.SendMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pro.sky.botanimalshelter.model.Handler;
 import pro.sky.botanimalshelter.model.ListDocument;
+import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.repository.ListDocumentRepository;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.ListDocumentDto;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Service for working with the {@link ListDocument} entity
@@ -19,10 +21,13 @@ import java.util.List;
 public class ListDocumentService {
     private final Logger logger = LoggerFactory.getLogger(ListDocumentService.class);
     private final ListDocumentRepository repository;
+
+    private final PetShelterService petShelterService;
     private final TelegramBot telegramBot;
 
-    public ListDocumentService(ListDocumentRepository repository, TelegramBot telegramBot) {
+    public ListDocumentService(ListDocumentRepository repository, PetShelterService petShelterService, TelegramBot telegramBot) {
         this.repository = repository;
+        this.petShelterService = petShelterService;
         this.telegramBot = telegramBot;
     }
 
@@ -54,4 +59,48 @@ public class ListDocumentService {
         SendMessage sendMessage = new SendMessage(chatId, text);
         telegramBot.execute(sendMessage);
     }
+
+    /**
+     * Получаем список всех ListDocument из базы данных -- Get all ListDocument entities from database
+     *
+     * @return список сущностей ListDocument
+     */
+    public List<ListDocument> findAllListDocuments() {
+        return repository.findAll();
+    }
+
+    /**
+     * Получаем сущность ListDocument по идентификатору базы данных -- find ListDocument by database identifier
+     *
+     * @param id ListDocument -- ListDocument entity database identifier
+     * @return сущность ListDocument или null, если сущность с указанным идентификатором не существует -- ListDocument entity or null if entity does not exist
+     */
+    public ListDocument findById(Long id) {
+        Optional<ListDocument> listDocumentOptional = repository.findById(id);
+        return listDocumentOptional.orElse(null);
+    }
+
+    /**
+     * Создаем документ ListDocument и сохраняем в базе данных -- Create ListDocument entity and save with database
+     *
+     * @param listDocumentDto
+     * @return
+     */
+    public ListDocument createListDocument(ListDocumentDto listDocumentDto) {
+        if (listDocumentDto == null) {
+            return null;
+        }
+        Long id = listDocumentDto.getId();
+        String document = listDocumentDto.getDocument();
+        Long shelterId = listDocumentDto.getShelterId();
+        PetShelter petShelter = petShelterService.findShelterById(shelterId);
+        if (petShelter == null) {
+            return null;
+        }
+
+        ListDocument listDocument = new ListDocument(document, petShelter);
+        listDocument = repository.save(listDocument);
+        return listDocument;
+    }
+
 }
