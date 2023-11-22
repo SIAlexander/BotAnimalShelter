@@ -14,6 +14,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "handlers")
 public class Handler {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

@@ -1,4 +1,5 @@
 package pro.sky.botanimalshelter.model;
+
 import javax.persistence.*;
 import java.util.Objects;
 

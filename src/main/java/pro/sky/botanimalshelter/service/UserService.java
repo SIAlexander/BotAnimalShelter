@@ -25,7 +25,7 @@ import java.time.temporal.ChronoUnit;
 
 @Service
 public class UserService {
-    private final Logger logger = LoggerFactory.getLogger(BotAnimalShelterUpdatesListener.class);
+    private Logger logger = LoggerFactory.getLogger(BotAnimalShelterUpdatesListener.class);
     private final UserRepository repository;
     private final TelegramBot telegramBot;
     private final ReportUserCatShelterRepository reportCatRepository;

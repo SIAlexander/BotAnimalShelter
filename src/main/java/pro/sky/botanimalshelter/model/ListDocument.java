@@ -1,4 +1,5 @@
 package pro.sky.botanimalshelter.model;
+
 import javax.persistence.*;
 import java.util.Objects;
 
@@ -11,8 +12,8 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "list_documents")
-
 public class ListDocument {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;

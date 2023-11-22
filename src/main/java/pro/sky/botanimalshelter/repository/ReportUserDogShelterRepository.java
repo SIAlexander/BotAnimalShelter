@@ -6,7 +6,7 @@ import pro.sky.botanimalshelter.model.ReportUserCatShelter;
 import pro.sky.botanimalshelter.model.ReportUserDogShelter;
 
 /**
- * Repository for working with the {@link ReportUserDogShelter} entity in the database
+ * Repository for working with the {@link ReportUserCatShelter} entity in the database
  */
 
 @Repository
