@@ -8,7 +8,6 @@ import pro.sky.botanimalshelter.model.ReportUserDogShelter;
 /**
  * Repository for working with the {@link ReportUserCatShelter} entity in the database
  */
-
 @Repository
 public interface ReportUserDogShelterRepository extends JpaRepository<ReportUserDogShelter, Long> {
 }

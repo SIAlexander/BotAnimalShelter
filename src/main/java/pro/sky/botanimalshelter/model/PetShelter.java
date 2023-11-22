@@ -54,8 +54,7 @@ public class PetShelter {
     List<ListDocument> listDocuments;
 
     @OneToMany(mappedBy = "shelter")
-    List<User> user;
-
+    List<Pet> petList;
 
     public PetShelter() {
     }
@@ -71,7 +70,7 @@ public class PetShelter {
                       List<Handler> handlers,
                       List<RecommendationsShelters> recommendationsShelters,
                       List<ListDocument> listDocuments,
-                      List<User> user) {
+                      List<Pet> petList) {
         this.name = name;
         this.location = location;
         this.phone = phone;
@@ -83,7 +82,7 @@ public class PetShelter {
         this.handlers = handlers;
         this.recommendationsShelters = recommendationsShelters;
         this.listDocuments = listDocuments;
-        this.user = user;
+        this.petList = petList;
     }
 
     public Long getId() {
@@ -182,12 +181,12 @@ public class PetShelter {
         this.listDocuments = listDocuments;
     }
 
-    public List<User> getUser() {
-        return user;
+    public List<Pet> getPetList(){
+        return petList;
     }
 
-    public void setUser(List<User> user) {
-        this.user = user;
+    public void setPetList(List<Pet> petList){
+        this.petList = petList;
     }
 
     @Override
@@ -218,7 +217,7 @@ public class PetShelter {
                 ", handlers=" + handlers +
                 ", recommendationsShelters=" + recommendationsShelters +
                 ", listDocuments=" + listDocuments +
-                ", user=" + user +
+                ", petList=" + petList +
                 '}';
     }
 }

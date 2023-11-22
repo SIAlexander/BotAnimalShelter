@@ -12,6 +12,7 @@ import java.util.Objects;
  * <b>String</b> report,
  * <b>Timestamp</b> dateReport,
  *
+ *
  */
 
 @Entity

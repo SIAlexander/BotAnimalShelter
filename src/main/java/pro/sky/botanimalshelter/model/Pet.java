@@ -31,14 +31,19 @@ public class Pet {
     @JoinColumn(name = "user_id")
     User user;
 
+    @ManyToOne
+    @JoinColumn(name = "shelter_id")
+    PetShelter shelter;
+
     public Pet() {
     }
 
-    public Pet(String name, String color, Timestamp birthDate, User user) {
+    public Pet(String name, String color, Timestamp birthDate, User user, PetShelter shelter) {
         this.name = name;
         this.color = color;
         this.birthDate = birthDate;
         this.user = user;
+        this.shelter = shelter;
     }
 
     public Long getId() {
@@ -81,6 +86,14 @@ public class Pet {
         this.user = user;
     }
 
+    public PetShelter getShelter() {
+        return shelter;
+    }
+
+    public void setShelter(PetShelter shelter) {
+        this.shelter = shelter;
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -102,6 +115,7 @@ public class Pet {
                 ", color='" + color + '\'' +
                 ", birthDate=" + birthDate +
                 ", user=" + user +
+                ", shelter=" + shelter +
                 '}';
     }
 }

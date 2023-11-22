@@ -51,11 +51,11 @@ public class PetShelterService {
      * The method sends the security contacts to the telegram bot chat
      *
      * @param chatId
-     * @param shelter
+     * @param selectShelter
      */
 
-    public void sendSecurityContact(Long chatId, String shelter) {
-        PetShelter petShelter = shelterRepository.findByName(shelter);
+    public void sendSecurityContact(Long chatId, String selectShelter) {
+        PetShelter petShelter = shelterRepository.findByName(selectShelter);
         try {
             sendMessage(chatId, petShelter.getContactsSecurity());
         } catch (NullPointerException e) {
@@ -67,11 +67,11 @@ public class PetShelterService {
      * The method sends a story the shelter to the telegram bot chat
      *
      * @param chatId
-     * @param shelter
+     * @param selectShelter
      */
 
-    public void sendStoryShelter(Long chatId, String shelter) {
-        PetShelter petShelter = shelterRepository.findByName(shelter);
+    public void sendStoryShelter(Long chatId, String selectShelter) {
+        PetShelter petShelter = shelterRepository.findByName(selectShelter);
         try {
             sendMessage(chatId, petShelter.getStoryTheShelter());
         } catch (NullPointerException e) {
