@@ -9,7 +9,7 @@ import org.springframework.boot.web.server.LocalServerPort;
 import pro.sky.botanimalshelter.service.KeyboardService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class KeyboardTests {
+public class KeyboardServiceTest {
     @LocalServerPort
     private int port;
 
