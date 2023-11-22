@@ -83,10 +83,12 @@ public class ListDocumentService {
     /**
      * Создаем документ ListDocument и сохраняем в базе данных -- Create ListDocument entity and save with database
      *
-     * @param listDocumentDto
-     * @return
+     * @param listDocumentDto nullable
+     * @return Сущность ListDocument в случае успешного сохранения или null,
+     * если получен пустой аргумент, или содержащий неправильный идентификатор приюта
+     * <br>ListDocument entity if saved succefully. Null if listDocumentDto argument is null or contains wrong shelter identifier
      */
-    public ListDocument createListDocument(ListDocumentDto listDocumentDto) {
+    public ListDocumentDto createListDocument(ListDocumentDto listDocumentDto) {
         if (listDocumentDto == null) {
             return null;
         }
@@ -100,7 +102,39 @@ public class ListDocumentService {
 
         ListDocument listDocument = new ListDocument(document, petShelter);
         listDocument = repository.save(listDocument);
-        return listDocument;
+        return ListDocumentDto.dto(listDocument);
     }
 
+    public ListDocumentDto updateListDocument(Long id, ListDocumentDto listDocumentDto) {
+        if (listDocumentDto == null) {
+            return null;
+        }
+
+        ListDocument listDocument = repository.findById(id).orElse(null);
+        if (listDocument == null) {
+            return null;
+        }
+
+        String document = listDocumentDto.getDocument();
+        Long shelterId = listDocumentDto.getShelterId();
+        PetShelter petShelter = petShelterService.findShelterById(shelterId);
+        if (petShelter == null) {
+            return null;
+        }
+
+        listDocument.setDocument(document);
+        listDocument.setShelter(petShelter);
+        listDocument = repository.save(listDocument);
+        return ListDocumentDto.dto(listDocument);
+    }
+
+    public ListDocumentDto deleteListDocument(Long id) {
+        ListDocument listDocument = findById(id);
+        if (listDocument == null) {
+            return null;
+        }
+        ListDocumentDto listDocumentDto = ListDocumentDto.dto(listDocument);
+        repository.delete(listDocument);
+        return listDocumentDto;
+    }
 }

@@ -34,8 +34,9 @@ public class PetShelterController {
     @GetMapping("/view")
     @Operation(summary = "Просмотр списка приютов для животных -- View pet shelter list",
             description = "")
-    public List<PetShelter> viewPetShetlters() {
-        return petShelterService.findAll();
+    public List<PetShelterDto> viewPetShetlters() {
+        return petShelterService.findAll().stream().
+                map(PetShelterDto::makeDtoFromPetShelter).toList();
     }
 
     @GetMapping("/manage/{id}")
@@ -79,7 +80,7 @@ public class PetShelterController {
     }
 
     @DeleteMapping("/manage")
-    public ResponseEntity<PetShelter> deletePetShelter(@RequestBody Long id) {
+    public ResponseEntity<PetShelter> deletePetShelter(@Parameter(name = "id", example = "2", description = "индентификатор приюта") @RequestBody Long id) {
         return ResponseEntity.ok(petShelterService.deleteById(id));
     }
 
@@ -92,5 +93,10 @@ public class PetShelterController {
         return petShelterService.viewPetShelterSecurityContacts(petShelterId);
     }
 
+    @PutMapping("/manage/{id}/security-contacts")
+    public String putShelterSecurityContacts(@PathVariable(name = "id") Long petShelterId,
+                                             @RequestBody String newSecurityContacts) {
+        return petShelterService.putPetShelterSecurityContacts(petShelterId, newSecurityContacts);
+    }
 
 }

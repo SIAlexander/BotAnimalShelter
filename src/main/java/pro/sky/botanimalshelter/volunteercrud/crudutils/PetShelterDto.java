@@ -17,12 +17,40 @@ public class PetShelterDto {
      */
     private long petShelterId;
 
+    /**
+     * Адрес приюта для животных
+     */
+    private String petShelterLocation;
+
+    public String getPetShelterLocation() {
+        return petShelterLocation;
+    }
+
+    public void setPetShelterLocation(String petShelterLocation) {
+        this.petShelterLocation = petShelterLocation;
+    }
+
+    public String getSecurityContacts() {
+        return securityContacts;
+    }
+
+    public void setSecurityContacts(String securityContacts) {
+        this.securityContacts = securityContacts;
+    }
+
+    /**
+     * Контактные данные охраны
+     */
+    private String securityContacts;
+
     public PetShelterDto() {
     }
 
-    public PetShelterDto(String petShelterName, long petShelterId) {
+    public PetShelterDto(String petShelterName, long petShelterId, String petShelterLocation, String securityContacts) {
         this.petShelterName = petShelterName;
         this.petShelterId = petShelterId;
+        this.securityContacts = securityContacts;
+        this.petShelterLocation = petShelterLocation;
     }
 
     public String getPetShelterName() {
@@ -52,12 +80,14 @@ public class PetShelterDto {
         PetShelter petShelter = new PetShelter();
         petShelter.setName(dto.getPetShelterName());
         petShelter.setId(dto.getPetShelterId());
+        petShelter.setContactsSecurity(dto.securityContacts);
         return petShelter;
     }
 
     public static PetShelterDto makeDtoFromPetShelter(PetShelter petShelter) {
         if (petShelter == null) return null;
-        return new PetShelterDto(petShelter.getName(), petShelter.getId());
+        return new PetShelterDto(petShelter.getName(), petShelter.getId(),
+                petShelter.getLocation(), petShelter.getContactsSecurity());
     }
 
     /**
@@ -67,10 +97,13 @@ public class PetShelterDto {
      */
     public static String toString(PetShelterDto petShelterDto) {
         if (petShelterDto == null) {
-            return "Пустой объект petShelterDto";
+            return "Получен пустой объект petShelterDto";
         }
         return "Приют животных<br>" +
                 "ID: " + petShelterDto.petShelterId + "<br>" +
-                "Name: " + petShelterDto.petShelterName;
+                "Name: " + petShelterDto.petShelterName
+                + "<br>Location: " + petShelterDto.petShelterLocation
+                + "<br>Security Contacts: " + petShelterDto.securityContacts
+                ;
     }
 }

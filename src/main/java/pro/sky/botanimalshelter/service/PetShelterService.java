@@ -169,4 +169,14 @@ public class PetShelterService {
         return string;
     }
 
+    public String putPetShelterSecurityContacts(Long id, String newSecurityContacts) {
+        PetShelter petShelter = findShelterById(id);
+        if (petShelter == null) {
+            return null;
+        }
+        petShelter.setContactsSecurity(newSecurityContacts);
+        shelterRepository.save(petShelter);
+        return petShelter.toString();
+    }
+
 }
