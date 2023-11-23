@@ -2,9 +2,6 @@ package pro.sky.botanimalshelter.volunteercrud.crudutils;
 
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.model.Volunteer;
-import pro.sky.botanimalshelter.repository.PetShelterRepository;
-import pro.sky.botanimalshelter.repository.VolunteerRepository;
-import pro.sky.botanimalshelter.service.PetShelterService;
 
 /**
  * Объект для передачи данных сущности Volunteer <br> Volunteer entityDTO

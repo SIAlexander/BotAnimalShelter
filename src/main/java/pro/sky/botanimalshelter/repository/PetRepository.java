@@ -2,9 +2,7 @@ package pro.sky.botanimalshelter.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pro.sky.botanimalshelter.model.ListDocument;
 import pro.sky.botanimalshelter.model.Pet;
-import pro.sky.botanimalshelter.model.Volunteer;
 
 import java.util.List;
 
@@ -17,6 +15,7 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     /**
      * The method of finding a shelter in the database
+     *
      * @param name
      * @return {@link List}
      */

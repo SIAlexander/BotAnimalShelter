@@ -13,6 +13,7 @@ import java.util.List;
 public interface HandlerRepository extends JpaRepository<Handler, Long> {
     /**
      * The method of finding a shelter in the database
+     *
      * @param name
      * @return {@link List}
      */

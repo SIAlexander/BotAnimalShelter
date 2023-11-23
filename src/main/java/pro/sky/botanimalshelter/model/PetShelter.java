@@ -181,11 +181,11 @@ public class PetShelter {
         this.listDocuments = listDocuments;
     }
 
-    public List<Pet> getPetList(){
+    public List<Pet> getPetList() {
         return petList;
     }
 
-    public void setPetList(List<Pet> petList){
+    public void setPetList(List<Pet> petList) {
         this.petList = petList;
     }
 

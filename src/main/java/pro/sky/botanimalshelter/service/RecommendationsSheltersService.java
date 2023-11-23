@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pro.sky.botanimalshelter.model.RecommendationsShelters;
-import pro.sky.botanimalshelter.model.Volunteer;
 import pro.sky.botanimalshelter.repository.RecommendationsSheltersRepository;
 
 /**

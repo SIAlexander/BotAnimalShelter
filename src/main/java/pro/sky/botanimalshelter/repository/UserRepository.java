@@ -2,8 +2,6 @@ package pro.sky.botanimalshelter.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pro.sky.botanimalshelter.model.PetShelter;
-import pro.sky.botanimalshelter.model.RecommendationsShelters;
 import pro.sky.botanimalshelter.model.User;
 
 /**
@@ -14,6 +12,7 @@ import pro.sky.botanimalshelter.model.User;
 public interface UserRepository extends JpaRepository<User, Long> {
     /**
      * Checks if there is a user in the database
+     *
      * @param chatId
      * @return {@link Boolean}
      */
@@ -21,6 +20,7 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     /**
      * The method of finding a user in the database
+     *
      * @param chatId
      * @return {@link User}
      */

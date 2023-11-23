@@ -17,6 +17,7 @@ import java.util.Optional;
 /**
  * Service for working with the {@link Handler} entity
  */
+
 /**
  * Сервис кинолога -- Dog trainer service
  */
