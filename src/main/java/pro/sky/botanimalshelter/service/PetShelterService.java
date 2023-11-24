@@ -7,7 +7,6 @@ import com.pengrad.telegrambot.response.SendResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
-import pro.sky.botanimalshelter.model.Handler;
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.model.Volunteer;
 import pro.sky.botanimalshelter.repository.HandlerRepository;
@@ -156,7 +155,7 @@ public class PetShelterService {
             throw new RuntimeException(errorMessage);
         }
 
-        PetShelter petShelter = PetShelterDto.MakePetShelterFromDto(petShelterDTO);
+        PetShelter petShelter = PetShelterDto.toPetShelter(petShelterDTO);
 
         petShelter = save(petShelter);
 
@@ -172,24 +171,6 @@ public class PetShelterService {
         return petShelter;
     }
 
-    public String viewPetShelterSecurityContacts(Long id) {
-        PetShelter petShelter = findShelterById(id);
-        String string = PetShelterDto.toString(PetShelterDto.makeDtoFromPetShelter(petShelter));
-        if (petShelter != null) {
-            string = string + "<br> Security Contacts: " + petShelter.getContactsSecurity();
-        }
-        return string;
-    }
-
-    public String putPetShelterSecurityContacts(Long id, String newSecurityContacts) {
-        PetShelter petShelter = findShelterById(id);
-        if (petShelter == null) {
-            return null;
-        }
-        petShelter.setContactsSecurity(newSecurityContacts);
-        shelterRepository.save(petShelter);
-        return petShelter.toString();
-    }
 
     public List<Volunteer> getVolunteers(PetShelter shelter) {
         if (shelter == null) {
@@ -198,13 +179,14 @@ public class PetShelterService {
         return volunteerRepository.findByShelterName(shelter.getName());
     }
 
-    public List<Volunteer> getVolunteers(Long shelterId) {
+    public List<VolunteerDto> getVolunteers(Long shelterId) {
         PetShelter shelter = findShelterById(shelterId);
         if (shelter == null) {
             return null;
         }
 
-        return getVolunteers(shelter);
+        return getVolunteers(shelter).stream()
+                .map(VolunteerDto::dto).toList();
     }
 
     /**
@@ -228,7 +210,7 @@ public class PetShelterService {
 //                shelter.getVolunteers().add(volunteer);*/
             volunteer.setShelter(shelter);
             volunteerRepository.save(volunteer);
-            resultMessage = "Приют " + PetShelterDto.makeDtoFromPetShelter(shelter) +
+            resultMessage = "Приют " + PetShelterDto.toDto(shelter) +
                     " принял волонтера " + VolunteerDto.dto(volunteer);
 
             return resultMessage;
@@ -236,7 +218,7 @@ public class PetShelterService {
         return resultMessage;
     }
 
-    public List<Handler> getHandlers(Long petShelterId) {
+    public List<HandlerDto> getHandlers(Long petShelterId) {
         PetShelter shelter = findShelterById(petShelterId);
         if (shelter == null) {
             return null;
@@ -244,6 +226,7 @@ public class PetShelterService {
         if (shelter.getName().isEmpty()) {
             return null;
         }
-        return handlerRepository.findByShelterName(shelter.getName());
+        return handlerRepository.findByShelterName(shelter.getName())
+                .stream().map(HandlerService::dto).toList();
     }
 }

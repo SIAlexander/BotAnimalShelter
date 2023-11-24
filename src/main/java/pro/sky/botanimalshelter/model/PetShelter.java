@@ -17,6 +17,9 @@ import java.util.Objects;
  * <b>String</b> storyTheShelter.
  */
 
+/**
+ * Сущность приюта домашних животных
+ */
 @Entity
 @Table(name = "shelters")
 public class PetShelter {
@@ -60,18 +63,20 @@ public class PetShelter {
     }
 
     public PetShelter(String name,
+                      Long id,
                       String location,
                       String phone,
                       String schemesPath,
                       String contactsSecurity,
                       String workSchedule,
-                      String storyTheShelter /*,
-                      *List<Volunteer> volunteers,
+                      String storyTheShelter
+            /*        List<Volunteer> volunteers,
                       List<Handler> handlers,
                       List<RecommendationsShelters> recommendationsShelters,
                       List<ListDocument> listDocuments,
                       List<Pet> petList*/) {
         this.name = name;
+        this.setId(id);
         this.location = location;
         this.phone = phone;
         this.schemesPath = schemesPath;
