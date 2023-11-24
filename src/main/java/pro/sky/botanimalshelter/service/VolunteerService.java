@@ -73,7 +73,11 @@ public class VolunteerService {
         if (volunteerDto == null) {
             return null;
         }
-        return VolunteerDto.dto(repository.save(VolunteerDto.volunteer(volunteerDto)));
+
+        Volunteer volunteer = VolunteerDto.volunteer(volunteerDto);
+        volunteer.setShelter(petShelterService.findShelterById(volunteerDto.getShelterId()));
+        volunteer = repository.save(volunteer);
+        return VolunteerDto.dto(volunteer);
     }
 
     public VolunteerDto update(VolunteerDto volunteerDto) {

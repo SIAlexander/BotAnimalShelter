@@ -5,9 +5,13 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pro.sky.botanimalshelter.model.Handler;
 import pro.sky.botanimalshelter.model.PetShelter;
+import pro.sky.botanimalshelter.service.HandlerService;
 import pro.sky.botanimalshelter.service.PetShelterService;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.HandlerDto;
 import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDto;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.VolunteerDto;
 
 import java.util.List;
 
@@ -97,6 +101,18 @@ public class PetShelterController {
     public String putShelterSecurityContacts(@PathVariable(name = "id") Long petShelterId,
                                              @RequestBody String newSecurityContacts) {
         return petShelterService.putPetShelterSecurityContacts(petShelterId, newSecurityContacts);
+    }
+
+    @GetMapping("manage/{id}/view-volunteer-list")
+    public List<VolunteerDto> viewVolunteers(@PathVariable(name = "id") Long petShelterId) {
+        return petShelterService.getVolunteers(petShelterId).stream()
+                .map(VolunteerDto::dto).toList();
+    }
+
+    @GetMapping("manage/{id}/view-handler-list")
+    public List<HandlerDto> viewHandlers(@PathVariable(name = "id") Long petShelterId) {
+        return petShelterService.getHandlers(petShelterId)
+                .stream().map(HandlerService::dto).toList();
     }
 
 }

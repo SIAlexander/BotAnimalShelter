@@ -7,15 +7,17 @@ import com.pengrad.telegrambot.response.SendResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import pro.sky.botanimalshelter.model.Handler;
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.model.Volunteer;
+import pro.sky.botanimalshelter.repository.HandlerRepository;
 import pro.sky.botanimalshelter.repository.PetShelterRepository;
 import pro.sky.botanimalshelter.repository.VolunteerRepository;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.HandlerDto;
 import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDto;
 import pro.sky.botanimalshelter.volunteercrud.crudutils.VolunteerDto;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,10 +33,13 @@ public class PetShelterService {
 
     private final VolunteerRepository volunteerRepository;
 
-    public PetShelterService(TelegramBot telegramBot, PetShelterRepository shelterRepository, VolunteerRepository volunteerRepository) {
+    private final HandlerRepository handlerRepository;
+
+    public PetShelterService(TelegramBot telegramBot, PetShelterRepository shelterRepository, VolunteerRepository volunteerRepository, HandlerRepository handlerRepository) {
         this.telegramBot = telegramBot;
         this.shelterRepository = shelterRepository;
         this.volunteerRepository = volunteerRepository;
+        this.handlerRepository = handlerRepository;
     }
 
     /**
@@ -186,6 +191,27 @@ public class PetShelterService {
         return petShelter.toString();
     }
 
+    public List<Volunteer> getVolunteers(PetShelter shelter) {
+        if (shelter == null) {
+            return null;
+        }
+        return volunteerRepository.findByShelterName(shelter.getName());
+    }
+
+    public List<Volunteer> getVolunteers(Long shelterId) {
+        PetShelter shelter = findShelterById(shelterId);
+        if (shelter == null) {
+            return null;
+        }
+
+        return getVolunteers(shelter);
+    }
+
+    /**
+     * @param shelterId   проверяется, имеется ли такой приют животных
+     * @param volunteerId проверяется, имеется ли волонтер с указанным id
+     * @return
+     */
     public String enrollVolunteer(Long shelterId, Long volunteerId) {
 
         PetShelter shelter = findShelterById(shelterId);
@@ -196,16 +222,28 @@ public class PetShelterService {
         if (shelter == null || volunteer == null) {
             resultMessage = "Задан пустой приют и/или волонтер";
         } else {
-            if (shelter.getVolunteers() == null) {
-                shelter.setVolunteers(new ArrayList<>());
-            }
-            shelter.getVolunteers().add(volunteer);
+//                if (getVolunteers(shelter) == null) {
+//                    shelter.setVolunteers(new ArrayList<>());
+//                }
+//                shelter.getVolunteers().add(volunteer);*/
             volunteer.setShelter(shelter);
             volunteerRepository.save(volunteer);
             resultMessage = "Приют " + PetShelterDto.makeDtoFromPetShelter(shelter) +
                     " принял волонтера " + VolunteerDto.dto(volunteer);
+
+            return resultMessage;
         }
         return resultMessage;
     }
 
+    public List<Handler> getHandlers(Long petShelterId) {
+        PetShelter shelter = findShelterById(petShelterId);
+        if (shelter == null) {
+            return null;
+        }
+        if (shelter.getName().isEmpty()) {
+            return null;
+        }
+        return handlerRepository.findByShelterName(shelter.getName());
+    }
 }
