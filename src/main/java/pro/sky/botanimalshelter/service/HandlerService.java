@@ -10,6 +10,7 @@ import pro.sky.botanimalshelter.model.Handler;
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.repository.HandlerRepository;
 import pro.sky.botanimalshelter.repository.PetShelterRepository;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.HandlerDto;
 
 import java.util.List;
 import java.util.Optional;
@@ -68,15 +69,15 @@ public class HandlerService {
             throw new RuntimeException(errorMessage);
         }
 
-        Optional<PetShelter> shelterOptional = shelterRepository.findById(shelterId);
+        PetShelter shelter = shelterRepository.findById(shelterId).orElse(null);
 
-        if (shelterOptional.isEmpty()) {
+        if (shelter == null) {
             String errorMessage = "Приют с указанным id отсутствует -- Pet Shelter missing. Id: " + shelterId;
             logger.info(errorMessage);
             throw new RuntimeException(errorMessage);
         }
 
-        return saveHandler(new Handler(name, phone, new PetShelter()));
+        return saveHandler(new Handler(name, phone, null));
     }
 
     /**
@@ -110,10 +111,37 @@ public class HandlerService {
      * Просмотр списка кинологов -- View dog trainer list
      */
 
-    public List<Handler> findAllHandlers() {
-        return repository.findAll();
+    public List<HandlerDto> findAllHandlers() {
+        return repository.findAll()
+                .stream().map(HandlerService::dto).toList();
     }
 
+    public static HandlerDto dto(Handler handler) {
+        if (handler == null) return null;
+        return new HandlerDto(
+                handler.getId(),
+                handler.getName(),
+                handler.getPhone(),
+                checkShelterAndGetId(handler),
+                checkShelterAndGetName(handler)
+        );
+    }
+
+    private static Long checkShelterAndGetId(Handler handler) {
+        PetShelter petShelter = handler.getShelter();
+        if (petShelter == null) {
+            return -1L;
+        }
+        return petShelter.getId();
+    }
+
+    private static String checkShelterAndGetName(Handler handler) {
+        PetShelter petShelter = handler.getShelter();
+        if (petShelter == null) {
+            return "null shelter provided";
+        }
+        return petShelter.getName();
+    }
 
     /**
      * The method sends a list of handlers to the telegram bot chat

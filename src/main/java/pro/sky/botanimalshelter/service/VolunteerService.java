@@ -105,4 +105,12 @@ public class VolunteerService {
         return VolunteerDto.dto(volunteer);
 
     }
+
+    public Volunteer findVolunteerById(Long volunteerId) {
+        return repository.findById(volunteerId).orElse(null);
+    }
+
+    public Volunteer saveVolunteerEntity(Volunteer volunteer) {
+        return repository.save(volunteer);
+    }
 }

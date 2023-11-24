@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.botanimalshelter.model.Handler;
 import pro.sky.botanimalshelter.service.HandlerService;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.HandlerDto;
 
 import java.util.List;
 
@@ -64,7 +65,7 @@ public class HandlerController {
     @Operation(summary = "Просмотр списка кинологов -- View dog trainer list",
             description = "Выводит список кинологов" +
                     " -- Displays dog trainer list")
-    public List<Handler> viewHandlers() {
+    public List<HandlerDto> viewHandlers() {
         return handlerService.findAllHandlers();
     }
 }

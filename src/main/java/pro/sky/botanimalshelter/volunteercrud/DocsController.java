@@ -29,8 +29,8 @@ public class DocsController {
     }
 
     @GetMapping("/{id}")
-    public ListDocument viewListDocument(@PathVariable Long id) {
-        return listDocumentService.findById(id);
+    public ListDocumentDto viewListDocument(@PathVariable Long id) {
+        return ListDocumentDto.dto(listDocumentService.findById(id));
     }
 
     @PostMapping("/new")

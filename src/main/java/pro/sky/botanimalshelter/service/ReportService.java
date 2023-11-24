@@ -2,8 +2,6 @@ package pro.sky.botanimalshelter.service;
 
 import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendMessage;
-import org.springframework.data.domain.Example;
-import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import pro.sky.botanimalshelter.model.ReportUserCatShelter;
