@@ -77,7 +77,7 @@ public class HandlerService {
             throw new RuntimeException(errorMessage);
         }
 
-        return saveHandler(new Handler(name, phone, null));
+        return saveHandler(new Handler(name, phone, shelter));
     }
 
     /**
