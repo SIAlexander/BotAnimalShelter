@@ -8,8 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pro.sky.botanimalshelter.model.PetShelter;
-import pro.sky.botanimalshelter.repository.PetShelterRepository;
-import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDto;
+import pro.sky.botanimalshelter.model.Volunteer;
+import pro.sky.botanimalshelter.repository.*;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.*;
 
 import java.io.File;
 import java.util.List;
@@ -25,9 +26,21 @@ public class PetShelterService {
     private final TelegramBot telegramBot;
     private final PetShelterRepository shelterRepository;
 
-    public PetShelterService(TelegramBot telegramBot, PetShelterRepository shelterRepository) {
+    private final VolunteerRepository volunteerRepository;
+
+    private final HandlerRepository handlerRepository;
+
+    private final ListDocumentRepository listDocumentRepository;
+
+    private final PetRepository petRepository;
+
+    public PetShelterService(TelegramBot telegramBot, PetShelterRepository shelterRepository, VolunteerRepository volunteerRepository, HandlerRepository handlerRepository, ListDocumentRepository listDocumentRepository, PetRepository petRepository) {
         this.telegramBot = telegramBot;
         this.shelterRepository = shelterRepository;
+        this.volunteerRepository = volunteerRepository;
+        this.handlerRepository = handlerRepository;
+        this.listDocumentRepository = listDocumentRepository;
+        this.petRepository = petRepository;
     }
 
     /**
@@ -144,7 +157,7 @@ public class PetShelterService {
             throw new RuntimeException(errorMessage);
         }
 
-        PetShelter petShelter = PetShelterDto.MakePetShelterFromDto(petShelterDTO);
+        PetShelter petShelter = PetShelterDto.toPetShelter(petShelterDTO);
 
         petShelter = save(petShelter);
 
@@ -160,23 +173,79 @@ public class PetShelterService {
         return petShelter;
     }
 
-    public String viewPetShelterSecurityContacts(Long id) {
-        PetShelter petShelter = findShelterById(id);
-        String string = PetShelterDto.toString(PetShelterDto.makeDtoFromPetShelter(petShelter));
-        if (petShelter != null) {
-            string = string + "<br> Security Contacts: " + petShelter.getContactsSecurity();
-        }
-        return string;
-    }
 
-    public String putPetShelterSecurityContacts(Long id, String newSecurityContacts) {
-        PetShelter petShelter = findShelterById(id);
-        if (petShelter == null) {
+    public List<Volunteer> getVolunteers(PetShelter shelter) {
+        if (shelter == null) {
             return null;
         }
-        petShelter.setContactsSecurity(newSecurityContacts);
-        shelterRepository.save(petShelter);
-        return petShelter.toString();
+        return volunteerRepository.findByShelterName(shelter.getName());
+    }
+
+    public List<VolunteerDto> getVolunteers(Long shelterId) {
+        PetShelter shelter = findShelterById(shelterId);
+        if (shelter == null) {
+            return null;
+        }
+
+        return getVolunteers(shelter).stream()
+                .map(VolunteerDto::dto).toList();
+    }
+
+    /**
+     * @param shelterId   проверяется, имеется ли такой приют животных
+     * @param volunteerId проверяется, имеется ли волонтер с указанным id
+     * @return
+     */
+    public String enrollVolunteer(Long shelterId, Long volunteerId) {
+
+        PetShelter shelter = findShelterById(shelterId);
+        Volunteer volunteer = volunteerRepository.findById(volunteerId).orElse(null);
+
+        String resultMessage = "";
+
+        if (shelter == null || volunteer == null) {
+            resultMessage = "Задан пустой приют и/или волонтер";
+        } else {
+//                if (getVolunteers(shelter) == null) {
+//                    shelter.setVolunteers(new ArrayList<>());
+//                }
+//                shelter.getVolunteers().add(volunteer);*/
+            volunteer.setShelter(shelter);
+            volunteerRepository.save(volunteer);
+            resultMessage = "Приют " + PetShelterDto.toDto(shelter) +
+                    " принял волонтера " + VolunteerDto.dto(volunteer);
+
+            return resultMessage;
+        }
+        return resultMessage;
+    }
+
+    public List<HandlerDto> getHandlers(Long petShelterId) {
+        PetShelter shelter = findShelterById(petShelterId);
+        if (shelter == null) {
+            return null;
+        }
+        if (shelter.getName().isEmpty()) {
+            return null;
+        }
+        return handlerRepository.findByShelterName(shelter.getName())
+                .stream().map(HandlerService::dto).toList();
+    }
+
+    /**
+     * Получаем документы ListDocuments, относящиеся к приюту для животных с идентификатором petShelterId
+     *
+     * @param petShelterId идентификатор приюта для животных
+     * @return список найденных документов
+     */
+    public List<ListDocumentDto> getListDocuments(Long petShelterId) {
+        return listDocumentRepository.findAllByShelterId(petShelterId)
+                .stream().map(ListDocumentDto::dto).toList();
+    }
+
+    public List<PetDto> getPetList(Long petShelterId) {
+        return petRepository.findAllByShelterId(petShelterId)
+                .stream().map(PetDto::toDto).toList();
     }
 
 }

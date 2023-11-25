@@ -4,7 +4,11 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendMessage;
 import org.springframework.stereotype.Service;
 import pro.sky.botanimalshelter.model.Pet;
+import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.repository.PetRepository;
+import pro.sky.botanimalshelter.repository.PetShelterRepository;
+import pro.sky.botanimalshelter.repository.UserRepository;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.PetDto;
 
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -15,9 +19,14 @@ public class PetService {
     private final TelegramBot telegramBot;
     private final PetRepository petRepository;
 
-    public PetService(TelegramBot telegramBot, PetRepository petRepository) {
+    private final PetShelterRepository petShelterRepository;
+    private final UserRepository userRepository;
+
+    public PetService(TelegramBot telegramBot, PetRepository petRepository, PetShelterRepository petShelterRepository, UserRepository userRepository) {
         this.telegramBot = telegramBot;
         this.petRepository = petRepository;
+        this.petShelterRepository = petShelterRepository;
+        this.userRepository = userRepository;
     }
 
     /**
@@ -89,4 +98,55 @@ public class PetService {
         return pet;
     }
 
+    /**
+     * @param petDto nullable
+     * @return Pet entity or null
+     */
+    public Pet save(PetDto petDto) {
+        Pet pet = toPet(petDto);
+        pet = petRepository.save(pet);
+        return pet;
+    }
+
+
+    /**
+     * Makes Pet from PetDto
+     *
+     * @param petDto nullable
+     * @return Pet entity or null if null DTO is provided
+     */
+    private Pet toPet(PetDto petDto) {
+        if (petDto == null) {
+            return null;
+        }
+
+        Pet pet = new Pet();
+        pet.setId(petDto.getPetId());
+        pet.setName(petDto.getPetName());
+        pet.setColor(petDto.getPetColor());
+        pet.setBirthDate(petDto.getPetBirthDate());
+        pet.setShelter(petShelterRepository.findById(petDto.getShelterId()).orElse(null));
+        pet.setUser(userRepository.findById(petDto.getUserId()).orElse(null));
+
+        return pet;
+    }
+
+    /**
+     * Обновляем данные питомца
+     *
+     * @param dto nullable
+     * @return saved entity or null if null DTO provided as argument, or no pet exists with id specified by DTO
+     * , also nothing saves in two last cases
+     */
+    public Pet updatePet(PetDto dto) {
+        if (dto == null) {
+            return null;
+        }
+        if (findById(dto.getPetId()) == null) {
+            return null;
+        }
+        Pet pet = toPet(dto);
+        pet = save(pet);
+        return pet;
+    }
 }

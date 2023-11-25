@@ -17,6 +17,9 @@ public class PetDto {
 
     private Timestamp petBirthDate;
 
+    private Long shelterId;
+    private Long userId;
+
     public String getPetColor() {
         return petColor;
     }
@@ -25,14 +28,33 @@ public class PetDto {
         this.petColor = petColor;
     }
 
-    public PetDto(Long petId, String petName, String petColor, Timestamp petBirthDate) {
+    public PetDto(Long petId, String petName, String petColor, Timestamp petBirthDate,
+                  Long shelterId, Long userId) {
         this.petId = petId;
         this.petName = petName;
         this.petColor = petColor;
         this.petBirthDate = petBirthDate;
+        this.shelterId = shelterId;
+        this.userId = userId;
     }
 
     public PetDto() {
+    }
+
+    public Long getShelterId() {
+        return shelterId;
+    }
+
+    public void setShelterId(Long shelterId) {
+        this.shelterId = shelterId;
+    }
+
+    public Long getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public Long getPetId() {
@@ -59,16 +81,28 @@ public class PetDto {
         this.petBirthDate = petBirthDate;
     }
 
-    public static Pet makePetFromDto(PetDto petDto) {
-        if (petDto == null) {
+
+    /**
+     * Converts Pet to data transfer object
+     *
+     * @param pet nullable
+     * @return Data transfer object or null if null argument provided
+     */
+    public static PetDto toDto(Pet pet) {
+        if (pet == null) {
             return null;
         }
-        Pet pet = new Pet();
-        pet.setId(petDto.petId);
-        pet.setName(petDto.petName);
-        pet.setColor(petDto.petColor);
-        pet.setBirthDate(petDto.petBirthDate);
-        return pet;
+        Long shelterId = -1L,
+                userId = -1L;
+        if (pet.getShelter() != null) {
+            shelterId = pet.getShelter().getId();
+        }
+        if (pet.getUser() != null) {
+            userId = pet.getUser().getId();
+        }
+        return new PetDto(pet.getId(), pet.getName(),
+                pet.getColor(), pet.getBirthDate(),
+                shelterId, userId);
     }
 
 }

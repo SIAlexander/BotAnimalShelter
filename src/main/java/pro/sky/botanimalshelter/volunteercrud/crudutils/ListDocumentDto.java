@@ -1,7 +1,6 @@
 package pro.sky.botanimalshelter.volunteercrud.crudutils;
 
 import pro.sky.botanimalshelter.model.ListDocument;
-import pro.sky.botanimalshelter.service.PetShelterService;
 
 /**
  * Объект передачи данных сущности ListDocument -- ListDocument data transfer object

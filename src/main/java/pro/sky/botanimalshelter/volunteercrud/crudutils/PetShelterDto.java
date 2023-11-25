@@ -22,6 +22,51 @@ public class PetShelterDto {
      */
     private String petShelterLocation;
 
+    private String petShelterPhone;
+
+    private String petShelterSchemesPath;
+
+    private String petShelterWorkSchedule;
+
+    private String petShelterStory;
+
+    private String petShelterContactsSecurity;
+
+    public String getPetShelterSchemesPath() {
+        return petShelterSchemesPath;
+    }
+
+    public void setPetShelterSchemesPath(String petShelterSchemesPath) {
+        this.petShelterSchemesPath = petShelterSchemesPath;
+    }
+
+    public String getPetShelterWorkSchedule() {
+        return petShelterWorkSchedule;
+    }
+
+    public void setPetShelterWorkSchedule(String petShelterWorkSchedule) {
+        this.petShelterWorkSchedule = petShelterWorkSchedule;
+    }
+
+    public String getPetShelterStory() {
+        return petShelterStory;
+    }
+
+    public void setPetShelterStory(String petShelterStory) {
+        this.petShelterStory = petShelterStory;
+    }
+
+    public PetShelterDto(String petShelterName, long petShelterId, String petShelterLocation, String petShelterPhone, String petShelterSchemesPath, String petShelterWorkSchedule, String petShelterStory, String petShelterContactsSecurity) {
+        this.petShelterName = petShelterName;
+        this.petShelterId = petShelterId;
+        this.petShelterLocation = petShelterLocation;
+        this.petShelterPhone = petShelterPhone;
+        this.petShelterSchemesPath = petShelterSchemesPath;
+        this.petShelterWorkSchedule = petShelterWorkSchedule;
+        this.petShelterStory = petShelterStory;
+        this.petShelterContactsSecurity = petShelterContactsSecurity;
+    }
+
     public String getPetShelterLocation() {
         return petShelterLocation;
     }
@@ -30,27 +75,14 @@ public class PetShelterDto {
         this.petShelterLocation = petShelterLocation;
     }
 
-    public String getSecurityContacts() {
-        return securityContacts;
-    }
 
-    public void setSecurityContacts(String securityContacts) {
-        this.securityContacts = securityContacts;
-    }
 
     /**
      * Контактные данные охраны
      */
-    private String securityContacts;
+//    private String petShelterSecurityContacts;
 
     public PetShelterDto() {
-    }
-
-    public PetShelterDto(String petShelterName, long petShelterId, String petShelterLocation, String securityContacts) {
-        this.petShelterName = petShelterName;
-        this.petShelterId = petShelterId;
-        this.securityContacts = securityContacts;
-        this.petShelterLocation = petShelterLocation;
     }
 
     public String getPetShelterName() {
@@ -69,41 +101,49 @@ public class PetShelterDto {
         this.petShelterId = petShelterId;
     }
 
+    public String getPetShelterPhone() {
+        return petShelterPhone;
+    }
+
+    public void setPetShelterPhone(String petShelterPhone) {
+        this.petShelterPhone = petShelterPhone;
+    }
+
+    public String getPetShelterContactsSecurity() {
+        return petShelterContactsSecurity;
+    }
+
+    public void setPetShelterContactsSecurity(String petShelterContactsSecurity) {
+        this.petShelterContactsSecurity = petShelterContactsSecurity;
+    }
+
     /**
      * @param dto экземпляр класса PetShelterDto для передачи параметров сущности приюта животных PetShelter<br>Nullable
      * @return экземпляр класса PetShelter или null, если параметр пустой
      */
-    public static PetShelter MakePetShelterFromDto(PetShelterDto dto) {
+    public static PetShelter toPetShelter(PetShelterDto dto) {
+
         if (dto == null) {
             return null;
         }
-        PetShelter petShelter = new PetShelter();
-        petShelter.setName(dto.getPetShelterName());
-        petShelter.setId(dto.getPetShelterId());
-        petShelter.setContactsSecurity(dto.securityContacts);
-        return petShelter;
+        return new PetShelter(
+                dto.petShelterName,
+                dto.petShelterId,
+                dto.petShelterLocation,
+                dto.petShelterPhone,
+                dto.petShelterSchemesPath,
+                dto.petShelterContactsSecurity,
+                dto.getPetShelterWorkSchedule(),
+                dto.petShelterStory);
     }
 
-    public static PetShelterDto makeDtoFromPetShelter(PetShelter petShelter) {
+    public static PetShelterDto toDto(PetShelter petShelter) {
         if (petShelter == null) return null;
         return new PetShelterDto(petShelter.getName(), petShelter.getId(),
-                petShelter.getLocation(), petShelter.getContactsSecurity());
+                petShelter.getLocation(),
+                petShelter.getPhone(), petShelter.getSchemesPath(),
+                petShelter.getWorkSchedule(), petShelter.getStoryTheShelter(),
+                petShelter.getContactsSecurity());
     }
 
-    /**
-     * @param petShelterDto Nullable
-     * @return строку с параметрами PetShelterDto или сообщением о том,
-     * что в качестве аргкмента был передан пустой объект
-     */
-    public static String toString(PetShelterDto petShelterDto) {
-        if (petShelterDto == null) {
-            return "Получен пустой объект petShelterDto";
-        }
-        return "Приют животных<br>" +
-                "ID: " + petShelterDto.petShelterId + "<br>" +
-                "Name: " + petShelterDto.petShelterName
-                + "<br>Location: " + petShelterDto.petShelterLocation
-                + "<br>Security Contacts: " + petShelterDto.securityContacts
-                ;
-    }
 }

@@ -4,7 +4,6 @@ import com.pengrad.telegrambot.TelegramBot;
 import com.pengrad.telegrambot.request.SendMessage;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.data.domain.Example;
 import org.springframework.stereotype.Service;
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.model.Volunteer;
@@ -74,7 +73,11 @@ public class VolunteerService {
         if (volunteerDto == null) {
             return null;
         }
-        return VolunteerDto.dto(repository.save(VolunteerDto.volunteer(volunteerDto)));
+
+        Volunteer volunteer = VolunteerDto.volunteer(volunteerDto);
+        volunteer.setShelter(petShelterService.findShelterById(volunteerDto.getShelterId()));
+        volunteer = repository.save(volunteer);
+        return VolunteerDto.dto(volunteer);
     }
 
     public VolunteerDto update(VolunteerDto volunteerDto) {
@@ -105,5 +108,13 @@ public class VolunteerService {
 
         return VolunteerDto.dto(volunteer);
 
+    }
+
+    public Volunteer findVolunteerById(Long volunteerId) {
+        return repository.findById(volunteerId).orElse(null);
+    }
+
+    public Volunteer saveVolunteerEntity(Volunteer volunteer) {
+        return repository.save(volunteer);
     }
 }

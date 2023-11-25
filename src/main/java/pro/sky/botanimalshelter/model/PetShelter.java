@@ -17,6 +17,9 @@ import java.util.Objects;
  * <b>String</b> storyTheShelter.
  */
 
+/**
+ * Сущность приюта домашних животных
+ */
 @Entity
 @Table(name = "shelters")
 public class PetShelter {
@@ -41,48 +44,50 @@ public class PetShelter {
     @Column(name = "story_shelter")
     private String storyTheShelter;
 
-    @OneToMany(mappedBy = "shelter")
-    List<Volunteer> volunteers;
+//    @OneToMany(mappedBy = "shelter")
+//    List<Volunteer> volunteers;
 
-    @OneToMany(mappedBy = "shelter")
-    List<Handler> handlers;
+//    @OneToMany(mappedBy = "shelter")
+//    List<Handler> handlers;
 
-    @OneToMany(mappedBy = "shelter")
-    List<RecommendationsShelters> recommendationsShelters;
+//    @OneToMany(mappedBy = "shelter")
+//    List<RecommendationsShelters> recommendationsShelters;
 
-    @OneToMany(mappedBy = "shelter")
-    List<ListDocument> listDocuments;
+//    @OneToMany(mappedBy = "shelter")
+//    List<ListDocument> listDocuments;
 
-    @OneToMany(mappedBy = "shelter")
-    List<Pet> petList;
+//    @OneToMany(mappedBy = "shelter")
+//    List<Pet> petList;
 
     public PetShelter() {
     }
 
     public PetShelter(String name,
+                      Long id,
                       String location,
                       String phone,
                       String schemesPath,
                       String contactsSecurity,
                       String workSchedule,
-                      String storyTheShelter,
-                      List<Volunteer> volunteers,
+                      String storyTheShelter
+            /*        List<Volunteer> volunteers,
                       List<Handler> handlers,
                       List<RecommendationsShelters> recommendationsShelters,
                       List<ListDocument> listDocuments,
-                      List<Pet> petList) {
+                      List<Pet> petList*/) {
         this.name = name;
+        this.setId(id);
         this.location = location;
         this.phone = phone;
         this.schemesPath = schemesPath;
         this.contactsSecurity = contactsSecurity;
         this.workSchedule = workSchedule;
         this.storyTheShelter = storyTheShelter;
-        this.volunteers = volunteers;
+        /*this.volunteers = volunteers;
         this.handlers = handlers;
         this.recommendationsShelters = recommendationsShelters;
         this.listDocuments = listDocuments;
-        this.petList = petList;
+        this.petList = petList;*/
     }
 
     public Long getId() {
@@ -149,13 +154,14 @@ public class PetShelter {
         this.storyTheShelter = storyTheShelter;
     }
 
-    public List<Volunteer> getVolunteers() {
+    /* public List<Volunteer> getVolunteers() {
         return volunteers;
     }
 
     public void setVolunteers(List<Volunteer> volunteers) {
         this.volunteers = volunteers;
     }
+
 
     public List<Handler> getHandlers() {
         return handlers;
@@ -181,13 +187,14 @@ public class PetShelter {
         this.listDocuments = listDocuments;
     }
 
-    public List<Pet> getPetList(){
+    public List<Pet> getPetList() {
         return petList;
     }
 
-    public void setPetList(List<Pet> petList){
+    public void setPetList(List<Pet> petList) {
         this.petList = petList;
     }
+*/
 
     @Override
     public boolean equals(Object o) {
@@ -213,11 +220,11 @@ public class PetShelter {
                 ", contactsSecurity='" + contactsSecurity + '\'' +
                 ", workSchedule='" + workSchedule + '\'' +
                 ", storyTheShelter='" + storyTheShelter + '\'' +
-                ", volunteers=" + volunteers +
-                ", handlers=" + handlers +
-                ", recommendationsShelters=" + recommendationsShelters +
-                ", listDocuments=" + listDocuments +
-                ", petList=" + petList +
+//                ", volunteers=" + volunteers +
+//                ", handlers=" + handlers +
+//                ", recommendationsShelters=" + recommendationsShelters +
+//                ", listDocuments=" + listDocuments +
+//                ", petList=" + petList +
                 '}';
     }
 }

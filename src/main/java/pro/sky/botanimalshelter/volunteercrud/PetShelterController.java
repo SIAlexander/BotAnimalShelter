@@ -5,9 +5,11 @@ import io.swagger.v3.oas.annotations.Parameter;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import pro.sky.botanimalshelter.model.ListDocument;
 import pro.sky.botanimalshelter.model.PetShelter;
+import pro.sky.botanimalshelter.service.HandlerService;
 import pro.sky.botanimalshelter.service.PetShelterService;
-import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDto;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.*;
 
 import java.util.List;
 
@@ -36,14 +38,14 @@ public class PetShelterController {
             description = "")
     public List<PetShelterDto> viewPetShetlters() {
         return petShelterService.findAll().stream().
-                map(PetShelterDto::makeDtoFromPetShelter).toList();
+                map(PetShelterDto::toDto).toList();
     }
 
     @GetMapping("/manage/{id}")
     @Operation(summary = "Управление данными приюта для животных -- Manage pet shelter data",
             description = "GET: просмотр данных приюта с указанным индентификтором -- view data of shelter with specified id")
-    public PetShelter viewPetShelterData(@Parameter(description = "Идентификатор приюта в базе данных", example = "1") long id) {
-        return petShelterService.findShelterById(id);
+    public PetShelterDto viewPetShelterData(@Parameter(description = "Идентификатор приюта в базе данных", example = "1") long id) {
+        return PetShelterDto.toDto(petShelterService.findShelterById(id));
     }
 
     @PostMapping("/manage")
@@ -80,23 +82,30 @@ public class PetShelterController {
     }
 
     @DeleteMapping("/manage")
-    public ResponseEntity<PetShelter> deletePetShelter(@Parameter(name = "id", example = "2", description = "индентификатор приюта") @RequestBody Long id) {
+    public ResponseEntity<PetShelter> deletePetShelter(@Parameter(name = "id", example = "2",
+            description = "индентификатор приюта") @RequestBody Long id) {
         return ResponseEntity.ok(petShelterService.deleteById(id));
     }
 
-    /**
-     * @param petShelterId Pet Shelter identifier
-     * @return String with Security Contacts of Pet Shelter with specified identifier or message that no data available
-     */
-    @GetMapping("/manage/{id}/security-contacts")
-    public String viewContacts(@PathVariable(name = "id") Long petShelterId) {
-        return petShelterService.viewPetShelterSecurityContacts(petShelterId);
+    @GetMapping("/manage/{id}/view-volunteer-list")
+    public List<VolunteerDto> viewVolunteers(
+            @Parameter(description = "Идентификатор приюта", required = true) @PathVariable(name = "id") Long petShelterId) {
+        return petShelterService.getVolunteers(petShelterId);
     }
 
-    @PutMapping("/manage/{id}/security-contacts")
-    public String putShelterSecurityContacts(@PathVariable(name = "id") Long petShelterId,
-                                             @RequestBody String newSecurityContacts) {
-        return petShelterService.putPetShelterSecurityContacts(petShelterId, newSecurityContacts);
+    @GetMapping("/manage/{id}/view-handler-list")
+    public List<HandlerDto> viewHandlers(@PathVariable(name = "id") Long petShelterId) {
+        return petShelterService.getHandlers(petShelterId);
+    }
+
+    @GetMapping("/manage/{id}/view-list-documents")
+    public List<ListDocumentDto> viewListDocuments(@PathVariable(name = "id") Long petShelterId) {
+        return petShelterService.getListDocuments(petShelterId);
+    }
+
+    @GetMapping("/manage/{id}/view-pets")
+    public List<PetDto> viewPets(@PathVariable(name = "id") Long petShelterId) {
+        return petShelterService.getPetList(petShelterId);
     }
 
 }

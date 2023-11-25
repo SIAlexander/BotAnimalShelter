@@ -29,8 +29,8 @@ public class DocsController {
     }
 
     @GetMapping("/{id}")
-    public ListDocument viewListDocument(@PathVariable Long id) {
-        return listDocumentService.findById(id);
+    public ListDocumentDto viewListDocument(@PathVariable Long id) {
+        return ListDocumentDto.dto(listDocumentService.findById(id));
     }
 
     @PostMapping("/new")
@@ -48,7 +48,6 @@ public class DocsController {
     public ListDocumentDto deleteListDocument(@PathVariable Long id) {
         return listDocumentService.deleteListDocument(id);
     }
-
 
 
 }
