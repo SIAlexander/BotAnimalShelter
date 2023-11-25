@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.model.RecommendationsShelters;
 import pro.sky.botanimalshelter.repository.PetShelterRepository;
+import pro.sky.botanimalshelter.repository.RecommendationsSheltersRepository;
 import pro.sky.botanimalshelter.service.RecommendationsSheltersService;
 import pro.sky.botanimalshelter.volunteercrud.crudutils.RecommendationsSheltersDto;
 
@@ -32,10 +33,28 @@ public class RecommendationSheltersController {
         return recommendationsService.viewRecommendations();
     }
 
+    @GetMapping("/{id}")
+    @Operation(summary = "Просмотр рекомендации с указанным идентификатором")
+    public RecommendationsShelters viewById(@PathVariable Long id) {
+        return recommendationsService.viewRecommendationsById(id);
+    }
+
     @PostMapping("")
     @Operation(summary = "Создание рекомендации -- Create pet care advice")
     public RecommendationsShelters newRecommendation(@RequestBody RecommendationsSheltersDto recommendationsSheltersDto) {
-        return recommendationsService.save(recommendationsSheltersDto);
+        return recommendationsService.saveNew(recommendationsSheltersDto);
+    }
+
+    @PutMapping("")
+    @Operation(summary = "Редактирование рекомендации --  Edit pet care advice")
+    public String editPetCareAdvice(@RequestBody RecommendationsSheltersDto dto) {
+        return recommendationsService.editRecommendations(dto);
+    }
+
+    @DeleteMapping("")
+    @Operation(summary = "Удаление рекомендации --  Delete pet care advice")
+    public RecommendationsShelters deleteAdvice(@RequestBody Long recommendationsId) {
+        return recommendationsService.deleteAdvice(recommendationsId);
     }
 
 }

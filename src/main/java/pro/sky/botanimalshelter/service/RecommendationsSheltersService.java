@@ -170,25 +170,70 @@ public class RecommendationsSheltersService {
     }
 
     /**
+     * Create new advice
      * @param recommendationsSheltersDto nullable
      * @return saved entity or null
      */
-    public RecommendationsShelters save(RecommendationsSheltersDto recommendationsSheltersDto) {
+    public RecommendationsShelters saveNew(RecommendationsSheltersDto recommendationsSheltersDto) {
         if (recommendationsSheltersDto == null) {
+            logger.info("No data to create recommendationsShelters");
             return null;
         }
-        PetShelter shelter = shelterRepository.findById(recommendationsSheltersDto.getShelterId()).orElse(null);
-        if (shelter == null) {
+
+        RecommendationsShelters recommendationsShelters = fromDto(recommendationsSheltersDto);
+        recommendationsShelters = repository.save(recommendationsShelters);
+        return recommendationsShelters;
+    }
+
+
+    /**
+     * Редактирование рекомендации
+     * <br>Проводится проверка, существует ли рекомендация с указанным в DTO идентификатором
+     *
+     * @param dto nullable
+     * @return сообщение о результатах выполнения метода
+     */
+
+    public String editRecommendations(RecommendationsSheltersDto dto) {
+        if (dto == null) {
+            return "Отсутствуют данные для обновления";
+        }
+        Long recommendationsId = dto.getId();
+        RecommendationsShelters recommendationsShelters = repository.findById(recommendationsId).orElse(null);
+        if (recommendationsShelters == null) {
+            return "Отсутствует рекомендация с указанным Id: " + recommendationsId;
+        }
+        String resultMessage = "Сохранена рекомендация: ";
+        recommendationsShelters = fromDto(dto);
+        logger.info("Check shelter: " + recommendationsShelters.getShelter());
+        recommendationsShelters = repository.save(recommendationsShelters);
+        return resultMessage + recommendationsShelters;
+    }
+
+    private RecommendationsShelters fromDto(RecommendationsSheltersDto dto) {
+        PetShelter shelter = shelterRepository.findById(dto.getShelterId()).orElse(null);
+        logger.info("Shelter: " + shelter);
+        return new RecommendationsShelters(
+                dto.getId(),
+                dto.getName(), dto.getDatingRules(),
+                dto.getAnimalTransportation(), dto.getHomeImprovement(),
+                dto.getHomeImprovementAdultAnimal(),
+                dto.getHomeImprovementAnimalWithDisabilities(),
+                dto.getListReasonsRefuseAndNotUpAnimal(),
+                dto.getRecommendationsHandler(),
+                shelter);
+    }
+
+    public RecommendationsShelters viewRecommendationsById(Long id) {
+        return repository.findById(id).orElse(null);
+    }
+
+    public RecommendationsShelters deleteAdvice(Long recommendationsId) {
+        RecommendationsShelters recommendationsShelters = repository.findById(recommendationsId).orElse(null);
+        if (recommendationsShelters == null) {
             return null;
         }
-        return repository.save(new RecommendationsShelters(
-                recommendationsSheltersDto.getId(),
-                recommendationsSheltersDto.getName(), recommendationsSheltersDto.getDatingRules(),
-                recommendationsSheltersDto.getAnimalTransportation(), recommendationsSheltersDto.getHomeImprovement(),
-                recommendationsSheltersDto.getHomeImprovementAdultAnimal(),
-                recommendationsSheltersDto.getHomeImprovementAnimalWithDisabilities(),
-                recommendationsSheltersDto.getListReasonsRefuseAndNotUpAnimal(),
-                recommendationsSheltersDto.getRecommendationsHandler(),
-                shelter));
+        repository.delete(recommendationsShelters);
+        return recommendationsShelters;
     }
 }
