@@ -56,7 +56,7 @@ public class PetShelter {
     @OneToMany(mappedBy = "shelter")
     List<Pet> petList;
 
-    public PetShelter() {
+    public PetShelter(String shelter1, String s, String string, String path, String contacts, String story) {
     }
 
     public PetShelter(String name,

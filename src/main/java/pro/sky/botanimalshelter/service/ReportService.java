@@ -33,7 +33,7 @@ public class ReportService {
     }
 
     /**
-     * Method for sending a report dog reminder
+     * Method for sending a report cat reminder
      */
 
     @Scheduled(cron = "0 0/1 * * * *")
@@ -72,5 +72,9 @@ public class ReportService {
     private void sendMessage(Long chatId, String text) {
         SendMessage sendMessage = new SendMessage(chatId, text);
         telegramBot.execute(sendMessage);
+    }
+
+    public void saveCatReport(ReportUserCatShelter reportUserCatShelter) {
+        reportUserCatShelterRepository.save(reportUserCatShelter);
     }
 }

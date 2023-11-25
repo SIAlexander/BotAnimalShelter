@@ -52,7 +52,7 @@ public class RecommendationsShelters {
     @JoinColumn(name = "shelter_id")
     PetShelter shelter;
 
-    public RecommendationsShelters() {
+    public RecommendationsShelters(String shelter1, String rules, String transportation, String improvement, String adult, String disabilities) {
     }
 
     public RecommendationsShelters(String name,

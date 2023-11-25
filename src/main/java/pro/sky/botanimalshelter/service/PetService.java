@@ -45,7 +45,7 @@ public class PetService {
      * @param text
      */
 
-    private void sendMessage(Long chatId, String text) {
+    public void sendMessage(Long chatId, String text) {
         SendMessage sendMessage = new SendMessage(chatId, text);
         telegramBot.execute(sendMessage);
     }

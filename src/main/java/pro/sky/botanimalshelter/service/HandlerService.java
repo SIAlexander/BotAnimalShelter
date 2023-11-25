@@ -75,7 +75,7 @@ public class HandlerService {
             throw new RuntimeException(errorMessage);
         }
 
-        return saveHandler(new Handler(name, phone, new PetShelter()));
+        return saveHandler(new Handler(name, phone, new PetShelter("Shelter1", "123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story")));
     }
 
     /**
