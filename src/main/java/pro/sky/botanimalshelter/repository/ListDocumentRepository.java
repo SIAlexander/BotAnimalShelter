@@ -19,4 +19,11 @@ public interface ListDocumentRepository extends JpaRepository<ListDocument, Long
      */
     List<ListDocument> findByShelterName(String name);
 
+    /**
+     * Находим документы ListDocuments, относящиеся к приюту для животных с идентификатором petShelterId
+     *
+     * @param petShelterId идентификатор приюта для животных
+     * @return список найденных документов
+     */
+    List<ListDocument> findAllByShelterId(Long petShelterId);
 }

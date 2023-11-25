@@ -17,4 +17,5 @@ public interface PetShelterRepository extends JpaRepository<PetShelter, Long> {
      * @return {@link PetShelter}
      */
     PetShelter findByName(String name);
+
 }

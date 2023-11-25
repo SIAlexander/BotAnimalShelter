@@ -9,12 +9,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pro.sky.botanimalshelter.model.PetShelter;
 import pro.sky.botanimalshelter.model.Volunteer;
-import pro.sky.botanimalshelter.repository.HandlerRepository;
-import pro.sky.botanimalshelter.repository.PetShelterRepository;
-import pro.sky.botanimalshelter.repository.VolunteerRepository;
-import pro.sky.botanimalshelter.volunteercrud.crudutils.HandlerDto;
-import pro.sky.botanimalshelter.volunteercrud.crudutils.PetShelterDto;
-import pro.sky.botanimalshelter.volunteercrud.crudutils.VolunteerDto;
+import pro.sky.botanimalshelter.repository.*;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.*;
 
 import java.io.File;
 import java.util.List;
@@ -34,11 +30,17 @@ public class PetShelterService {
 
     private final HandlerRepository handlerRepository;
 
-    public PetShelterService(TelegramBot telegramBot, PetShelterRepository shelterRepository, VolunteerRepository volunteerRepository, HandlerRepository handlerRepository) {
+    private final ListDocumentRepository listDocumentRepository;
+
+    private final PetRepository petRepository;
+
+    public PetShelterService(TelegramBot telegramBot, PetShelterRepository shelterRepository, VolunteerRepository volunteerRepository, HandlerRepository handlerRepository, ListDocumentRepository listDocumentRepository, PetRepository petRepository) {
         this.telegramBot = telegramBot;
         this.shelterRepository = shelterRepository;
         this.volunteerRepository = volunteerRepository;
         this.handlerRepository = handlerRepository;
+        this.listDocumentRepository = listDocumentRepository;
+        this.petRepository = petRepository;
     }
 
     /**
@@ -229,4 +231,21 @@ public class PetShelterService {
         return handlerRepository.findByShelterName(shelter.getName())
                 .stream().map(HandlerService::dto).toList();
     }
+
+    /**
+     * Получаем документы ListDocuments, относящиеся к приюту для животных с идентификатором petShelterId
+     *
+     * @param petShelterId идентификатор приюта для животных
+     * @return список найденных документов
+     */
+    public List<ListDocumentDto> getListDocuments(Long petShelterId) {
+        return listDocumentRepository.findAllByShelterId(petShelterId)
+                .stream().map(ListDocumentDto::dto).toList();
+    }
+
+    public List<PetDto> getPetList(Long petShelterId) {
+        return petRepository.findAllByShelterId(petShelterId)
+                .stream().map(PetDto::toDto).toList();
+    }
+
 }
