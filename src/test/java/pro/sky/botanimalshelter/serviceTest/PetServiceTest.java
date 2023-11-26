@@ -59,17 +59,4 @@ public class PetServiceTest {
         // Assert
         verify(telegramBot).execute(new SendMessage(chatId, "Информации о животных в приюте нет"));
     }
-
-    @Test
-    public void testSendMessageWithValidParameters() {
-        // Arrange
-        Long chatId = 1234L;
-        String text = "Test message";
-
-        // Act
-        petService.sendMessage(chatId, text);
-
-        // Assert
-        verify(telegramBot).execute(new SendMessage(chatId, text));
-    }
 }

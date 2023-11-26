@@ -33,7 +33,7 @@ public class PetShelterServiceTest {
         // Arrange
         Long chatId = 1234L;
         String text = "Shelter1";
-        PetShelter petShelter = new PetShelter("Shelter1", "123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story");
+        PetShelter petShelter = new PetShelter("Shelter1", 1L,"123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story", "");
         when(shelterRepository.findByName(text)).thenReturn(petShelter);
 
         // Act
@@ -64,8 +64,7 @@ public class PetShelterServiceTest {
         // Arrange
         Long chatId = 1234L;
         String selectShelter = "Shelter1";
-        PetShelter petShelter = new PetShelter("Shelter1", "123-456-7890",
-                "Monday-Friday 9:00-17:00", "path", "contacts", "story");
+        PetShelter petShelter = new PetShelter("Shelter1", 1L,"123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story", "");
         when(shelterRepository.findByName(selectShelter)).thenReturn(petShelter);
 
         // Act
@@ -94,8 +93,7 @@ public class PetShelterServiceTest {
         // Arrange
         Long chatId = 1234L;
         String selectShelter = "Shelter1";
-        PetShelter petShelter = new PetShelter("Shelter1", "123-456-7890", "Monday-Friday 9:00-17:00",
-                "path", "contacts", "story");
+        PetShelter petShelter = new PetShelter("Shelter1", 1L,"123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story", "");
         when(shelterRepository.findByName(selectShelter)).thenReturn(petShelter);
 
         // Act

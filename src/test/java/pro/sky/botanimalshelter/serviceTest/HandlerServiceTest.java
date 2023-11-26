@@ -44,7 +44,7 @@ public class HandlerServiceTest {
     }
 
     private static PetShelter getRightPetShelter() {
-        final PetShelter rightPetShelter = new PetShelter("Shelter1", "123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story");
+        final PetShelter rightPetShelter = new PetShelter("Shelter1", 1L,"123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story", "");
         rightPetShelter.setName("Right Pet Shelter");
         rightPetShelter.setId(1L);
         return rightPetShelter;

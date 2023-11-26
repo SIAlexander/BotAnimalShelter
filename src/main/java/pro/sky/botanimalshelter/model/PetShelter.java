@@ -76,7 +76,7 @@ public class PetShelter {
                       List<ListDocument> listDocuments,
                       List<Pet> petList*/) {
         this.name = name;
-        this.setId(id);
+        this.id = id;
         this.location = location;
         this.phone = phone;
         this.schemesPath = schemesPath;

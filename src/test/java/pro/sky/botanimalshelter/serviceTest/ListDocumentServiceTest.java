@@ -11,7 +11,7 @@ public class ListDocumentServiceTest {
 
     @Test
     public void testGettersAndSetters() {
-        PetShelter shelter = new PetShelter("Shelter1", "123-456-7890", "Monday-Friday 9:00-17:00", "path", "contacts", "story");
+        PetShelter shelter = new PetShelter("Shelter1", 1L,"123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story", "");
         ListDocument document = new ListDocument("Test Document", shelter);
 
         assertEquals("Test Document", document.getDocument());
@@ -21,14 +21,14 @@ public class ListDocumentServiceTest {
 
         assertEquals(shelter, document.getShelter());
 
-        PetShelter newShelter = new PetShelter("Shelter1", "123-456-7890", "Monday-Friday 9:00-17:00", "path", "contacts", "story");
+        PetShelter newShelter = new PetShelter("Shelter1", 1L,"123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story", "");
         document.setShelter(newShelter);
         assertEquals(newShelter, document.getShelter());
     }
 
     @Test
     public void testEqualsAndHashCode() {
-        PetShelter shelter1 = new PetShelter("Shelter1", "123-456-7890", "Monday-Friday 9:00-17:00", "path", "contacts", "story");
+        PetShelter shelter1 = new PetShelter("Shelter1", 1L,"123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story", "");
         ListDocument document1 = new ListDocument("Document 1", shelter1);
         document1.setId(1L);
 
@@ -41,7 +41,7 @@ public class ListDocumentServiceTest {
 
     @Test
     public void testToString() {
-        PetShelter shelter = new PetShelter("Shelter1", "123-456-7890", "Monday-Friday 9:00-17:00", "path", "contacts", "story");
+        PetShelter shelter = new PetShelter("Shelter1", 1L,"123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story", "");
         ListDocument document = new ListDocument("Test Document", shelter);
         document.setId(1L);
 

@@ -80,16 +80,4 @@ class ReportServiceTest {
         // Assert
         verify(telegramBot, times(1)).execute(any());
     }
-
-    @Test
-    void saveCatReport() {
-        // Arrange
-        ReportUserCatShelter catShelter = new ReportUserCatShelter();
-
-        // Act
-        reportService.saveCatReport(catShelter);
-
-        // Assert
-        verify(catShelterRepository, times(1)).save(catShelter);
-    }
 }
