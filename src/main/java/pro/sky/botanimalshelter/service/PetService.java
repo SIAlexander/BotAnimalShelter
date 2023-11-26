@@ -9,15 +9,19 @@ import pro.sky.botanimalshelter.repository.PetRepository;
 import pro.sky.botanimalshelter.repository.PetShelterRepository;
 import pro.sky.botanimalshelter.repository.UserRepository;
 import pro.sky.botanimalshelter.volunteercrud.crudutils.PetDto;
-
 import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Optional;
+import pro.sky.botanimalshelter.repository.PetRepository;
+import java.text.SimpleDateFormat;
+import java.util.List;
+
 
 @Service
 public class PetService {
     private final TelegramBot telegramBot;
     private final PetRepository petRepository;
+
 
     private final PetShelterRepository petShelterRepository;
     private final UserRepository userRepository;
@@ -27,6 +31,11 @@ public class PetService {
         this.petRepository = petRepository;
         this.petShelterRepository = petShelterRepository;
         this.userRepository = userRepository;
+
+    public PetService(TelegramBot telegramBot, PetRepository petRepository) {
+        this.telegramBot = telegramBot;
+        this.petRepository = petRepository;
+
     }
 
     /**
@@ -59,6 +68,7 @@ public class PetService {
         SendMessage sendMessage = new SendMessage(chatId, text);
         telegramBot.execute(sendMessage);
     }
+
 
     public List<Pet> findAll() {
         return petRepository.findAll();

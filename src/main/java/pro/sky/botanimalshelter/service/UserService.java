@@ -11,6 +11,7 @@ import pro.sky.botanimalshelter.listener.BotAnimalShelterUpdatesListener;
 import pro.sky.botanimalshelter.model.ReportUserCatShelter;
 import pro.sky.botanimalshelter.model.ReportUserDogShelter;
 import pro.sky.botanimalshelter.model.User;
+import pro.sky.botanimalshelter.model.*;
 import pro.sky.botanimalshelter.repository.PetShelterRepository;
 import pro.sky.botanimalshelter.repository.ReportUserCatShelterRepository;
 import pro.sky.botanimalshelter.repository.ReportUserDogShelterRepository;

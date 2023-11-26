@@ -53,11 +53,16 @@ public class PetShelter {
 //    @OneToMany(mappedBy = "shelter")
 //    List<RecommendationsShelters> recommendationsShelters;
 
+
 //    @OneToMany(mappedBy = "shelter")
 //    List<ListDocument> listDocuments;
 
 //    @OneToMany(mappedBy = "shelter")
 //    List<Pet> petList;
+
+    @OneToMany(mappedBy = "shelter")
+    List<Pet> petList;
+
 
     public PetShelter() {
     }
@@ -74,7 +79,11 @@ public class PetShelter {
                       List<Handler> handlers,
                       List<RecommendationsShelters> recommendationsShelters,
                       List<ListDocument> listDocuments,
+
                       List<Pet> petList*/) {
+
+                      List<Pet> petList) {
+
         this.name = name;
         this.id = id;
         this.location = location;
@@ -87,7 +96,11 @@ public class PetShelter {
         this.handlers = handlers;
         this.recommendationsShelters = recommendationsShelters;
         this.listDocuments = listDocuments;
+
         this.petList = petList;*/
+
+        this.petList = petList;
+
     }
 
     public Long getId() {
@@ -187,11 +200,18 @@ public class PetShelter {
         this.listDocuments = listDocuments;
     }
 
+
     public List<Pet> getPetList() {
         return petList;
     }
 
     public void setPetList(List<Pet> petList) {
+
+    public List<Pet> getPetList(){
+        return petList;
+    }
+
+    public void setPetList(List<Pet> petList){
         this.petList = petList;
     }
 */
@@ -220,11 +240,18 @@ public class PetShelter {
                 ", contactsSecurity='" + contactsSecurity + '\'' +
                 ", workSchedule='" + workSchedule + '\'' +
                 ", storyTheShelter='" + storyTheShelter + '\'' +
+
 //                ", volunteers=" + volunteers +
 //                ", handlers=" + handlers +
 //                ", recommendationsShelters=" + recommendationsShelters +
 //                ", listDocuments=" + listDocuments +
 //                ", petList=" + petList +
+
+                ", volunteers=" + volunteers +
+                ", handlers=" + handlers +
+                ", recommendationsShelters=" + recommendationsShelters +
+                ", listDocuments=" + listDocuments +
+                ", petList=" + petList +
                 '}';
     }
 }

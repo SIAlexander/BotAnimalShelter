@@ -11,6 +11,8 @@ import java.util.Objects;
  * <b>String</b> urlPhoto ,
  * <b>String</b> report,
  * <b>Timestamp</b> dateReport,
+ *
+ *
  */
 
 @Entity

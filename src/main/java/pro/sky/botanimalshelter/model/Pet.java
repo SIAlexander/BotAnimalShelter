@@ -36,11 +36,15 @@ public class Pet {
     @JoinColumn(name = "shelter_id")
     PetShelter shelter;
 
+
     public Pet(){
 
     }
 
     public Pet(String dog1, String brown, Date date) {
+
+    public Pet() {
+
     }
 
     public Pet(String name, String color, Timestamp birthDate, User user, PetShelter shelter) {

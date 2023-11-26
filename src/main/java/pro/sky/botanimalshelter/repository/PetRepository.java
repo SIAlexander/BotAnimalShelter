@@ -4,6 +4,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import pro.sky.botanimalshelter.model.Pet;
 import pro.sky.botanimalshelter.volunteercrud.crudutils.PetDto;
+import pro.sky.botanimalshelter.model.Volunteer;
+
 
 import java.util.List;
 
@@ -16,12 +18,12 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     /**
      * The method of finding a shelter in the database
-     *
      * @param name
      * @return {@link List}
      */
 
     List<Pet> findByShelterName(String name);
+
 
     List<Pet> findAllByShelterId(Long petShelterId);
 }

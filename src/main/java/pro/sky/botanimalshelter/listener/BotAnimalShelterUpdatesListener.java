@@ -124,6 +124,7 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                     count = 0;
                 }
             }
+
             try {
                 if (Boolean.TRUE.equals(mapReport.get(chatId))) {
                     count++;
@@ -194,6 +195,10 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                     recommendationsSheltersService.sendRecommendationsHomeDisabilities(chatId, selectShelter);
             case "/refuse not you up" -> recommendationsSheltersService.sendRefuseNotYouUp(chatId, selectShelter);
             case "/proven dog" -> handlerService.sendHandlers(chatId);
+            case "/refuse not you up" ->
+                    recommendationsSheltersService.sendRefuseNotYouUp(chatId, selectShelter);
+            case "/proven dog" ->
+                    handlerService.sendHandlers(chatId);
             case "/show a list of animals" -> petService.sendAllPet(chatId, selectShelter);
         }
     }
