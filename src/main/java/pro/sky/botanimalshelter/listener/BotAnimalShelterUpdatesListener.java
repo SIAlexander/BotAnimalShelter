@@ -124,7 +124,6 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                     count = 0;
                 }
             }
-
             try {
                 if (Boolean.TRUE.equals(mapReport.get(chatId))) {
                     count++;

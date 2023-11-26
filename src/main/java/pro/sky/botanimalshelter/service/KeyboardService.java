@@ -16,9 +16,9 @@ public class KeyboardService {
 
     private final Logger logger = LoggerFactory.getLogger(KeyboardService.class);
     private final TelegramBot telegramBot;
-    private static final InlineKeyboardButton DOG_SHELTER =
+    public static final InlineKeyboardButton DOG_SHELTER =
             new InlineKeyboardButton("Приют для собак");
-    private static final InlineKeyboardButton CAT_SHELTER =
+    public static final InlineKeyboardButton CAT_SHELTER =
             new InlineKeyboardButton("Приют для кошек");
     private static final InlineKeyboardButton ABOUT_THE_SHELTER =
             new InlineKeyboardButton("Узнать информацию о приюте");

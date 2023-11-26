@@ -1,14 +1,9 @@
-package pro.sky.botanimalshelter;
+package pro.sky.botanimalshelter.serviceTest;
 
-import liquibase.pro.packaged.H;
-import org.aspectj.lang.annotation.Before;
-import org.assertj.core.util.Strings;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
-import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.mockito.Spy;
 import org.mockito.junit.jupiter.MockitoExtension;
@@ -24,7 +19,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.when;
-import static org.mockito.MockitoAnnotations.openMocks;
 
 
 @SpringBootTest
@@ -50,7 +44,7 @@ public class HandlerServiceTest {
     }
 
     private static PetShelter getRightPetShelter() {
-        final PetShelter rightPetShelter = new PetShelter();
+        final PetShelter rightPetShelter = new PetShelter("Shelter1", "123-456-7890", "Mon-Fri 9am-5pm", "path", "contacts", "story");
         rightPetShelter.setName("Right Pet Shelter");
         rightPetShelter.setId(1L);
         return rightPetShelter;
