@@ -82,8 +82,10 @@ public class PetShelterController {
     }
 
     @DeleteMapping("/manage")
-    public ResponseEntity<PetShelter> deletePetShelter(@Parameter(name = "id", example = "2",
-            description = "индентификатор приюта") @RequestBody Long id) {
+    @Operation(summary = "Удаление приюта домашних животных -- Delete Pet Shelter Entity")
+    public ResponseEntity<PetShelter> deletePetShelter(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(description = "индентификатор приюта")
+            @RequestBody Long id) {
         return ResponseEntity.ok(petShelterService.deleteById(id));
     }
 

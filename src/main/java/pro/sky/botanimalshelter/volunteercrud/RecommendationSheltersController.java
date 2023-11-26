@@ -41,20 +41,30 @@ public class RecommendationSheltersController {
 
     @PostMapping("")
     @Operation(summary = "Создание рекомендации -- Create pet care advice")
-    public RecommendationsShelters newRecommendation(@RequestBody RecommendationsSheltersDto recommendationsSheltersDto) {
+    public RecommendationsShelters newRecommendation(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody
+                    (description = "DTO for new entity")
+            @RequestBody RecommendationsSheltersDto recommendationsSheltersDto) {
         return recommendationsService.saveNew(recommendationsSheltersDto);
     }
 
     @PutMapping("")
     @Operation(summary = "Редактирование рекомендации --  Edit pet care advice")
-    public String editPetCareAdvice(@RequestBody RecommendationsSheltersDto dto) {
+    public String editPetCareAdvice(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "DTO with up-to-date parameters"
+            )
+            @RequestBody RecommendationsSheltersDto dto) {
         return recommendationsService.editRecommendations(dto);
     }
 
     @DeleteMapping("")
     @Operation(summary = "Удаление рекомендации --  Delete pet care advice")
-    public RecommendationsShelters deleteAdvice(@RequestBody Long recommendationsId) {
+    public RecommendationsShelters deleteAdvice(
+            @io.swagger.v3.oas.annotations.parameters.RequestBody(
+                    description = "data base identifier of entity to be deleted"
+            )
+            @RequestBody Long recommendationsId) {
         return recommendationsService.deleteAdvice(recommendationsId);
     }
-
 }

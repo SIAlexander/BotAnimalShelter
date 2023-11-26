@@ -1,5 +1,6 @@
 package pro.sky.botanimalshelter.volunteercrud;
 
+import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -22,7 +23,12 @@ public class AdoptionController {
         this.adoptionService = adoptionService;
     }
 
-
+    /**
+     * @param adoptionDto объект передачи параметров назначения усыновителя питомцу, см. {@link AdoptionDto}
+     * @return строка с сообщением о результатах выполнения метода
+     */
+    @Operation(summary = "Назначение усыновителя питомцу-- Assing adopter to pet. ",
+            description = "В качестве аргумента передаем объект с новыми параметрами")
     @PostMapping("")
     public String assignPetToUser(@RequestBody AdoptionDto adoptionDto) {
         return adoptionService.adopt(adoptionDto);
