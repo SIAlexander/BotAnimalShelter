@@ -6,11 +6,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.web.server.LocalServerPort;
+import pro.sky.botanimalshelter.service.KeyboardService;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-class BotAnimalShelterApplicationTests {
+public class KeyboardTests {
+    @LocalServerPort
+    private int port;
 
+    @Autowired
+    private KeyboardService keyboard;
+
+    @Autowired
+    private TestRestTemplate restTemplate;
     @Test
-    void contextLoads() {
+    public  void keyboardSelectionShelter() throws Exception{
+        Assertions.assertThat(keyboard).isNotNull();
     }
 }

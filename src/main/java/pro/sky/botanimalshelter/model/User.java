@@ -86,7 +86,7 @@ public class User {
         return chatId;
     }
 
-    public void setChatId(Long chatId) {
+    public void setChatId(long chatId) {
         this.chatId = chatId;
     }
 
