@@ -43,9 +43,12 @@ public class HandlerController {
             description = "Сохраняет экземпляр класса handler c указанными именем и телефоном," +
                     " и приютом в соответствии с указанным индентификатором приюта -- Saves handler instance with specified name and phone, and shelter accordingly to provided shelterId")
     @GetMapping("/save/{name}/{phone}/{shelterId}")
-    public Handler save(@Parameter(description = "Имя кинолога -- Dog trainer's name", example = "Петр") @PathVariable("name") String name,
-                        @Parameter(description = "Телефон в строковом формате", example = "") @PathVariable("phone") String phone,
-                        @Parameter(description = "Идентификатор приюта для собак", example = "") @PathVariable() long shelterId) {
+    public Handler save(@Parameter(description = "Имя кинолога -- Dog trainer's name", example = "Петр")
+                        @PathVariable("name") String name,
+                        @Parameter(description = "Телефон в строковом формате", example = "")
+                        @PathVariable("phone") String phone,
+                        @Parameter(description = "Идентификатор приюта для собак", example = "")
+                        @PathVariable() long shelterId) {
         return handlerService.saveHandler(name, phone, shelterId);
     }
 
