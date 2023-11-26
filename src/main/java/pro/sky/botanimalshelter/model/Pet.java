@@ -1,6 +1,7 @@
 package pro.sky.botanimalshelter.model;
 
 import javax.persistence.*;
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Objects;
 
@@ -35,7 +36,11 @@ public class Pet {
     @JoinColumn(name = "shelter_id")
     PetShelter shelter;
 
-    public Pet() {
+    public Pet(){
+
+    }
+
+    public Pet(String dog1, String brown, Date date) {
     }
 
     public Pet(String name, String color, Timestamp birthDate, User user, PetShelter shelter) {
