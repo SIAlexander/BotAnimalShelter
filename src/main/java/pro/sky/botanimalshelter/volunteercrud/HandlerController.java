@@ -9,9 +9,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import pro.sky.botanimalshelter.model.Handler;
 import pro.sky.botanimalshelter.service.HandlerService;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.HandlerDto;
 
 import java.util.List;
 
+
+/**
+ * Контроллер для работы с базой данных кинологов
+ */
 @RestController
 @RequestMapping("/handler")
 @Tag(name = "Контроллер для работы с БД кинологов -- Dog Trainer DB CRUD Controller")
@@ -38,9 +43,12 @@ public class HandlerController {
             description = "Сохраняет экземпляр класса handler c указанными именем и телефоном," +
                     " и приютом в соответствии с указанным индентификатором приюта -- Saves handler instance with specified name and phone, and shelter accordingly to provided shelterId")
     @GetMapping("/save/{name}/{phone}/{shelterId}")
-    public Handler save(@Parameter(description = "Имя кинолога -- Dog trainer's name", example = "Петр") @PathVariable("name") String name,
-                        @Parameter(description = "Телефон в строковом формате", example = "") @PathVariable("phone") String phone,
-                        @Parameter(description = "Идентификатор приют для собак", example = "") @PathVariable() long shelterId) {
+    public Handler save(@Parameter(description = "Имя кинолога -- Dog trainer's name", example = "Петр")
+                        @PathVariable("name") String name,
+                        @Parameter(description = "Телефон в строковом формате", example = "")
+                        @PathVariable("phone") String phone,
+                        @Parameter(description = "Идентификатор приюта для собак", example = "")
+                        @PathVariable() long shelterId) {
         return handlerService.saveHandler(name, phone, shelterId);
     }
 
@@ -60,7 +68,7 @@ public class HandlerController {
     @Operation(summary = "Просмотр списка кинологов -- View dog trainer list",
             description = "Выводит список кинологов" +
                     " -- Displays dog trainer list")
-    public List<Handler> viewHandlers() {
+    public List<HandlerDto> viewHandlers() {
         return handlerService.findAllHandlers();
     }
 }

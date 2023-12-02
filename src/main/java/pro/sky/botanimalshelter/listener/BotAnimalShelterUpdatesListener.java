@@ -139,7 +139,7 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
                         count = 0;
                     }
                 }
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 logger.info("null sendReport");
                 sendMessage(chatId, "Не правильный порядок отправки фото или текста, повторите отправку отчета");
                 count = 0;
@@ -148,7 +148,7 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
             try {
                 petShelterService.findShelter(selectShelter);
                 botAnswerUtils(text, chatId, selectShelter, userName);
-            }catch (NullPointerException e){
+            } catch (NullPointerException e) {
                 logger.info("information from DB is empty");
             }
         });
@@ -166,43 +166,35 @@ public class BotAnimalShelterUpdatesListener implements UpdatesListener {
 
     private void botAnswerUtils(String text, long chatId, String selectShelter, String userName) {
         switch (text) {
-            case "/cat", "/dog" ->
-                    keyboardService.menuSelectionShelter(chatId, selectShelter);
-            case "/about shelter" ->
-                    keyboardService.menuSelectionInformationShelter(chatId, selectShelter, userName);
-            case "/about" ->
-                    petShelterService.sendStoryShelter(chatId, selectShelter);
-            case "/take animal" ->
-                    keyboardService.menuSelectionShelterCatAndDog(chatId, selectShelter, userName);
-            case "/contacts shelter" ->
-                    petShelterService.sendDrivingDirections(chatId, selectShelter);
-            case "/security contacts" ->
-                    petShelterService.sendSecurityContact(chatId, selectShelter);
+            case "/cat", "/dog" -> keyboardService.menuSelectionShelter(chatId, selectShelter);
+            case "/about shelter" -> keyboardService.menuSelectionInformationShelter(chatId, selectShelter, userName);
+            case "/about" -> petShelterService.sendStoryShelter(chatId, selectShelter);
+            case "/take animal" -> keyboardService.menuSelectionShelterCatAndDog(chatId, selectShelter, userName);
+            case "/contacts shelter" -> petShelterService.sendDrivingDirections(chatId, selectShelter);
+            case "/security contacts" -> petShelterService.sendSecurityContact(chatId, selectShelter);
             case "/accept contact" -> {
                 sendMessage(chatId, "Введите сообщениями контактные данные:\n 1. телефон\n 2. почта\n 3. адрес");
                 map.put(chatId, true);
             }
-            case "/send report" ->{
+            case "/send report" -> {
                 sendMessage(chatId, "Пришлите отчет: \n 1. Фото\n 2.Описание");
                 mapReport.put(chatId, true);
             }
 
-            case "/call volunteer" ->
-                    volunteerService.sendVolunteer(chatId, selectShelter);
-            case "/documents" ->
-                    listDocumentService.sendListDocuments(chatId, selectShelter);
+            case "/call volunteer" -> volunteerService.sendVolunteer(chatId, selectShelter);
+            case "/documents" -> listDocumentService.sendListDocuments(chatId, selectShelter);
             case "/recommendations transportation" ->
                     recommendationsSheltersService.sendRecommendationsTransportation(chatId, selectShelter);
-            case "/dating rules" ->
-                    recommendationsSheltersService.sendDatingRules(chatId, selectShelter);
+            case "/dating rules" -> recommendationsSheltersService.sendDatingRules(chatId, selectShelter);
             case "/recommendations home improvement" ->
                     recommendationsSheltersService.sendRecommendationsHomeImprovement(chatId, selectShelter);
-            case "/communication dog" ->
-                    recommendationsSheltersService.sendCommunicationDog(chatId, selectShelter);
+            case "/communication dog" -> recommendationsSheltersService.sendCommunicationDog(chatId, selectShelter);
             case "/recommendations home adult animal" ->
                     recommendationsSheltersService.sendRecommendationsHomeAdultAnimal(chatId, selectShelter);
             case "/recommendations home disabilities" ->
                     recommendationsSheltersService.sendRecommendationsHomeDisabilities(chatId, selectShelter);
+            case "/refuse not you up" -> recommendationsSheltersService.sendRefuseNotYouUp(chatId, selectShelter);
+            case "/proven dog" -> handlerService.sendHandlers(chatId);
             case "/refuse not you up" ->
                     recommendationsSheltersService.sendRefuseNotYouUp(chatId, selectShelter);
             case "/proven dog" ->

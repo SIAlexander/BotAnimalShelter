@@ -8,6 +8,9 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import pro.sky.botanimalshelter.listener.BotAnimalShelterUpdatesListener;
+import pro.sky.botanimalshelter.model.ReportUserCatShelter;
+import pro.sky.botanimalshelter.model.ReportUserDogShelter;
+import pro.sky.botanimalshelter.model.User;
 import pro.sky.botanimalshelter.model.*;
 import pro.sky.botanimalshelter.repository.PetShelterRepository;
 import pro.sky.botanimalshelter.repository.ReportUserCatShelterRepository;
@@ -17,6 +20,7 @@ import pro.sky.botanimalshelter.repository.UserRepository;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
+import java.util.Optional;
 
 /**
  * Service for working with the {@link User} entity
@@ -147,4 +151,28 @@ public class UserService {
         SendMessage sendMessage = new SendMessage(chatId, text);
         telegramBot.execute(sendMessage);
     }
+
+    /**
+     * @param id идентификатор пользователя
+     * @return сущность пользователя или null, если пользователь с указанным идентификатором
+     * отсутствует в базе данных
+     */
+    public User findById(Long id) {
+        Optional<User> userOptional = userRepository.findById(id);
+        return userOptional.orElse(null);
+    }
+
+    /**
+     * Сохраняем сущность пользователя
+     *
+     * @param user nullable
+     * @return saved entity or null if null entity provided. Null entity is not saved.
+     */
+    public User saveUser(User user) {
+        if (user == null) {
+            return user;
+        }
+        return userRepository.save(user);
+    }
+
 }

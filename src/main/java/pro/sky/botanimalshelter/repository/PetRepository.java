@@ -2,9 +2,10 @@ package pro.sky.botanimalshelter.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
-import pro.sky.botanimalshelter.model.ListDocument;
 import pro.sky.botanimalshelter.model.Pet;
+import pro.sky.botanimalshelter.volunteercrud.crudutils.PetDto;
 import pro.sky.botanimalshelter.model.Volunteer;
+
 
 import java.util.List;
 
@@ -23,4 +24,6 @@ public interface PetRepository extends JpaRepository<Pet, Long> {
 
     List<Pet> findByShelterName(String name);
 
+
+    List<Pet> findAllByShelterId(Long petShelterId);
 }

@@ -15,8 +15,13 @@ import java.util.List;
 public interface RecommendationsSheltersRepository extends JpaRepository<RecommendationsShelters, Long> {
     /**
      * The method of finding a shelter in the database
+     *
      * @param name
      * @return {@link RecommendationsShelters}
      */
     RecommendationsShelters findByShelterName(String name);
+
+    RecommendationsShelters findByShelter(PetShelter petShelter);
+
+    List<RecommendationsShelters> findAllByShelter(PetShelter petShelter);
 }

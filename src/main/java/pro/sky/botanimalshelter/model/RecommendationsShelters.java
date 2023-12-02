@@ -52,7 +52,7 @@ public class RecommendationsShelters {
     @JoinColumn(name = "shelter_id")
     PetShelter shelter;
 
-    public RecommendationsShelters() {
+    public RecommendationsShelters(String shelter1, String rules, String transportation, String improvement, String adult, String disabilities) {
     }
 
     public RecommendationsShelters(String name,
@@ -75,6 +75,28 @@ public class RecommendationsShelters {
         this.shelter = shelter;
     }
 
+    public RecommendationsShelters(
+            Long id,
+            String name,
+            String datingRules,
+            String animalTransportation,
+            String homeImprovement,
+            String homeImprovementAdultAnimal,
+            String homeImprovementAnimalWithDisabilities,
+            String listReasonsRefuseAndNotUpAnimal,
+            String recommendationsHandler,
+            PetShelter shelter) {
+        this.id = id;
+        this.name = name;
+        this.datingRules = datingRules;
+        this.animalTransportation = animalTransportation;
+        this.homeImprovement = homeImprovement;
+        this.homeImprovementAdultAnimal = homeImprovementAdultAnimal;
+        this.homeImprovementAnimalWithDisabilities = homeImprovementAnimalWithDisabilities;
+        this.listReasonsRefuseAndNotUpAnimal = listReasonsRefuseAndNotUpAnimal;
+        this.recommendationsHandler = recommendationsHandler;
+        this.shelter = shelter;
+    }
     public Long getId() {
         return id;
     }
